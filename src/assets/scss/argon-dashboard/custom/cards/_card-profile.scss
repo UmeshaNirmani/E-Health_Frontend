@@ -1,0 +1,79 @@
+//
+// Profile card
+//
+
+.card-profile-image {
+  position: relative;
+
+  img {
+    // max-width: 180px;
+    width: 180px;
+    height: 180px;
+    border-radius: $border-radius;
+    @extend .shadow;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    transition: $transition-base;
+
+    &:hover {
+      transform: translate(-50%, -53%);
+    }
+  }
+
+  div {
+    width: 180px;
+    height: 180px;
+    margin:10px;
+    border-radius: $border-radius;
+    @extend .shadow;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    transition: $transition-base;
+    color: #fafafa;
+    // background-color: #bdbdbd;
+    text-align: center;
+    line-height: 180px;
+    font-weight: 900;
+    font-size: 6vw;
+
+    // background: url("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &:hover {
+      transform: translate(-50%, -53%);
+    }
+  }
+}
+
+.card-profile-stats {
+  padding: 1rem 0;
+
+  > div {
+    text-align: center;
+    margin-right: 1rem;
+    padding: 0.875rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    .heading {
+      font-size: 1.1rem;
+      font-weight: bold;
+      display: block;
+    }
+    .description {
+      font-size: 0.875rem;
+      color: $gray-500;
+    }
+  }
+}
+
+.card-profile-actions {
+  padding-top: 0.875rem;
+  text-align: center;
+}
