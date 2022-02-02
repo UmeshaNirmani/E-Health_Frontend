@@ -31,11 +31,7 @@ import {
   InputGroup,
   Row,
   Col,
-  Container,
 } from "reactstrap";
-
-import LandingNavbar from "components/Navbars/LandingNavbar.js";
-import Footer from "components/Footers/Footer.js";
 
 import { useFormik } from "formik";
 
@@ -62,29 +58,26 @@ const Login = (props) => {
   return (
     <>
       <div className="main-content" ref={mainContent}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-            paddingTop: "25px",
-            paddingBottom: "25px",
-            backgroundColor: "#ebb105",
-          }}
+        <Row
+          className="justify-content-center bg-info"
+          style={{ paddingTop: "3em", maxWidth: "100%" }}
         >
-          <Col lg="5" md="7">
-            <Card className="bg-secondary shadow border-0">
+          <Col lg="4" md="5">
+            <Card
+              className="bg-white border-0"
+              style={{ borderRadius: "0.375rem 0.375rem 0 0" }}
+            >
               <CardHeader className="bg-transparent pb-3">
                 <div className="text-muted text-center mt-2 mb-2 ">
                   <h1 className="text-info">User Login</h1>
                 </div>
               </CardHeader>
-              <CardBody className="px-lg-5 py-lg-5">
+              <CardBody className="px-lg-5 py-lg-3">
                 <Form role="form" onSubmit={formik.handleSubmit}>
                   <FormGroup className="mb-3">
                     <InputGroup className="input-group-alternative">
                       <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
+                        <InputGroupText style={{ backgroundColor: "#f7fafc" }}>
                           <i className="ni ni-email-83" />
                         </InputGroupText>
                       </InputGroupAddon>
@@ -94,16 +87,16 @@ const Login = (props) => {
                         autoComplete="new-email"
                         id="email"
                         name="email"
-                        type="email"
                         onChange={formik.handleChange}
                         value={formik.values.email}
+                        style={{ backgroundColor: "#f7fafc" }}
                       />
                     </InputGroup>
                   </FormGroup>
                   <FormGroup>
                     <InputGroup className="input-group-alternative">
                       <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
+                        <InputGroupText style={{ backgroundColor: "#f7fafc" }}>
                           <i className="ni ni-lock-circle-open" />
                         </InputGroupText>
                       </InputGroupAddon>
@@ -113,12 +106,29 @@ const Login = (props) => {
                         autoComplete="new-password"
                         id="password"
                         name="password"
-                        type="password"
                         onChange={formik.handleChange}
                         value={formik.values.password}
+                        style={{ backgroundColor: "#f7fafc" }}
                       />
                     </InputGroup>
                   </FormGroup>
+                </Form>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row
+          className="justify-content-center"
+          style={{ paddingBottom: "3em", maxWidth: "100%" }}
+        >
+          <Col lg="4" md="5">
+            <Card
+              className="bg-white border-0"
+              style={{ borderRadius: "0 0 0.375rem 0.375rem" }}
+            >
+              <CardBody>
+                <Form role="form" onSubmit={formik.handleSubmit}>
                   <div className="custom-control custom-control-alternative custom-checkbox">
                     <input
                       className="custom-control-input"
@@ -161,7 +171,7 @@ const Login = (props) => {
               </CardBody>
             </Card>
           </Col>
-        </div>
+        </Row>
       </div>
     </>
   );

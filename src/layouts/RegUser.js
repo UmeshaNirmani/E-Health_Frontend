@@ -17,8 +17,7 @@
 */
 import React from "react";
 import { useLocation, Route, Switch, Redirect } from "react-router-dom";
-// reactstrap components
-import { Container } from "reactstrap";
+
 // core components
 import UserNavbar from "components/Navbars/UserNavbar.js";
 import Footer from "components/Footers/Footer";
@@ -84,9 +83,7 @@ const RegUser = (props) => {
           {getRoutes(routes)}
           <Redirect from="*" to="/user" />
         </Switch>
-        <Container fluid>
-          <Footer />
-        </Container>
+        <Footer />
       </div>
     </>
   );

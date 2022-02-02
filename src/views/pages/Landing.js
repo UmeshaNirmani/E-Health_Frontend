@@ -3,10 +3,6 @@ import { useLocation } from "react-router-dom";
 // reactstrap components
 import { Container, Row, Col } from "reactstrap";
 
-// core components
-import LandingNavbar from "components/Navbars/LandingNavbar.js";
-import Footer from "components/Footers/Footer.js";
-
 const Landing = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();

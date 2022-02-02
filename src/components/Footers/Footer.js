@@ -29,13 +29,7 @@ const Footer = () => {
             <Col xl="6">
               <div className="copyright text-center text-xl-left text-muted">
                 © {new Date().getFullYear()}{" "}
-                <a
-                  className="font-weight-bold ml-1"
-                  href="https://www.creative-tim.com?ref=adr-auth-footer"
-                  target="_blank"
-                >
-                  E-Health
-                </a>
+                <a className="font-weight-bold ml-1">E-Health</a>
               </div>
             </Col>
           </Row>

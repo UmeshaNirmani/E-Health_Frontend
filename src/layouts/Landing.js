@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, Route, Switch, Redirect } from "react-router-dom";
-// reactstrap components
-import { Container } from "reactstrap";
+import React from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+
 // core components
 import LandingNavbar from "components/Navbars/LandingNavbar";
 import Footer from "components/Footers/Footer";
@@ -9,29 +8,8 @@ import Footer from "components/Footers/Footer";
 import Welcome from "views/pages/Landing";
 import UserLogin from "views/pages/Login";
 
-import routes from "routes.js";
-
 const Landing = (props) => {
   const mainContent = React.useRef(null);
-
-  useEffect(() => {}, []);
-
-  const getRoutes = (routes) => {
-    return routes.map((prop, key) => {
-      // {console.log(">>>>>>>>> ", prop)}
-      if (prop.layout === "/public") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
 
   return (
     <>
@@ -42,9 +20,7 @@ const Landing = (props) => {
           <Route path="/public/landing" component={Welcome} />
           <Redirect from="*" to="/public/landing" />
         </Switch>
-        <Container fluid>
-          <Footer />
-        </Container>
+        <Footer />
       </div>
     </>
   );

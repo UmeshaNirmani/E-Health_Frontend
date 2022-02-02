@@ -30,15 +30,12 @@ import {
 } from "reactstrap";
 
 const LandingNavbar = () => {
-  const [collapseOpen, setCollapseOpen] = useState();
+  const [setCollapseOpen] = useState();
   // toggles collapse between opened and closed (true/false)
   const toggleCollapse = () => {
     setCollapseOpen((data) => !data);
   };
-  // closes the collapse
-  const closeCollapse = () => {
-    setCollapseOpen(false);
-  };
+
   return (
     <>
       <Navbar
