@@ -6,7 +6,6 @@
   "keywords": [],
   "author": "Nirmani",
   "license": "",
-  "homepage": "http://localhost:3001/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -63,10 +62,7 @@
     "redux-thunk": "^2.3.0",
     "yup": "^0.32.9"
   },
-  "devDependencies": {
-    "gulp": "4.0.2",
-    "gulp-append-prepend": "1.0.9"
-  },
+  "devDependencies": {},
   "optionalDependencies": {
     "eslint-plugin-flowtype": "5.8.0",
     "jquery": "3.6.0",

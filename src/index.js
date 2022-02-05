@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -26,13 +9,32 @@ import "assets/scss/argon-dashboard-react.scss";
 import RegUserLayout from "layouts/RegUser.js";
 import LandingLayout from "layouts/Landing.js";
 
+import { createStore, applyMiddleware, compose } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { reducers } from "reducers";
+
+const store = createStore(
+  reducers,
+  composeWithDevTools(
+    applyMiddleware(thunk)
+    // other store enhancers if any
+  )
+);
+
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/public" render={(props) => <LandingLayout {...props} />} />
-      <Route path="/user" render={(props) => <RegUserLayout {...props} />} />
-      <Redirect from="/" to="/public" />
-    </Switch>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route
+          path="/public"
+          render={(props) => <LandingLayout {...props} />}
+        />
+        <Route path="/user" render={(props) => <RegUserLayout {...props} />} />
+        <Redirect from="/" to="/public" />
+      </Switch>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );

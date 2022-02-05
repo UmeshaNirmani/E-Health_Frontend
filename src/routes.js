@@ -1,31 +1,16 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 // this page gives sidebar navlinks
+
 import Profile from "views/pages/Profile.js";
-import Landing from "views/pages/Landing.js";
+import Landing from "views/pages/Landing";
+import Login from "views/pages/Login";
+import CalorieCalculator from "views/pages/CalorieCalculator";
 
 var routes = [
   {
-    path: "/profile",
+    path: "/calorieCalculator",
     name: "Calorie Calculator",
     icon: "ni ni-ruler-pencil text-green",
-    component: Profile,
+    component: CalorieCalculator,
     layout: "/user",
   },
   {
@@ -64,10 +49,10 @@ var routes = [
     layout: "/user",
   },
   {
-    path: "/landing",
+    path: "/login",
     name: "Logout",
     icon: "ni ni-button-power text-green",
-    component: Landing, // should be correct
+    component: Login, // should be correct
     layout: "/public",
   },
 ];

@@ -1,28 +1,17 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { signIn } from "../../actions/user";
+import { useDispatch, useSelector } from "react-redux";
+//import { useHistory } from "react-router-dom";
+import * as actionType from "constants/actionTypes";
+
 // reactstrap components
 import {
   Button,
   Card,
   CardHeader,
   CardBody,
+  CardText,
   FormGroup,
   Form,
   Input,
@@ -31,27 +20,36 @@ import {
   InputGroup,
   Row,
   Col,
+  FormFeedback,
 } from "reactstrap";
 
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const Login = (props) => {
+  const dispatch = useDispatch();
   const mainContent = React.useRef(null);
-  const location = useLocation();
-
-  useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    mainContent.current.scrollTop = 0;
-  }, [location]);
+  const returnMessage = useSelector((state) => state.auth.authData);
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    onSubmit: (values) => {
+
+    validationSchema: Yup.object({
+      email: Yup.string().email("Invalid email address").required("Required"),
+      password: Yup.string()
+        .min(4, "Password is too short. Must contain minimum 4 characters")
+        .required("Required"),
+    }),
+
+    onSubmit: (values, onSubmitProps) => {
       alert(JSON.stringify(values, null, 2));
+      let params = {
+        emailOfUser_abc: values.email,
+      };
+      dispatch(signIn(values));
     },
   });
 
@@ -82,15 +80,21 @@ const Login = (props) => {
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
+                        invalid
                         placeholder="Email"
                         type="email"
                         autoComplete="new-email"
                         id="email"
                         name="email"
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         value={formik.values.email}
                         style={{ backgroundColor: "#f7fafc" }}
                       />
+
+                      {formik.touched.email && formik.errors.email ? (
+                        <FormFeedback>{formik.errors.email}</FormFeedback>
+                      ) : null}
                     </InputGroup>
                   </FormGroup>
                   <FormGroup>
@@ -101,15 +105,22 @@ const Login = (props) => {
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
+                        invalid
                         placeholder="Password"
                         type="password"
                         autoComplete="new-password"
                         id="password"
                         name="password"
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         value={formik.values.password}
                         style={{ backgroundColor: "#f7fafc" }}
                       />
+                      {formik.touched.password && formik.errors.password ? (
+                        <FormFeedback className="invalid-feedback">
+                          {formik.errors.password}
+                        </FormFeedback>
+                      ) : null}
                     </InputGroup>
                   </FormGroup>
                 </Form>
@@ -148,6 +159,7 @@ const Login = (props) => {
                     </Button>
                   </div>
                 </Form>
+
                 <Row className="mt-3">
                   <Col xs="6">
                     <a
@@ -168,6 +180,10 @@ const Login = (props) => {
                     </a>
                   </Col>
                 </Row>
+
+                <Card>
+                  <CardText>{returnMessage.message}</CardText>
+                </Card>
               </CardBody>
             </Card>
           </Col>

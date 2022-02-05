@@ -1,39 +1,16 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
-import { useLocation, Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 // core components
 import UserNavbar from "components/Navbars/UserNavbar.js";
 import Footer from "components/Footers/Footer";
 import Sidebar from "components/Sidebar/Sidebar.js";
+import Header from "components/Headers/Header";
 
 import routes from "routes.js";
 
 const RegUser = (props) => {
   const mainContent = React.useRef(null);
-  const location = useLocation();
-
-  React.useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    mainContent.current.scrollTop = 0;
-  }, [location]);
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
@@ -75,6 +52,7 @@ const RegUser = (props) => {
         }}
       />
       <div className="main-content" ref={mainContent}>
+        <Header />
         <UserNavbar
           {...props}
           brandText={getBrandText(props.location.pathname)}

@@ -5,13 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 
 const Landing = (props) => {
   const mainContent = React.useRef(null);
-  const location = useLocation();
 
-  useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    mainContent.current.scrollTop = 0;
-  }, [location]);
   return (
     <>
       {/* Page Content */}

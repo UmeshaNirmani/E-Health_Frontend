@@ -9,19 +9,15 @@ import Welcome from "views/pages/Landing";
 import UserLogin from "views/pages/Login";
 
 const Landing = (props) => {
-  const mainContent = React.useRef(null);
-
   return (
     <>
       <LandingNavbar />
-      <div className="main-content" ref={mainContent}>
-        <Switch>
-          <Route path="/public/login" component={UserLogin} />
-          <Route path="/public/landing" component={Welcome} />
-          <Redirect from="*" to="/public/landing" />
-        </Switch>
-        <Footer />
-      </div>
+      <Switch>
+        <Route path="/public/login" component={UserLogin} />
+        <Route path="/public/landing" component={Welcome} />
+        <Redirect from="*" to="/public/landing" />
+      </Switch>
+      <Footer />
     </>
   );
 };
