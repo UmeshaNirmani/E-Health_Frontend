@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Redirect, useLocation, useHistory } from "react-router-dom";
 import { signIn } from "../../actions/user";
 import { useDispatch, useSelector } from "react-redux";
-//import { useHistory } from "react-router-dom";
 import * as actionType from "constants/actionTypes";
 
 // reactstrap components
@@ -28,18 +27,19 @@ import * as Yup from "yup";
 
 const Login = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const mainContent = React.useRef(null);
-  const returnMessage = useSelector((state) => state.auth.authData);
+  // const returnMessage = useSelector((state) => state.auth.authData);
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      Email: "",
+      Password: "",
     },
 
     validationSchema: Yup.object({
-      email: Yup.string().email("Invalid email address").required("Required"),
-      password: Yup.string()
+      Email: Yup.string().email("Invalid Email address").required("Required"),
+      Password: Yup.string()
         .min(4, "Password is too short. Must contain minimum 4 characters")
         .required("Required"),
     }),
@@ -47,9 +47,11 @@ const Login = (props) => {
     onSubmit: (values, onSubmitProps) => {
       alert(JSON.stringify(values, null, 2));
       let params = {
-        emailOfUser_abc: values.email,
+        EmailOfUser_abc: values.Email,
       };
-      dispatch(signIn(values));
+      dispatch(signIn(values, history));
+      onSubmitProps.setSubmitting(false);
+      onSubmitProps.resetForm();
     },
   });
 
@@ -82,18 +84,17 @@ const Login = (props) => {
                       <Input
                         invalid
                         placeholder="Email"
-                        type="email"
-                        autoComplete="new-email"
-                        id="email"
-                        name="email"
+                        type="Email"
+                        id="Email"
+                        name="Email"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.email}
+                        value={formik.values.Email}
                         style={{ backgroundColor: "#f7fafc" }}
                       />
 
-                      {formik.touched.email && formik.errors.email ? (
-                        <FormFeedback>{formik.errors.email}</FormFeedback>
+                      {formik.touched.Email && formik.errors.Email ? (
+                        <FormFeedback>{formik.errors.Email}</FormFeedback>
                       ) : null}
                     </InputGroup>
                   </FormGroup>
@@ -107,18 +108,17 @@ const Login = (props) => {
                       <Input
                         invalid
                         placeholder="Password"
-                        type="password"
-                        autoComplete="new-password"
-                        id="password"
-                        name="password"
+                        type="Password"
+                        id="Password"
+                        name="Password"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.password}
+                        value={formik.values.Password}
                         style={{ backgroundColor: "#f7fafc" }}
                       />
-                      {formik.touched.password && formik.errors.password ? (
+                      {formik.touched.Password && formik.errors.Password ? (
                         <FormFeedback className="invalid-feedback">
-                          {formik.errors.password}
+                          {formik.errors.Password}
                         </FormFeedback>
                       ) : null}
                     </InputGroup>
@@ -167,7 +167,7 @@ const Login = (props) => {
                       href="#pablo"
                       onClick={(e) => e.preventDefault()}
                     >
-                      <h3 className="text-info">Forgot password?</h3>
+                      <h3 className="text-info">Forgot Password?</h3>
                     </a>
                   </Col>
                   <Col className="text-right" xs="6">
@@ -182,7 +182,7 @@ const Login = (props) => {
                 </Row>
 
                 <Card>
-                  <CardText>{returnMessage.message}</CardText>
+                  <CardText></CardText>
                 </Card>
               </CardBody>
             </Card>

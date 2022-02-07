@@ -7,6 +7,7 @@ import Footer from "components/Footers/Footer";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import Header from "components/Headers/Header";
 
+import Index from "../views/index";
 import routes from "routes.js";
 
 const RegUser = (props) => {
@@ -59,7 +60,7 @@ const RegUser = (props) => {
         />
         <Switch>
           {getRoutes(routes)}
-          <Redirect from="*" to="/user" />
+          <Redirect from="*" to="/user/index" />
         </Switch>
         <Footer />
       </div>

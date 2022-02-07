@@ -1,10 +1,20 @@
 import React from "react";
-import { Col, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import {
+  Col,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  InputGroupAddon,
+  InputGroup,
+  InputGroupText,
+} from "reactstrap";
 
 const CalorieCalculator = () => {
   return (
     <>
-      <Form>
+      <Form className="m-3 p-3">
         <FormGroup row>
           <Label for="exampleSelect" sm={2}>
             Meal Type
@@ -14,13 +24,23 @@ const CalorieCalculator = () => {
           </Col>
         </FormGroup>
 
-        <FormGroup row>
-          <Label for="exampleSelect" sm={2}>
-            Food Name
-          </Label>
-          <Col sm={10}>
-            <Input type="select" name="select" id="exampleSelect" />
-          </Col>
+        <FormGroup className="mt-4 mb-3 d-md-none">
+          <InputGroup className="input-group-rounded input-group-merge">
+            <Input
+              aria-label="Search"
+              className="form-control-rounded form-control-prepended"
+              placeholder="Search"
+              type="search"
+            />
+            <InputGroupAddon addonType="prepend">
+              <InputGroupText>
+                <span className="fa fa-search" />
+                <Label for="exampleSelect" sm={2}>
+                  Food Name
+                </Label>
+              </InputGroupText>
+            </InputGroupAddon>
+          </InputGroup>
         </FormGroup>
 
         <FormGroup row>

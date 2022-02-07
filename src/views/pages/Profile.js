@@ -39,35 +39,24 @@ const Profile = () => {
                     <Row>
                       <Col lg="6">
                         <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-username"
-                          >
-                            Username
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="Umesha"
-                            id="input-username"
-                            placeholder="Username"
-                            type="text"
-                          />
+                          <label for="form-control-label">Title</label>
+                          <Input id="input-title" name="select" type="select">
+                            <option>Rev/Hon.</option>
+                            <option>Dr.</option>
+                            <option>Mr.</option>
+                            <option>Mrs.</option>
+                            <option>Ms.</option>
+                          </Input>
                         </FormGroup>
                       </Col>
                       <Col lg="6">
                         <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-email"
-                          >
-                            Email address
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id="input-email"
-                            placeholder="umesha@example.com"
-                            type="email"
-                          />
+                          <label for="form-control-label">Role</label>
+                          <Input id="input-title" name="select" type="select">
+                            <option>Doctor</option>
+                            <option>Patient</option>
+                            <option>System Administrator</option>
+                          </Input>
                         </FormGroup>
                       </Col>
                     </Row>
@@ -107,11 +96,29 @@ const Profile = () => {
                         </FormGroup>
                       </Col>
                     </Row>
+                    <Row>
+                      <Col lg="6">
+                        <FormGroup>
+                          <label
+                            className="form-control-label"
+                            htmlFor="input-email"
+                          >
+                            Email address
+                          </label>
+                          <Input
+                            className="form-control-alternative"
+                            id="input-email"
+                            placeholder="umesha@example.com"
+                            type="email"
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
                   </div>
                   <hr className="my-4" />
                   {/* Address */}
                   <h6 className="heading-small text-muted mb-4">
-                    Contact information
+                    General information
                   </h6>
                   <div className="pl-lg-4">
                     <Row>

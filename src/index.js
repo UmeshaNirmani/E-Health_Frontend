@@ -6,35 +6,45 @@ import "assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/scss/argon-dashboard-react.scss";
 
-import RegUserLayout from "layouts/RegUser.js";
-import LandingLayout from "layouts/Landing.js";
+import Register from "../src/views/pages/Register";
 
-import { createStore, applyMiddleware, compose } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-import { reducers } from "reducers";
+// import RegUserLayout from "layouts/RegUser.js";
+// import LandingLayout from "layouts/Landing.js";
 
-const store = createStore(
-  reducers,
-  composeWithDevTools(
-    applyMiddleware(thunk)
-    // other store enhancers if any
-  )
-);
+// import { createStore, applyMiddleware, compose } from "redux";
+// import { composeWithDevTools } from "redux-devtools-extension";
+// import { Provider } from "react-redux";
+// import thunk from "redux-thunk";
+// import { reducers } from "reducers";
+// import Register from "views/pages/Register";
+
+// const store = createStore(
+//   reducers,
+//   composeWithDevTools(
+//     applyMiddleware(thunk)
+//     // other store enhancers if any
+//   )
+// );
+
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <BrowserRouter>
+//       <Switch>
+//         <Route
+//           path="/public"
+//           render={(props) => <LandingLayout {...props} />}
+//         />
+//         <Route path="/user" render={(props) => <RegUserLayout {...props} />} />
+//         <Redirect from="/" to="/public" />
+//       </Switch>
+//     </BrowserRouter>
+//   </Provider>,
+//   document.getElementById("root")
+// );
 
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Switch>
-        <Route
-          path="/public"
-          render={(props) => <LandingLayout {...props} />}
-        />
-        <Route path="/user" render={(props) => <RegUserLayout {...props} />} />
-        <Redirect from="/" to="/public" />
-      </Switch>
-    </BrowserRouter>
-  </Provider>,
+  <React.StrictMode>
+    <Register />
+  </React.StrictMode>,
   document.getElementById("root")
 );

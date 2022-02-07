@@ -4,6 +4,7 @@ import Profile from "views/pages/Profile.js";
 import Landing from "views/pages/Landing";
 import Login from "views/pages/Login";
 import CalorieCalculator from "views/pages/CalorieCalculator";
+import Index from "views/index";
 
 var routes = [
   {
@@ -54,6 +55,12 @@ var routes = [
     icon: "ni ni-button-power text-green",
     component: Login, // should be correct
     layout: "/public",
+  },
+  {
+    path: "/index",
+    name: "Index",
+    component: Index,
+    layout: "/user",
   },
 ];
 export default routes;

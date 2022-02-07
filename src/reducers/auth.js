@@ -1,9 +1,7 @@
 import { AUTH } from "constants/actionTypes";
 
-const localAuthData = JSON.parse(localStorage.getItem("userDetails"));
-
 const initState = {
-  authData: localAuthData ? localAuthData : {},
+  authData: [],
   loading: true,
   errors: null,
 };
