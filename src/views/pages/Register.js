@@ -18,6 +18,7 @@ import {
 } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Footer from "../../components/Footers/Footer";
 
 const Register = (props) => {
   const formik = useFormik({
@@ -258,6 +259,7 @@ const Register = (props) => {
           </Card>
         </Col>
       </Row>
+      <Footer />
     </>
   );
 };

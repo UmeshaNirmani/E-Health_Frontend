@@ -13,7 +13,7 @@ export const signIn = (formData, router) => async (dispatch) => {
     console.log(data.data);
     if (data?.status === "success") {
       //dispatch({ type: AUTH, payload: data?.data });
-      router.push("/user/index");
+      router.push("/user/CalorieCalculator");
     }
     if (data?.status === "error") {
       console.log(data);

@@ -8,43 +8,35 @@ import "assets/scss/argon-dashboard-react.scss";
 
 import Register from "../src/views/pages/Register";
 
-// import RegUserLayout from "layouts/RegUser.js";
-// import LandingLayout from "layouts/Landing.js";
+import RegUserLayout from "layouts/RegUser.js";
+import LandingLayout from "layouts/Landing.js";
 
-// import { createStore, applyMiddleware, compose } from "redux";
-// import { composeWithDevTools } from "redux-devtools-extension";
-// import { Provider } from "react-redux";
-// import thunk from "redux-thunk";
-// import { reducers } from "reducers";
-// import Register from "views/pages/Register";
+import { createStore, applyMiddleware, compose } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { reducers } from "reducers";
 
-// const store = createStore(
-//   reducers,
-//   composeWithDevTools(
-//     applyMiddleware(thunk)
-//     // other store enhancers if any
-//   )
-// );
-
-// ReactDOM.render(
-//   <Provider store={store}>
-//     <BrowserRouter>
-//       <Switch>
-//         <Route
-//           path="/public"
-//           render={(props) => <LandingLayout {...props} />}
-//         />
-//         <Route path="/user" render={(props) => <RegUserLayout {...props} />} />
-//         <Redirect from="/" to="/public" />
-//       </Switch>
-//     </BrowserRouter>
-//   </Provider>,
-//   document.getElementById("root")
-// );
+const store = createStore(
+  reducers,
+  composeWithDevTools(
+    applyMiddleware(thunk)
+    // other store enhancers if any
+  )
+);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Register />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route
+          path="/public"
+          render={(props) => <LandingLayout {...props} />}
+        />
+        <Route path="/user" render={(props) => <RegUserLayout {...props} />} />
+        <Redirect from="/" to="/public" />
+      </Switch>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );

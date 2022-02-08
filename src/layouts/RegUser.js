@@ -7,7 +7,7 @@ import Footer from "components/Footers/Footer";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import Header from "components/Headers/Header";
 
-import Index from "../views/index";
+import CalorieCalculator from "../views/pages/CalorieCalculator";
 import routes from "routes.js";
 
 const RegUser = (props) => {
@@ -60,7 +60,7 @@ const RegUser = (props) => {
         />
         <Switch>
           {getRoutes(routes)}
-          <Redirect from="*" to="/user/index" />
+          <Redirect from="*" to="/user/CalorieCalculator" />
         </Switch>
         <Footer />
       </div>
