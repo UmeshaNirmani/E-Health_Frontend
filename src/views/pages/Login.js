@@ -46,9 +46,9 @@ const Login = (props) => {
 
     onSubmit: (values, onSubmitProps) => {
       alert(JSON.stringify(values, null, 2));
-      let params = {
-        EmailOfUser_abc: values.Email,
-      };
+      // let params = {
+      //   EmailOfUser_abc: values.Email,
+      // };
       dispatch(signIn(values, history));
       onSubmitProps.setSubmitting(false);
       onSubmitProps.resetForm();
@@ -92,11 +92,12 @@ const Login = (props) => {
                         value={formik.values.Email}
                         style={{ backgroundColor: "#f7fafc" }}
                       />
-
-                      {formik.touched.Email && formik.errors.Email ? (
-                        <FormFeedback>{formik.errors.Email}</FormFeedback>
-                      ) : null}
                     </InputGroup>
+                    {formik.touched.Email && formik.errors.Email ? (
+                      <FormFeedback style={{ display: "inline" }}>
+                        {formik.errors.Email}
+                      </FormFeedback>
+                    ) : null}
                   </FormGroup>
                   <FormGroup>
                     <InputGroup className="input-group-alternative">
@@ -116,12 +117,12 @@ const Login = (props) => {
                         value={formik.values.Password}
                         style={{ backgroundColor: "#f7fafc" }}
                       />
-                      {formik.touched.Password && formik.errors.Password ? (
-                        <FormFeedback className="invalid-feedback">
-                          {formik.errors.Password}
-                        </FormFeedback>
-                      ) : null}
                     </InputGroup>
+                    {formik.touched.Password && formik.errors.Password ? (
+                      <FormFeedback style={{ display: "inline" }}>
+                        {formik.errors.Password}
+                      </FormFeedback>
+                    ) : null}
                   </FormGroup>
                 </Form>
               </CardBody>
