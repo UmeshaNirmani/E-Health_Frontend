@@ -4,8 +4,9 @@ import Profile from "views/pages/Profile.js";
 import Landing from "views/pages/Landing";
 import Login from "views/pages/Login";
 import CalorieCalculator from "views/pages/CalorieCalculator";
+import Register from "views/pages/Register";
 
-var routes = [
+let routes = [
   {
     path: "/calorieCalculator",
     name: "Calorie Calculator",
@@ -56,4 +57,14 @@ var routes = [
     layout: "/public",
   },
 ];
+
 export default routes;
+
+// export const routesReg = [
+//   {
+//     path: "/register",
+//     name: "Register",
+//     component: Register,
+//     layout: "/public",
+//   },
+// ];

@@ -18,9 +18,13 @@ import {
 } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Footer from "../../components/Footers/Footer";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../actions/user";
+import { useHistory } from "react-router-dom";
 
 const Register = (props) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const formik = useFormik({
     initialValues: {
       Title: "",
@@ -29,7 +33,7 @@ const Register = (props) => {
       LastName: "",
       Email: "",
       Password: "",
-      ConfirmPassword: "",
+      // ConfirmPassword: "",
     },
     validationSchema: Yup.object({
       Title: Yup.string().required("* Required"),
@@ -40,13 +44,14 @@ const Register = (props) => {
       Password: Yup.string()
         .min(4, "Password is too short. Must contain minimum 4 characters")
         .required("* Required"),
-      ConfirmPassword: Yup.string()
-        .matches("Password should match")
-        .required("* Required"),
+      // ConfirmPassword: Yup.string()
+      //   .matches("Password should match")
+      //   .required("* Required"),
     }),
 
     onSubmit: (values, onSubmitProps) => {
       console.log(JSON.stringify(values, null, 2));
+      dispatch(signUp(values, history));
       onSubmitProps.setSubmitting(false);
       onSubmitProps.resetForm();
     },
@@ -90,25 +95,57 @@ const Register = (props) => {
                   <Col lg="6">
                     <FormGroup>
                       <InputGroup className="input-group-alternative mb-3">
-                        <Input placeholder="Title" type="select">
-                          <option>Rev/Hon.</option>
-                          <option>Dr.</option>
-                          <option>Mr.</option>
-                          <option>Mrs.</option>
-                          <option>Ms.</option>
+                        <Input
+                          invalid
+                          placeholder="Title"
+                          type="select"
+                          id="Title"
+                          name="Title"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.Title}
+                        >
+                          <option value="Label">Select Title</option>
+                          <option value="Rev/Hon.">Rev/Hon.</option>
+                          <option value="Dr.">Dr.</option>
+                          <option value="Mr.">Mr.</option>
+                          <option value="Mrs.">Mrs.</option>
+                          <option value="Ms.">Ms.</option>
                         </Input>
                       </InputGroup>
+                      {formik.touched.Title && formik.errors.Title ? (
+                        <FormFeedback style={{ display: "inline" }}>
+                          {formik.errors.Title}
+                        </FormFeedback>
+                      ) : null}
                     </FormGroup>
                   </Col>
                   <Col lg="6">
                     <FormGroup>
                       <InputGroup className="input-group-alternative mb-3">
-                        <Input placeholder="Role" type="select">
-                          <option>Doctor</option>
-                          <option>Patient</option>
-                          <option>System Administrator</option>
+                        <Input
+                          invalid
+                          placeholder="Role"
+                          type="select"
+                          id="Role"
+                          name="Role"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.Role}
+                        >
+                          <option value="Label">Select Role</option>
+                          <option value="Doctor">Doctor</option>
+                          <option value="Patient">Patient</option>
+                          <option value="System Administrator">
+                            System Administrator
+                          </option>
                         </Input>
                       </InputGroup>
+                      {formik.touched.Role && formik.errors.Role ? (
+                        <FormFeedback style={{ display: "inline" }}>
+                          {formik.errors.Role}
+                        </FormFeedback>
+                      ) : null}
                     </FormGroup>
                   </Col>
                 </Row>
@@ -167,7 +204,7 @@ const Register = (props) => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col lg="12">
+                  <Col lg="6">
                     <FormGroup>
                       <InputGroup className="input-group-alternative">
                         <InputGroupAddon addonType="prepend">
@@ -193,8 +230,8 @@ const Register = (props) => {
                       ) : null}
                     </FormGroup>
                   </Col>
-                </Row>
-                <Row>
+                  {/* </Row>
+                <Row> */}
                   <Col lg="6">
                     <FormGroup>
                       <InputGroup className="input-group-alternative">
@@ -221,8 +258,8 @@ const Register = (props) => {
                       ) : null}
                     </FormGroup>
                   </Col>
-                  <Col lg="6">
-                    <FormGroup>
+                  {/* <Col lg="6"> */}
+                  {/* <FormGroup>
                       <InputGroup className="input-group-alternative">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -246,11 +283,11 @@ const Register = (props) => {
                           {formik.errors.ConfirmPassword}
                         </FormFeedback>
                       ) : null}
-                    </FormGroup>
-                  </Col>
+                    </FormGroup> */}
+                  {/* </Col> */}
                 </Row>
                 <div className="text-center">
-                  <Button className="mt-4" color="primary" type="button">
+                  <Button className="mt-4 my-5" color="primary" type="submit">
                     Create account
                   </Button>
                 </div>
@@ -259,7 +296,6 @@ const Register = (props) => {
           </Card>
         </Col>
       </Row>
-      <Footer />
     </>
   );
 };

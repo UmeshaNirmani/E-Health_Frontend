@@ -11,4 +11,6 @@ API.interceptors.request.use((req) => {
 
   return req;
 });
-export const signIn = (formData) => API.post("/users/findAllUsers", formData);
+
+export const signIn = (formData) => API.post("/users/signin", formData);
+export const signUp = (formData) => API.post("/users/signup", formData);

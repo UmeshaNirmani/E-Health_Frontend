@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Redirect, useLocation, useHistory } from "react-router-dom";
+import {
+  Redirect,
+  useLocation,
+  useHistory,
+  Route,
+  BrowserRouter,
+  Switch,
+} from "react-router-dom";
 import { signIn } from "../../actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import * as actionType from "constants/actionTypes";
@@ -20,7 +27,12 @@ import {
   Row,
   Col,
   FormFeedback,
+  Nav,
+  NavItem,
+  NavLink,
 } from "reactstrap";
+import { Link } from "react-router-dom";
+import Register from "../pages/Register";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -45,7 +57,7 @@ const Login = (props) => {
     }),
 
     onSubmit: (values, onSubmitProps) => {
-      alert(JSON.stringify(values, null, 2));
+      console.log(JSON.stringify(values, null, 2));
       // let params = {
       //   EmailOfUser_abc: values.Email,
       // };
@@ -141,50 +153,28 @@ const Login = (props) => {
             >
               <CardBody>
                 <Form role="form" onSubmit={formik.handleSubmit}>
-                  <div className="custom-control custom-control-alternative custom-checkbox">
-                    <input
-                      className="custom-control-input"
-                      id=" customCheckLogin"
-                      type="checkbox"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor=" customCheckLogin"
-                    >
-                      <span className="text-muted">Remember me</span>
-                    </label>
-                  </div>
                   <div className="text-center">
-                    <Button className="my-4" color="primary" type="submit">
+                    <Button color="primary" type="submit">
                       Sign in
                     </Button>
                   </div>
                 </Form>
-
                 <Row className="mt-3">
                   <Col xs="6">
-                    <a
-                      className="text-light"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <h3 className="text-info">Forgot Password?</h3>
-                    </a>
-                  </Col>
-                  <Col className="text-right" xs="6">
-                    <a
-                      className="text-light"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <h3 className="text-info">Register</h3>
-                    </a>
+                    <Nav>
+                      <NavItem>
+                        <Route path="/public/register" component={Register} />
+                        <NavLink
+                          className="nav-link-icon"
+                          to="/public/register"
+                          tag={Link}
+                        >
+                          <h3 className="text-info">Register</h3>
+                        </NavLink>
+                      </NavItem>
+                    </Nav>
                   </Col>
                 </Row>
-
-                <Card>
-                  <CardText></CardText>
-                </Card>
               </CardBody>
             </Card>
           </Col>
