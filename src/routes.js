@@ -1,10 +1,8 @@
 // this page gives sidebar navlinks
 
 import Profile from "views/pages/Profile.js";
-import Landing from "views/pages/Landing";
 import Login from "views/pages/Login";
 import CalorieCalculator from "views/pages/CalorieCalculator";
-import Register from "views/pages/Register";
 
 let routes = [
   {
@@ -59,12 +57,3 @@ let routes = [
 ];
 
 export default routes;
-
-// export const routesReg = [
-//   {
-//     path: "/register",
-//     name: "Register",
-//     component: Register,
-//     layout: "/public",
-//   },
-// ];

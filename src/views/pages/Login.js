@@ -1,15 +1,7 @@
-import React, { useEffect, useState } from "react";
-import {
-  Redirect,
-  useLocation,
-  useHistory,
-  Route,
-  BrowserRouter,
-  Switch,
-} from "react-router-dom";
+import React from "react";
+import { useHistory, Route } from "react-router-dom";
 import { signIn } from "../../actions/user";
-import { useDispatch, useSelector } from "react-redux";
-import * as actionType from "constants/actionTypes";
+import { useDispatch } from "react-redux";
 
 // reactstrap components
 import {
@@ -17,7 +9,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardText,
   FormGroup,
   Form,
   Input,

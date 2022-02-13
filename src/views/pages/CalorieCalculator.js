@@ -1,5 +1,8 @@
 import React from "react";
 import {
+  Card,
+  CardHeader,
+  CardBody,
   Col,
   Button,
   Form,
@@ -8,8 +11,9 @@ import {
   Input,
   InputGroupAddon,
   InputGroup,
-  InputGroupText,
+  Table,
 } from "reactstrap";
+import { TextField, Grid } from "@material-ui/core";
 
 const CalorieCalculator = () => {
   return (
@@ -19,9 +23,26 @@ const CalorieCalculator = () => {
           <Label for="exampleSelect" sm={2}>
             Date
           </Label>
-          <Col sm={3}>
+          {/* <Col sm={3}>
             <Input type="text" name="select" id="exampleSelect" />
-          </Col>
+          </Col> */}
+          <Grid container spacing={1} alignItems="center">
+            <Grid item xs={5} sm={5}>
+              <TextField
+                fullWidth
+                type="date"
+                id="startday"
+                name="startday"
+                variant="outlined"
+                format={"DD/MM/YYYY"}
+                // value={formik.values.startday}
+                // onChange={formik.handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+          </Grid>
         </FormGroup>
 
         <FormGroup row>
@@ -119,11 +140,53 @@ const CalorieCalculator = () => {
         <FormGroup row>
           <Col sm={{ size: 10, offset: 2 }}>
             <Button color="info">
-              <div className="text-darker font-weight-bold">Calculate</div>
+              <div className="text-darker font-weight-bold">Add</div>
             </Button>
           </Col>
         </FormGroup>
       </Form>
+
+      <Card className="m-4">
+        <CardHeader>Breakfast - date</CardHeader>
+        <CardBody>
+          <Table hover>
+            <thead>
+              <tr>
+                <th style={{ fontSize: "1em" }}>Food</th>
+                <th style={{ fontSize: "1em" }}>Unit Calorie</th>
+                <th style={{ fontSize: "1em" }}>Amount</th>
+                <th style={{ fontSize: "1em" }}>Total Calorie</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" style={{ fontSize: "1em" }}>
+                  1
+                </th>
+                <td style={{ fontSize: "1em" }}>Mark</td>
+                <td style={{ fontSize: "1em" }}>Otto</td>
+                <td style={{ fontSize: "1em" }}>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row" style={{ fontSize: "1em" }}>
+                  2
+                </th>
+                <td style={{ fontSize: "1em" }}>Jacob</td>
+                <td style={{ fontSize: "1em" }}>Thornton</td>
+                <td style={{ fontSize: "1em" }}>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row" style={{ fontSize: "1em" }}>
+                  3
+                </th>
+                <td style={{ fontSize: "1em" }}>Larry</td>
+                <td style={{ fontSize: "1em" }}>the Bird</td>
+                <td style={{ fontSize: "1em" }}>@twitter</td>
+              </tr>
+            </tbody>
+          </Table>
+        </CardBody>
+      </Card>
     </>
   );
 };

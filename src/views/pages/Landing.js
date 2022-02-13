@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
+
 // reactstrap components
 import { Container, Row, Col } from "reactstrap";
 

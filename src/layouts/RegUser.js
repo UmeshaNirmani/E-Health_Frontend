@@ -7,7 +7,6 @@ import Footer from "components/Footers/Footer";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import Header from "components/Headers/Header";
 
-import CalorieCalculator from "../views/pages/CalorieCalculator";
 import routes from "routes.js";
 
 const RegUser = (props) => {
