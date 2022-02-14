@@ -1,8 +1,8 @@
 // this page gives sidebar navlinks
 
-import Profile from "views/pages/Profile.js";
-import Login from "views/pages/Login";
-import CalorieCalculator from "views/pages/CalorieCalculator";
+import Profile from "pages/Profile.js";
+import Login from "pages/Login";
+import CalorieCalculator from "pages/CalorieCalculator";
 
 let routes = [
   {

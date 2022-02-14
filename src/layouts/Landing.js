@@ -5,9 +5,9 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import LandingNavbar from "components/Navbars/LandingNavbar";
 import Footer from "components/Footers/Footer";
 
-import Welcome from "views/pages/Landing";
-import UserLogin from "views/pages/Login";
-import Register from "views/pages/Register";
+import Welcome from "pages/Landing";
+import UserLogin from "pages/Login";
+import Register from "pages/Register";
 
 const Landing = (props) => {
   return (
