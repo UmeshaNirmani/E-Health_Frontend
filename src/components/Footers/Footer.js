@@ -6,13 +6,13 @@ import { NavItem, NavLink, Nav, Container, Row, Col } from "reactstrap";
 const Footer = () => {
   return (
     <>
-      <footer className="py-5 bg-white">
+      <footer className="py-5 bg-info">
         <Container>
           <Row className="align-items-center justify-content-xl-between">
             <Col xl="6">
-              <div className="copyright text-center text-xl-left text-muted">
+              <div className="copyright text-center text-xl-left text-muted text-white">
                 © {new Date().getFullYear()}{" "}
-                <a className="font-weight-bold ml-1">E-Health</a>
+                <a className="font-weight-bold ml-1 text-darker">E-Health</a>
               </div>
             </Col>
           </Row>

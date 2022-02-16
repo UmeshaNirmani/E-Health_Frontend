@@ -1,86 +1,52 @@
 import { Link } from "react-router-dom";
 // reactstrap components
-import { useState } from "react";
-import {
-  UncontrolledCollapse,
-  Navbar,
-  NavItem,
-  NavLink,
-  Nav,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
+import { Navbar, NavItem, NavLink, Nav, Container } from "reactstrap";
 
 const LandingNavbar = () => {
-  const [setCollapseOpen] = useState();
-  // toggles collapse between opened and closed (true/false)
-  const toggleCollapse = () => {
-    setCollapseOpen((data) => !data);
-  };
-
   return (
     <>
       <Navbar
-        className="navbar-top navbar-horizontal navbar-dark bg-white"
+        className="navbar-top shadow bg-white"
         expand="md"
+        style={{ padding: 0, paddingTop: 5, paddingBottom: 5 }}
       >
-        <Container className="px-4 ">
-          <img
-            alt="..."
-            src={require("../../assets/img/brand/img_logo.png").default}
-          />
+        <Container style={{ backgroundColor: "#fff" }}>
+          <div className="collapse-brand">
+            <img
+              alt="APP"
+              src={require("../../assets/img/brand/img_logo.png").default}
+            />
+          </div>
 
-          <button className="navbar-toggler" id="navbar-collapse-main">
-            <span className="navbar-toggler-icon" />
-          </button>
-          <UncontrolledCollapse navbar toggler="#navbar-collapse-main">
-            <div className="navbar-collapse-header d-md-none">
-              <Row>
-                <Col className="collapse-brand" xs="6">
-                  <Link to="/">
-                    <img
-                      alt="..."
-                      src={
-                        require("../../assets/img/brand/img_logo.png").default
-                      }
-                    />
-                  </Link>
-                </Col>
-                <Col className="collapse-close" xs="6">
-                  <button
-                    className="navbar-toggler"
-                    type="button"
-                    onClick={toggleCollapse}
-                  >
-                    <span className="navbar-toggler-icon" />
-                  </button>
-                </Col>
-              </Row>
-            </div>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink className="nav-link-icon" to="/public" tag={Link}>
-                  <i className="ni ni-circle-08 text-darker" />
-                  <span className="nav-link-inner--text text-darker font-weight-bold">
-                    Home
+          <Nav className="ml-auto" navbar>
+            <div className="row">
+              <NavItem style={{ marginRight: 10 }}>
+                <NavLink className="nav-link-icon" to="/" tag={Link} style={{}}>
+                  <i className="ni ni-book-bookmark" />
+                  <span className="nav-link-inner--text">
+                    <b>Home</b>
                   </span>
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem style={{ marginRight: 10 }}>
                 <NavLink
-                  className="nav-link-icon text-darker"
+                  className="nav-link-icon"
                   to="/public/login"
                   tag={Link}
+                  style={{}}
+                  onClick={(e) => {
+                    // dispatch({ type: actionType.LOGOUT });
+                    localStorage.clear();
+                  }}
                 >
-                  <i className="ni ni-key-25" />
-                  <span className="nav-link-inner--text text-darker font-weight-bold">
-                    Login
+                  <i className="ni ni-circle-08" />
+                  <span className="nav-link-inner--text">
+                    <b>Login</b>
                   </span>
                 </NavLink>
               </NavItem>
-            </Nav>
-          </UncontrolledCollapse>
+            </div>
+          </Nav>
         </Container>
       </Navbar>
     </>

@@ -1,5 +1,8 @@
 //import { AUTH } from "../constants/actionTypes";
 import * as api from "../api/index";
+import Lodash from "lodash";
+import { confirmAlert } from "react-confirm-alert";
+import "../assets/css/confirm-alert-custom.css";
 
 export const signIn = (formData, router) => async (dispatch) => {
   try {
@@ -14,12 +17,29 @@ export const signIn = (formData, router) => async (dispatch) => {
     if (data?.status === "success") {
       //dispatch({ type: AUTH, payload: data?.data });
       router.push("/user/CalorieCalculator");
-    }
-    if (data?.status === "error") {
-      console.log(data);
+    } else if (data?.status === "error unauthorized") {
+      confirmAlert({
+        title: data?.message,
+        buttons: [{ label: "Ok", onClick: () => {} }],
+      });
     }
   } catch (error) {
     console.log("catch error: ", error);
+    let errorTitle = error?.response?.data?.data
+      ? error?.response?.data?.message
+      : null;
+    let errorMessge = error?.response?.data?.data
+      ? error?.response?.data?.data
+      : error?.response?.data?.message;
+    errorMessge = Lodash.isEmpty(errorMessge)
+      ? "Oops, something went wrong"
+      : errorMessge;
+    confirmAlert({
+      title: errorTitle,
+      message: errorMessge,
+      buttons: [{ label: "Ok", onClick: () => {} }],
+    });
+    router.push("/public/login");
   }
 };
 

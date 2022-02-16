@@ -17548,7 +17548,7 @@ textarea[resize="horizontal"] {
   left: 0;
   top: 0.25rem;
   bottom: 0.25rem;
-  border-left: 2px solid #5e72e4;
+  border-left: 5px solid #5e72e4;
 }
 .navbar-vertical .navbar-nav .nav-link > i {
   min-width: 2.25rem;
@@ -17654,7 +17654,7 @@ textarea[resize="horizontal"] {
   bottom: 0.25rem;
   left: 0;
   right: auto;
-  border-left: 2px solid #5e72e4;
+  border-left: 5px solid #5e72e4;
   border-bottom: 0;
 }
 .navbar-vertical.navbar-expand-xs .navbar-nav .nav .nav-link {
@@ -17747,7 +17747,7 @@ textarea[resize="horizontal"] {
     bottom: 0.25rem;
     left: 0;
     right: auto;
-    border-left: 2px solid #5e72e4;
+    border-left: 5px solid #5e72e4;
     border-bottom: 0;
   }
   .navbar-vertical.navbar-expand-sm .navbar-nav .nav .nav-link {
@@ -17841,7 +17841,7 @@ textarea[resize="horizontal"] {
     bottom: 0.25rem;
     left: 0;
     right: auto;
-    border-left: 2px solid #5e72e4;
+    border-left: 5px solid #5e72e4;
     border-bottom: 0;
   }
   .navbar-vertical.navbar-expand-md .navbar-nav .nav .nav-link {
@@ -17903,11 +17903,11 @@ textarea[resize="horizontal"] {
 @media (min-width: 992px) {
   .navbar-vertical.navbar-expand-lg.fixed-left {
     left: 0;
-    border-width: 0 1px 0 0;
+    border-width: 0 3px 0 0;
   }
   .navbar-vertical.navbar-expand-lg.fixed-right {
     right: 0;
-    border-width: 0 0 0 1px;
+    border-width: 0 0 0 3px;
   }
   .navbar-vertical.navbar-expand-lg .navbar-collapse {
     flex: 1;
@@ -17935,7 +17935,7 @@ textarea[resize="horizontal"] {
     bottom: 0.25rem;
     left: 0;
     right: auto;
-    border-left: 2px solid #5e72e4;
+    border-left: 5px solid #5e72e4;
     border-bottom: 0;
   }
   .navbar-vertical.navbar-expand-lg .navbar-nav .nav .nav-link {
@@ -18029,7 +18029,7 @@ textarea[resize="horizontal"] {
     bottom: 0.25rem;
     left: 0;
     right: auto;
-    border-left: 2px solid #5e72e4;
+    border-left: 5px solid #5e72e4;
     border-bottom: 0;
   }
   .navbar-vertical.navbar-expand-xl .navbar-nav .nav .nav-link {
@@ -20544,7 +20544,7 @@ pre > code.highlight {
 
 .ct-page-title {
   padding-left: 1.25rem;
-  border-left: 2px solid #5e72e4;
+  border-left: 5px solid #5e72e4;
   margin-bottom: 1.5rem;
 }
 

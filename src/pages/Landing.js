@@ -14,7 +14,8 @@ const Landing = (props) => {
           style={{
             position: "relative",
             width: "100%",
-            background: "linear-gradient(to right, #ebb105, #f7df9b)",
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(252,183,30,1) 100%)",
             minHeight: 500,
           }}
         >
@@ -28,9 +29,7 @@ const Landing = (props) => {
               <Col md="5">
                 <img
                   alt="Obis"
-                  src={
-                    require("../../assets/img/theme/profile-cover.png").default
-                  }
+                  src={require("assets/img/theme/profile-cover.png").default}
                   style={{ width: "100%", height: "auto" }}
                 />
               </Col>

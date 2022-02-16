@@ -1,6 +1,6 @@
 import React from "react";
 
-const FoodTable = (props) => {
+const Users = (props) => {
   const mainContent = React.useRef(null);
 
   return (
@@ -11,4 +11,4 @@ const FoodTable = (props) => {
   );
 };
 
-export default FoodTable;
+export default Users;

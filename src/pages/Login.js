@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory, Route } from "react-router-dom";
-import { signIn } from "../../actions/user";
+import { signIn } from "actions/user";
 import { useDispatch } from "react-redux";
 
 // reactstrap components
@@ -27,6 +27,7 @@ import Register from "../pages/Register";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { CryptoPassword } from "helper.js";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const Login = (props) => {
       // let params = {
       //   EmailOfUser_abc: values.Email,
       // };
+      values.Password = CryptoPassword(values.Password);
       dispatch(signIn(values, history));
       onSubmitProps.setSubmitting(false);
       onSubmitProps.resetForm();
@@ -62,14 +64,11 @@ const Login = (props) => {
     <>
       <div className="main-content" ref={mainContent}>
         <Row
-          className="justify-content-center bg-info"
-          style={{ paddingTop: "3em", maxWidth: "100%" }}
+          className="justify-content-center bg-secondary"
+          style={{ padding: "3em 0 3em 0", maxWidth: "100%" }}
         >
           <Col lg="4" md="5">
-            <Card
-              className="bg-white border-0"
-              style={{ borderRadius: "0.375rem 0.375rem 0 0" }}
-            >
+            <Card className="bg-white shadow border-0 card">
               <CardHeader className="bg-transparent pb-3">
                 <div className="text-muted text-center mt-2 mb-2 ">
                   <h1 className="text-info">User Login</h1>
@@ -127,23 +126,6 @@ const Login = (props) => {
                       </FormFeedback>
                     ) : null}
                   </FormGroup>
-                </Form>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-
-        <Row
-          className="justify-content-center"
-          style={{ paddingBottom: "3em", maxWidth: "100%" }}
-        >
-          <Col lg="4" md="5">
-            <Card
-              className="bg-white border-0"
-              style={{ borderRadius: "0 0 0.375rem 0.375rem" }}
-            >
-              <CardBody>
-                <Form role="form" onSubmit={formik.handleSubmit}>
                   <div className="text-center">
                     <Button color="primary" type="submit">
                       Sign in

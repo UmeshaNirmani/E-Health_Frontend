@@ -17,7 +17,7 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { signUp } from "../../actions/user";
+import { signUp } from "actions/user";
 import { useHistory } from "react-router-dom";
 
 const Register = (props) => {
@@ -58,17 +58,15 @@ const Register = (props) => {
   return (
     <>
       <Row
-        className="justify-content-center bg-info"
+        className="justify-content-center bg-secondary"
         style={{ padding: "3em 0 3em 0", maxWidth: "100%" }}
       >
         <Col lg="6" md="8">
-          <Card className="bg-secondary shadow border-0">
+          <Card className="bg-white shadow border-0">
             <Col className="pt-3">
               <img
                 alt="E-Health"
-                src={
-                  require("../../assets/img/theme/profile-cover.png").default
-                }
+                src={require("assets/img/theme/profile-cover.png").default}
                 style={{
                   display: "block",
                   margin: "auto",
