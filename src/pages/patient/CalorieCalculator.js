@@ -1,9 +1,13 @@
+import { Tooltip } from "@material-ui/core";
 import React from "react";
 import {
+  Container,
+  Badge,
   Card,
   CardHeader,
   CardBody,
   Col,
+  Row,
   Button,
   Form,
   FormGroup,
@@ -14,6 +18,10 @@ import {
   Table,
 } from "reactstrap";
 import { TextField, Grid } from "@material-ui/core";
+import BorderColorOutlinedIcon from "@material-ui/icons/BorderColorOutlined";
+import TranslateOutlinedIcon from "@material-ui/icons/TranslateOutlined";
+import PublicOutlinedIcon from "@material-ui/icons/PublicOutlined";
+import VpnLockOutlinedIcon from "@material-ui/icons/VpnLockOutlined";
 
 const CalorieCalculator = (props) => {
   const mainContent = React.useRef(null);
@@ -77,48 +85,6 @@ const CalorieCalculator = (props) => {
                 </InputGroupAddon>
               </Col>
             </InputGroup>
-          </FormGroup>
-
-          <FormGroup row>
-            <Label for="exampleText" sm={3}>
-              Can't find the food?
-            </Label>
-            <Col sm={4}>
-              <Input
-                id="Servings"
-                name="Servings"
-                type="text"
-                placeholder="Add the food"
-              />
-            </Col>
-          </FormGroup>
-
-          <FormGroup row>
-            <Label for="exampleText" sm={3}>
-              Calorie per Unit
-            </Label>
-            <Col sm={4}>
-              <Label for="exampleText">Enter the calorie amount</Label>
-              <Input id="Servings" name="Servings" type="number" />
-            </Col>
-            <Col sm={3}>
-              <Label for="exampleText">Select the unit</Label>
-              <Input type="select" name="select" id="exampleSelect">
-                <option>Cups</option>
-                <option>Tea Spoons</option>
-                <option>Table Spoons</option>
-                <option>grams</option>
-                <option>Portions</option>
-              </Input>
-            </Col>
-          </FormGroup>
-
-          <FormGroup row>
-            <Col sm={{ size: 10, offset: 3 }}>
-              <Button color="info" type="submit" style={{ width: "20%" }}>
-                <div className="font-weight-bold">Add</div>
-              </Button>
-            </Col>
           </FormGroup>
 
           <FormGroup row>

@@ -18,7 +18,7 @@ const RegUser = (props) => {
         return (
           <Route
             path={prop.layout + prop.path}
-            component={prop.component}
+            component={prop.componentPage}
             key={key}
           />
         );
