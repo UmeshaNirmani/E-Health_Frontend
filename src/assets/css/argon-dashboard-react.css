@@ -2023,7 +2023,7 @@ pre code {
   box-shadow: none, none;
 }
 .form-control::placeholder {
-  color: #adb5bd;
+  color: #525f7f;
   opacity: 1;
 }
 .form-control:disabled,

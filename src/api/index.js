@@ -18,8 +18,9 @@ export const signUp = (formData) => API.post("/users/signup", formData);
 // food table
 export const fetchRecordsAll = () => API.post("/foodtable/fetch");
 
-// export const createRecords = (formData) =>
-//   API.post("/foodtable/create", formData);
-// export const updateRecords = (formData) => API.post("/foodtable/update", formData);
-// export const deleteRecords = (formData) =>
-//   API.post("/foodtable/deleteById", formData);
+export const createRecords = (formData) =>
+  API.post("/foodtable/create", formData);
+export const updateRecords = (formData) =>
+  API.post("/foodtable/update", formData);
+export const deleteRecords = (formData) =>
+  API.post("/foodtable/deleteById", formData);
