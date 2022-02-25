@@ -23,4 +23,4 @@ export const createRecords = (formData) =>
 export const updateRecords = (formData) =>
   API.post("/foodtable/update", formData);
 export const deleteRecords = (formData) =>
-  API.post("/foodtable/deleteById", formData);
+  API.post("/foodtable/delete", formData);

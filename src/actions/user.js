@@ -17,7 +17,7 @@ export const signIn = (formData, router) => async (dispatch) => {
     if (data?.status === "success") {
       //dispatch({ type: AUTH, payload: data?.data });
       router.push("/user/CalorieCalculator");
-    } else if (data?.status === "error unauthorized") {
+    } else if (data?.status === "error") {
       confirmAlert({
         title: data?.message,
         buttons: [{ label: "Ok", onClick: () => {} }],

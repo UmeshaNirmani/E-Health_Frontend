@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import Lodash from "lodash";
 import { Tooltip } from "@material-ui/core";
 import {
   Card,
@@ -22,7 +23,7 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
-import { useFormik } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 import {
   fetchRecordsAll,
@@ -31,10 +32,16 @@ import {
   updateRecords,
 } from "actions/foodtable";
 
+const validateSchema = Yup.object({
+  Food: Yup.string().required("* Required"),
+  UnitCalorieAmount: Yup.string().required("* Required"),
+});
+
 const FoodTableRow = ({ TableData, editClick, deleteClick, createClick }) => (
   <tr>
     <td>{TableData.Food}</td>
     <td>{TableData.UnitCalorieAmount}</td>
+    <td>{TableData.Unit}</td>
     <td className="text-right">
       <div className="row">
         <Tooltip title="Edit" arrow>
@@ -66,24 +73,40 @@ const FoodTableRow = ({ TableData, editClick, deleteClick, createClick }) => (
 
 const FoodTable = (props) => {
   const mainContent = React.useRef(null);
+  const formRef = useRef();
   const dispatch = useDispatch();
   const history = useHistory();
+
+  // to edit records
+  const [isEdit, setIsEdit] = useState(false);
 
   const foodTableRecordsAll = useSelector(
     (TableData) => TableData.foodtable.foodTableRecordsAll
   );
 
-  useEffect(() => {
-    dispatch(fetchRecordsAll());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchRecordsAll());
+  // }, []);
 
-  const handleEditClick = (e, TableData, type) => {
+  const fetchRecords = () => {
+    dispatch(fetchRecordsAll());
+  };
+
+  const handleEditClick = (e, TableData) => {
     console.log("TableData", TableData);
     e.preventDefault();
-    history.push({
-      pathname: "/user/foodtable",
-      state: { TableData: TableData },
-    });
+
+    if (formRef.current && TableData && !Lodash.isEmpty(TableData)) {
+      formRef.current?.resetForm();
+      formRef.current.setFieldValue("recordId", TableData._id, false);
+      formRef.current.setFieldValue("Food", TableData.Food, false);
+      formRef.current.setFieldValue(
+        "UnitCalorieAmount",
+        TableData.UnitCalorieAmount,
+        false
+      );
+      formRef.current.setFieldValue("Unit", TableData.Unit, false);
+    }
   };
 
   const handleDeleteClick = (e, TableData) => {
@@ -95,30 +118,18 @@ const FoodTable = (props) => {
     dispatch(deleteRecords(values));
   };
 
-  const formik = useFormik({
-    initialValues: {
-      Food: "",
-      UnitCalorieAmount: "",
-    },
-
-    validationSchema: Yup.object({
-      Food: Yup.string().required("* Required"),
-      UnitCalorieAmount: Yup.string().required("* Required"),
-    }),
-
-    onSubmit: (values, onSubmitProps) => {
-      console.log(JSON.stringify(values, null, 2));
-      dispatch(updateRecords(values, history));
-      dispatch(createRecords(values, history));
-      onSubmitProps.setSubmitting(false);
-      onSubmitProps.resetForm();
-    },
-  });
+  // onSubmit: (values, onSubmitProps) => {
+  //   console.log(JSON.stringify(values, null, 2));
+  //   dispatch(updateRecords(values, history));
+  //   dispatch(createRecords(values, history));
+  //   onSubmitProps.setSubmitting(false);
+  //   onSubmitProps.resetForm();
+  // },
 
   return (
     <>
-      {/* Page Content */}
       <div className="main-content" ref={mainContent}>
+        {fetchRecords()}
         <Col lg="6">
           <Container className="mt--7 mb-3 " fluid>
             <Row className="mt-5">
@@ -132,63 +143,118 @@ const FoodTable = (props) => {
                     </div>
                   </CardHeader>
                   <CardBody>
-                    <Form role="form" onSubmit={formik.handleSubmit}>
-                      <FormGroup className="mb-3 ">
-                        <InputGroup className="input-group-alternative ">
-                          <Input
-                            invalid
-                            placeholder="Food"
-                            type="text"
-                            id="Food"
-                            name="Food"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.Food}
-                            style={{ backgroundColor: "#f7fafc" }}
-                          />
-                        </InputGroup>
-                        {formik.touched.Food && formik.errors.Food ? (
-                          <FormFeedback style={{ display: "inline" }}>
-                            {formik.errors.Food}
-                          </FormFeedback>
-                        ) : null}
-                      </FormGroup>
+                    <Formik
+                      initialValues={{
+                        recordId: null,
+                        Food: "",
+                        UnitCalorieAmount: "",
+                        Unit: "",
+                      }}
+                      validationSchema={validateSchema}
+                      onSubmit={(values, actions) => {
+                        console.log(JSON.stringify(values, null, 2));
 
-                      <FormGroup>
-                        <InputGroup className="input-group-alternative">
-                          <Input
-                            invalid
-                            placeholder="Unit Calorie Amount"
-                            type="text"
-                            id="UnitCalorieAmount"
-                            name="UnitCalorieAmount"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.UnitCalorieAmount}
-                            style={{ backgroundColor: "#f7fafc" }}
-                          />
-                        </InputGroup>
-                        {formik.touched.UnitCalorieAmount &&
-                        formik.errors.UnitCalorieAmount ? (
-                          <FormFeedback style={{ display: "inline" }}>
-                            {formik.errors.UnitCalorieAmount}
-                          </FormFeedback>
-                        ) : null}
-                      </FormGroup>
-                      <Row>
-                        <Button
-                          color="info"
-                          type="submit"
-                          style={{
-                            width: "30%",
-                            display: "block",
-                            margin: "auto",
-                          }}
-                        >
-                          <div className="font-weight-bold">Add</div>
-                        </Button>
-                      </Row>
-                    </Form>
+                        let params = {
+                          Food: values.Food,
+                          UnitCalorieAmount: values.UnitCalorieAmount,
+                          Unit: values.Unit,
+                        };
+
+                        if (values.recordId && values.recordId.length > 10) {
+                          params["recordId"] = values.recordId;
+                          console.log("updated record: ", params);
+                          dispatch(updateRecords(params, history));
+                        } else {
+                          console.log("created record: ", params);
+                          dispatch(createRecords(params, history));
+                        }
+                      }}
+                      innerRef={formRef}
+                    >
+                      {(props) => (
+                        <Form role="form" onSubmit={props.handleSubmit}>
+                          <FormGroup className="mb-3 ">
+                            <InputGroup className="input-group-alternative ">
+                              <Input
+                                invalid
+                                placeholder="Food"
+                                type="text"
+                                id="Food"
+                                name="Food"
+                                onChange={props.handleChange("Food")}
+                                onBlur={props.handleBlur("Food")}
+                                value={props.values.Food}
+                                style={{ backgroundColor: "#f7fafc" }}
+                              />
+                            </InputGroup>
+                            {props.touched.Food && props.errors.Food ? (
+                              <FormFeedback style={{ display: "inline" }}>
+                                {props.errors.Food}
+                              </FormFeedback>
+                            ) : null}
+                          </FormGroup>
+
+                          <FormGroup>
+                            <InputGroup className="input-group-alternative">
+                              <Input
+                                invalid
+                                placeholder="Calorie Amount"
+                                type="text"
+                                id="UnitCalorieAmount"
+                                name="UnitCalorieAmount"
+                                onChange={props.handleChange(
+                                  "UnitCalorieAmount"
+                                )}
+                                onBlur={props.handleBlur("UnitCalorieAmount")}
+                                value={props.values.UnitCalorieAmount}
+                                style={{ backgroundColor: "#f7fafc" }}
+                              />
+                            </InputGroup>
+                            {props.touched.UnitCalorieAmount &&
+                            props.errors.UnitCalorieAmount ? (
+                              <FormFeedback style={{ display: "inline" }}>
+                                {props.errors.UnitCalorieAmount}
+                              </FormFeedback>
+                            ) : null}
+                          </FormGroup>
+
+                          <FormGroup className="mb-3 ">
+                            <InputGroup className="input-group-alternative ">
+                              <Input
+                                invalid
+                                placeholder="Unit (Serving Size)"
+                                type="text"
+                                id="Unit"
+                                name="Unit"
+                                onChange={props.handleChange("Unit")}
+                                onBlur={props.handleBlur("Unit")}
+                                value={props.values.Unit}
+                                style={{ backgroundColor: "#f7fafc" }}
+                              />
+                            </InputGroup>
+                            {props.touched.Unit && props.errors.Unit ? (
+                              <FormFeedback style={{ display: "inline" }}>
+                                {props.errors.Unit}
+                              </FormFeedback>
+                            ) : null}
+                          </FormGroup>
+
+                          <Row>
+                            <Button
+                              color="info"
+                              type="submit"
+                              style={{
+                                width: "30%",
+                                display: "block",
+                                margin: "auto",
+                              }}
+                            >
+                              <div className="font-weight-bold">Add</div>
+                            </Button>
+                          </Row>
+                        </Form>
+                      )}
+                    </Formik>
                   </CardBody>
                 </Card>
               </div>
@@ -211,7 +277,8 @@ const FoodTable = (props) => {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col">Food Name</th>
-                      <th scope="col">Unit Calorie Amount</th>
+                      <th scope="col">Calorie Amount</th>
+                      <th scope="col">Unit (Serving Size)</th>
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>

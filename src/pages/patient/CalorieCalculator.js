@@ -1,7 +1,8 @@
 import { Tooltip } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Lodash from "lodash";
 import {
   Container,
   Badge,
@@ -19,6 +20,7 @@ import {
   InputGroupAddon,
   InputGroup,
   Table,
+  FormFeedback,
 } from "reactstrap";
 import { TextField, Grid } from "@material-ui/core";
 import {
@@ -33,6 +35,7 @@ import * as Yup from "yup";
 const FoodTableRow = ({ TableData, editClick, deleteClick, createClick }) => (
   <tr>
     <td>{TableData.Food}</td>
+    <td>{TableData.UnitCalorieAmount}</td>
     <td>{TableData.UnitCalorieAmount}</td>
     <td className="text-right">
       <div className="row">
@@ -65,6 +68,7 @@ const FoodTableRow = ({ TableData, editClick, deleteClick, createClick }) => (
 
 const CalorieCalculator = (props) => {
   const mainContent = React.useRef(null);
+  const formRef = useRef();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -79,10 +83,6 @@ const CalorieCalculator = (props) => {
   const handleEditClick = (e, TableData, type) => {
     console.log("TableData", TableData);
     e.preventDefault();
-    history.push({
-      pathname: "/user/foodtable",
-      state: { TableData: TableData },
-    });
   };
 
   const handleDeleteClick = (e, TableData) => {
@@ -94,21 +94,72 @@ const CalorieCalculator = (props) => {
     dispatch(deleteRecords(values));
   };
 
+  // to edit records
+  const [record, setRecord] = useState({});
+  const [isEdit, setIsEdit] = useState(false);
+
+  useEffect(() => {
+    const tempRecord = props.location.state?.record;
+    if (tempRecord && !Lodash.isEmpty(tempRecord)) {
+      setRecord(tempRecord);
+      setIsEdit(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (formRef.current && record && !Lodash.isEmpty(record)) {
+      formRef.current?.resetForm();
+      formRef.current.setFieldValue("recordId", record._id, false);
+      formRef.current.setFieldValue("Date", record.date, false);
+      formRef.current.setFieldValue("SelectMeal", record.selectmeal, false);
+      formRef.current.setFieldValue("SearchFood", record.searchfood, false);
+      formRef.current.setFieldValue("Servings", record.servings, false);
+      formRef.current.setFieldValue("Unit", record.unit, false);
+    }
+  }, [record]);
+
   const formik = useFormik({
     initialValues: {
-      Food: "",
-      UnitCalorieAmount: "",
+      recordId: null,
+      Date: "",
+      SelectMeal: "",
+      SearchFood: "",
+      Servings: "",
+      Unit: "",
     },
 
     validationSchema: Yup.object({
-      Food: Yup.string().required("* Required"),
-      UnitCalorieAmount: Yup.string().required("* Required"),
+      Date: Yup.string().required("* Required"),
+      SelectMeal: Yup.string().required("* Required"),
+      SearchFood: Yup.string().required("* Required"),
+      Servings: Yup.string().required("* Required"),
+      Unit: Yup.string().required("* Required"),
     }),
 
+    // onSubmit: (values, onSubmitProps) => {
+    //   console.log(JSON.stringify(values, null, 2));
+    //   dispatch(updateRecords(values, history));
+    //   dispatch(createRecords(values, history));
+    //   onSubmitProps.setSubmitting(false);
+    //   onSubmitProps.resetForm();
+    // },
     onSubmit: (values, onSubmitProps) => {
       console.log(JSON.stringify(values, null, 2));
-      dispatch(updateRecords(values, history));
-      dispatch(createRecords(values, history));
+      let params = {
+        date: values.Date,
+        selectmeal: values.SelectMeal,
+        searchfood: values.SearchFood,
+        servings: values.Servings,
+        unit: values.Unit,
+      };
+      if (values.recordId && values.recordId.length > 10) {
+        params["recordId"] = values.recordId;
+        console.log("update record: ", params);
+        dispatch(updateRecords(params, history));
+      } else {
+        console.log("create record: ", params);
+        dispatch(createRecords(params, history));
+      }
       onSubmitProps.setSubmitting(false);
       onSubmitProps.resetForm();
     },
@@ -140,61 +191,79 @@ const CalorieCalculator = (props) => {
                       </Label>
                       <Col sm={4}>
                         <Input
-                          invalid
                           id="Date"
-                          name="date"
+                          name="Date"
                           placeholder="date placeholder"
                           type="date"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.Food}
+                          value={formik.values.Date}
                         />
+                        {formik.touched.Date && formik.errors.Date ? (
+                          <FormFeedback style={{ display: "inline" }}>
+                            {formik.errors.Date}
+                          </FormFeedback>
+                        ) : null}
                       </Col>
                     </FormGroup>
                     <FormGroup row>
-                      <Label for="Select" sm={3}>
+                      <Label for="SelectMeal" sm={3}>
                         Meal Type
                       </Label>
                       <Col sm={4}>
                         <Input
                           type="select"
-                          name="select"
-                          id="Select"
+                          name="SelectMeal"
+                          id="SelectMeal"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.Food}
+                          value={formik.values.SelectMeal}
                         >
                           <option>Breakfast</option>
                           <option>Lunch</option>
                           <option>Dinner</option>
                           <option>Tea time</option>
                         </Input>
+                        {formik.touched.SelectMeal &&
+                        formik.errors.SelectMeal ? (
+                          <FormFeedback style={{ display: "inline" }}>
+                            {formik.errors.SelectMeal}
+                          </FormFeedback>
+                        ) : null}
                       </Col>
                     </FormGroup>
 
                     <FormGroup row>
                       <InputGroup className="input-group-rounded input-group-merge">
-                        <Label for="exampleSelect" sm={3}>
+                        <Label for="SearchFood" sm={3}>
                           Add the Food
                         </Label>
                         <Col sm={4}>
                           <InputGroupAddon addonType="prepend">
                             <Input
+                              name="SearchFood"
+                              id="SearchFood"
                               aria-label="Search"
                               className="form-control-rounded form-control-prepended"
                               placeholder="Search"
                               type="search"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
-                              value={formik.values.Food}
+                              value={formik.values.SearchFood}
                             />
                           </InputGroupAddon>
+                          {formik.touched.SearchFood &&
+                          formik.errors.SearchFood ? (
+                            <FormFeedback style={{ display: "inline" }}>
+                              {formik.errors.SearchFood}
+                            </FormFeedback>
+                          ) : null}
                         </Col>
                       </InputGroup>
                     </FormGroup>
 
                     <FormGroup row>
-                      <Label for="exampleText" sm={3}>
+                      <Label for="Servings" sm={3}>
                         Amount (Servings)
                       </Label>
                       <Col sm={3}>
@@ -204,17 +273,22 @@ const CalorieCalculator = (props) => {
                           type="number"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.Food}
+                          value={formik.values.Servings}
                         />
+                        {formik.touched.Servings && formik.errors.Servings ? (
+                          <FormFeedback style={{ display: "inline" }}>
+                            {formik.errors.Servings}
+                          </FormFeedback>
+                        ) : null}
                       </Col>
                       <Col sm={3}>
                         <Input
                           type="select"
-                          name="select"
-                          id="exampleSelect"
+                          name="Unit"
+                          id="Unit"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.Food}
+                          value={formik.values.Unit}
                         >
                           <option>Cups</option>
                           <option>Tea Spoons</option>
@@ -222,7 +296,20 @@ const CalorieCalculator = (props) => {
                           <option>grams</option>
                           <option>Portions</option>
                         </Input>
+                        {formik.touched.Unit && formik.errors.Unit ? (
+                          <FormFeedback style={{ display: "inline" }}>
+                            {formik.errors.Unit}
+                          </FormFeedback>
+                        ) : null}
                       </Col>
+                    </FormGroup>
+
+                    <FormGroup row>
+                      <InputGroup className="input-group-rounded input-group-merge">
+                        <Label for="SearchFood" sm={3}>
+                          Total Calorie:
+                        </Label>
+                      </InputGroup>
                     </FormGroup>
 
                     <FormGroup row>
@@ -259,6 +346,7 @@ const CalorieCalculator = (props) => {
                     <tr>
                       <th scope="col">Food Name</th>
                       <th scope="col">Amount (Servings)</th>
+                      <th scope="col">Total Calorie</th>
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>

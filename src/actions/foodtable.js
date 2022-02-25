@@ -35,7 +35,7 @@ export const createRecords = (formData, history) => async (dispatch) => {
           {
             label: "Ok",
             onClick: () => {
-              history.goBack();
+              window.location.reload(true);
             },
           },
         ],
@@ -47,9 +47,7 @@ export const createRecords = (formData, history) => async (dispatch) => {
         buttons: [
           {
             label: "Ok",
-            onClick: () => {
-              history.goBack();
-            },
+            onClick: () => {},
           },
         ],
       });
@@ -61,9 +59,7 @@ export const createRecords = (formData, history) => async (dispatch) => {
       buttons: [
         {
           label: "Ok",
-          onClick: () => {
-            history.goBack();
-          },
+          onClick: () => {},
         },
       ],
     });
