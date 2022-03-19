@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Lodash from "lodash";
 import { Tooltip } from "@material-ui/core";
 import {
@@ -14,14 +14,9 @@ import {
   Button,
   FormGroup,
   Input,
-  InputGroupAddon,
-  InputGroupText,
   InputGroup,
   Col,
   FormFeedback,
-  Nav,
-  NavItem,
-  NavLink,
 } from "reactstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -78,7 +73,7 @@ const FoodTable = (props) => {
   const history = useHistory();
 
   // to edit records
-  const [isEdit, setIsEdit] = useState(false);
+  //const [isEdit, setIsEdit] = useState(false);
 
   const foodTableRecordsAll = useSelector(
     (TableData) => TableData.foodtable.foodTableRecordsAll
@@ -117,14 +112,6 @@ const FoodTable = (props) => {
     };
     dispatch(deleteRecords(values));
   };
-
-  // onSubmit: (values, onSubmitProps) => {
-  //   console.log(JSON.stringify(values, null, 2));
-  //   dispatch(updateRecords(values, history));
-  //   dispatch(createRecords(values, history));
-  //   onSubmitProps.setSubmitting(false);
-  //   onSubmitProps.resetForm();
-  // },
 
   return (
     <>

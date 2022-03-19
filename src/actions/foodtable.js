@@ -5,7 +5,6 @@ import {
   FOODTABLE_DELETE,
 } from "constants/actionTypes";
 import * as api from "../api/index.js";
-import Lodash from "lodash";
 import { confirmAlert } from "react-confirm-alert";
 import "assets/css/confirm-alert-custom.css";
 
