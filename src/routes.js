@@ -17,7 +17,7 @@ import FoodTable from "pages/admin/FoodTable";
 
 let routes = [
   {
-    path: "/calorieCalculator",
+    path: "/caloriecalculator",
     name: "Calorie Calculator",
     icon: "ni ni-ruler-pencil text-green",
     component: CalorieCalculator,

@@ -59,7 +59,7 @@ const RegUser = (props) => {
         />
         <Switch>
           {getRoutes(routes)}
-          <Redirect from="*" to="/user/CalorieCalculator" />
+          <Redirect from="*" to="/user/caloriecalculator" />
         </Switch>
         <Footer />
       </div>

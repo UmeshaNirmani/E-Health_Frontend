@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Lodash from "lodash";
@@ -72,20 +72,15 @@ const FoodTable = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // to edit records
-  //const [isEdit, setIsEdit] = useState(false);
-
   const foodTableRecordsAll = useSelector(
     (TableData) => TableData.foodtable.foodTableRecordsAll
   );
 
-  // useEffect(() => {
-  //   dispatch(fetchRecordsAll());
-  // }, []);
+  //console.log("foodTableRecordsAll", foodTableRecordsAll);
 
-  const fetchRecords = () => {
+  useEffect(() => {
     dispatch(fetchRecordsAll());
-  };
+  });
 
   const handleEditClick = (e, TableData) => {
     console.log("TableData", TableData);
@@ -116,7 +111,6 @@ const FoodTable = (props) => {
   return (
     <>
       <div className="main-content" ref={mainContent}>
-        {fetchRecords()}
         <Col lg="6">
           <Container className="mt--7 mb-3 " fluid>
             <Row className="mt-5">
@@ -128,6 +122,7 @@ const FoodTable = (props) => {
                         <h4 className="mb-0">Enter the Records</h4>
                       </div>
                     </div>
+                    {/* {foodTableRecordsAll[0].Food} */}
                   </CardHeader>
                   <CardBody>
                     <Formik

@@ -16,7 +16,7 @@ export const signIn = (formData, router) => async (dispatch) => {
     console.log(data.data);
     if (data?.status === "success") {
       //dispatch({ type: AUTH, payload: data?.data });
-      router.push("/user/CalorieCalculator");
+      router.push("/user/caloriecalculator");
     } else if (data?.status === "error") {
       confirmAlert({
         title: data?.message,
