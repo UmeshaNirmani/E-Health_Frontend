@@ -1,6 +1,7 @@
 import { Tooltip } from "@material-ui/core";
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+//import _ from "Lodash";
 import { fetchAllFoods } from "../../actions/caloriecalculator";
 import {
   Container,
@@ -52,24 +53,65 @@ const CalorieCalculator = (props) => {
   });
 
   const initFoodDetails = {
-    SearchFood: "",
+    _id: "",
+    Food: "",
     Servings: "",
+    Unit: "",
+    UnitCalorieAmount: "",
   };
   const [foodDetails, setFoodDetails] = useState([initFoodDetails]);
+  const [totalMealCalorie, setMealTotalCalorie] = useState([]);
 
-  const handleListChange = (e, index) => {
+  const handleListChangeFoodName = (e, index) => {
     const { name, value } = e.target;
-    // console.log("e target", e.target.name);
+    const list = [...foodDetails];
+    list[index][name] = value;
+
+    for (let i = 0; i < allFoods.length; i++) {
+      let food = allFoods[i].Food;
+      if (food === e.target.value) {
+        list[index]._id = allFoods[i]._id;
+        list[index].Unit = allFoods[i].Unit;
+        list[index].UnitCalorieAmount = allFoods[i].UnitCalorieAmount;
+      }
+    }
+
+    if (formRef.current) {
+      setFoodDetails(list);
+      formRef.current.setFieldValue("FoodDetails", list, false);
+      //console.log("list", list);
+    }
+  };
+
+  const handleListChangeServings = (e, index) => {
+    const { name, value } = e.target;
     const list = [...foodDetails];
     list[index][name] = value;
 
     if (formRef.current) {
       setFoodDetails(list);
       formRef.current.setFieldValue("FoodDetails", list, false);
+      //console.log("list", list);
     }
   };
+
   const handleListBlur = (e, index) => {
-    console.log("blur target", e.target);
+    const list = [...foodDetails];
+    const totalFoodCalorie = [];
+
+    let total = 0;
+    for (let i = 0; i < list.length; i++) {
+      total += list[i].UnitCalorieAmount * list[i].Servings;
+      totalFoodCalorie.push(total);
+    }
+    console.log("totalFoodCalorie", totalFoodCalorie);
+    console.log("total", total);
+
+    if (formRef.current) {
+      setMealTotalCalorie(total);
+      formRef.current.setFieldValue("totalMealCalorie", total, false);
+      //console.log("list", list);
+    }
   };
 
   const handleRemoveClick = (index) => {
@@ -86,8 +128,11 @@ const CalorieCalculator = (props) => {
   const handleAddClick = () => {
     let list = foodDetails;
     list.push({
-      SearchFood: "",
+      _id: "",
+      Food: "",
       Servings: "",
+      Unit: "",
+      UnitCalorieAmount: "",
     });
 
     if (formRef.current) {
@@ -96,13 +141,13 @@ const CalorieCalculator = (props) => {
     }
   };
 
-  const validateSchema = Yup.object({
-    Date: Yup.date().required("* Required"),
-    SelectMeal: Yup.string().required("* Required"),
+  // const validateSchema = Yup.object({
+  //   Date: Yup.date().required("* Required"),
+  //   MealType: Yup.string().required("* Required"),
 
-    SearchFood: Yup.string().required("* Required"),
-    // Servings: Yup.number().required("* Required"),
-  });
+  //   Food: Yup.string().required("* Required"),
+  //   Servings: Yup.number().required("* Required"),
+  // });
 
   return (
     <>
@@ -127,21 +172,27 @@ const CalorieCalculator = (props) => {
                     initialValues={{
                       recordId: null,
                       Date: "",
-                      SelectMeal: "",
+                      MealType: "",
                       FoodDetails: [],
+                      totalMealCalorie: "",
                     }}
-                    validationSchema={validateSchema}
+                    //validationSchema={validateSchema}
                     onSubmit={(values, actions) => {
                       console.log(JSON.stringify(values, null, 2));
                       actions.setSubmitting(false);
+                      actions.resetForm();
                     }}
                     onReset={() => {
                       setFoodDetails([
                         {
-                          SearchFood: "",
+                          _id: "",
+                          Food: "",
                           Servings: "",
+                          Unit: "",
+                          UnitCalorieAmount: "",
                         },
                       ]);
+                      setMealTotalCalorie([]);
                     }}
                     innerRef={formRef}
                   >
@@ -149,6 +200,7 @@ const CalorieCalculator = (props) => {
                       <Form
                         role="form"
                         onSubmit={props.handleSubmit}
+                        onReset={props.handleReset}
                         className="mb-3"
                       >
                         <Container>
@@ -182,22 +234,22 @@ const CalorieCalculator = (props) => {
                               className="ml--100"
                             >
                               <TextField
-                                id="SelectMeal"
+                                id="MealType"
                                 select
-                                name="SelectMeal"
+                                name="MealType"
                                 defaultValue=""
                                 label="Select the Meal"
                                 variant="outlined"
                                 size="small"
-                                value={props.values.SelectMeal}
+                                value={props.values.MealType}
                                 onChange={props.handleChange}
                                 error={
-                                  props.touched.SelectMeal &&
-                                  Boolean(props.errors.SelectMeal)
+                                  props.touched.MealType &&
+                                  Boolean(props.errors.MealType)
                                 }
                                 helperText={
-                                  props.touched.SelectMeal &&
-                                  props.errors.SelectMeal
+                                  props.touched.MealType &&
+                                  props.errors.MealType
                                 }
                                 style={{
                                   width: "50%",
@@ -220,33 +272,34 @@ const CalorieCalculator = (props) => {
                                   <Grid item xs={5} align="center">
                                     <TextField
                                       select
-                                      id="SearchFood"
-                                      name="SearchFood"
+                                      id="Food"
+                                      name="Food"
                                       label="Search Food"
                                       variant="outlined"
                                       size="small"
-                                      value={x.SearchFood}
-                                      onChange={(e) => handleListChange(e, i)}
-                                      onBlur={(e) => handleListBlur(e, i)}
+                                      value={x.Food}
+                                      onChange={(e) =>
+                                        handleListChangeFoodName(e, i)
+                                      }
+                                      // onBlur={(e) => handleListBlur(e, i)}
                                       error={
-                                        props.touched.SearchFood &&
-                                        Boolean(props.errors.SearchFood)
+                                        props.touched.Food &&
+                                        Boolean(props.errors.Food)
                                       }
                                       helperText={
-                                        props.touched.SearchFood &&
-                                        props.errors.SearchFood
+                                        props.touched.Food && props.errors.Food
                                       }
                                       style={{
                                         width: "50%",
                                         textAlign: "left",
                                       }}
                                     >
-                                      {allFoods.map((allFood) => (
+                                      {allFoods.map((FoodName) => (
                                         <MenuItem
-                                          key={allFood._id}
-                                          value={allFood._id}
+                                          key={FoodName._id}
+                                          value={FoodName.Food}
                                         >
-                                          {allFood.Food}
+                                          {FoodName.Food + " " + FoodName.Unit}
                                         </MenuItem>
                                       ))}
                                     </TextField>
@@ -261,8 +314,10 @@ const CalorieCalculator = (props) => {
                                       variant="outlined"
                                       size="small"
                                       value={x.Servings}
-                                      onChange={(e) => handleListChange(e, i)}
-                                      onBlur={(e) => handleListChange(e, i)}
+                                      onChange={(e) =>
+                                        handleListChangeServings(e, i)
+                                      }
+                                      onBlur={(e) => handleListBlur(e, i)}
                                       error={
                                         props.touched.Servings &&
                                         Boolean(props.errors.Servings)
@@ -323,7 +378,9 @@ const CalorieCalculator = (props) => {
                             })}
                         </Container>
                         <Col sm={{ offset: 1 }}>
-                          <Label for="TotalCalorie">Total Calorie:</Label>
+                          <Label for="TotalCalorie">
+                            Total Calorie: {totalMealCalorie}
+                          </Label>
                         </Col>
 
                         <Col sm={{ size: 8, offset: 3 }}>

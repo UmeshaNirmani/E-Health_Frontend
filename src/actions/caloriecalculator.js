@@ -7,6 +7,7 @@ export const fetchAllFoods = () => async (dispatch) => {
 
     if (data?.status === "success") {
       dispatch({ type: FETCH_FOODS, payload: data?.data });
+      //console.log("action", data?.data);
     } else if (data?.status === "error") {
       console.log(data);
     }
