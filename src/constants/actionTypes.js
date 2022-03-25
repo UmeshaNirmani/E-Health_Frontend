@@ -9,3 +9,5 @@ export const FOODTABLE_FETCH_ALL = "FOODTABLE_FETCH_ALL";
 
 // for calorie calculator
 export const FETCH_FOODS = "FETCH_FOODS";
+
+// for food diary

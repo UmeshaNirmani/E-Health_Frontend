@@ -8,6 +8,7 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+// user
 export const signIn = (formData) => API.post("/user/signin", formData);
 export const signUp = (formData) => API.post("/user/signup", formData);
 
@@ -22,3 +23,7 @@ export const deleteRecords = (formData) =>
 
 // for calorie calculator
 export const fetchAllFoods = () => API.post("/user/caloriecalculator");
+
+// for food Diary
+export const foodDiaryInputs = (formData) =>
+  API.post("/fooddiary/create", formData);

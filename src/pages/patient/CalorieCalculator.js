@@ -1,8 +1,9 @@
 import { Tooltip } from "@material-ui/core";
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-//import _ from "Lodash";
+import { useHistory } from "react-router-dom";
 import { fetchAllFoods } from "../../actions/caloriecalculator";
+import { foodDiaryInputs } from "../../actions/fooddiary";
 import {
   Container,
   Card,
@@ -43,6 +44,7 @@ const CalorieCalculator = (props) => {
   const mainContent = React.useRef(null);
   const formRef = useRef();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const allFoods = useSelector(
     (FoodName) => FoodName.caloriecalculator.allFoods
@@ -53,7 +55,7 @@ const CalorieCalculator = (props) => {
   });
 
   const initFoodDetails = {
-    _id: "",
+    FoodTableId: "",
     Food: "",
     Servings: "",
     Unit: "",
@@ -70,7 +72,7 @@ const CalorieCalculator = (props) => {
     for (let i = 0; i < allFoods.length; i++) {
       let food = allFoods[i].Food;
       if (food === e.target.value) {
-        list[index]._id = allFoods[i]._id;
+        list[index].FoodTableId = allFoods[i]._id;
         list[index].Unit = allFoods[i].Unit;
         list[index].UnitCalorieAmount = allFoods[i].UnitCalorieAmount;
       }
@@ -128,7 +130,7 @@ const CalorieCalculator = (props) => {
   const handleAddClick = () => {
     let list = foodDetails;
     list.push({
-      _id: "",
+      FoodTableId: "",
       Food: "",
       Servings: "",
       Unit: "",
@@ -170,7 +172,6 @@ const CalorieCalculator = (props) => {
                 <CardBody>
                   <Formik
                     initialValues={{
-                      recordId: null,
                       Date: "",
                       MealType: "",
                       FoodDetails: [],
@@ -179,13 +180,14 @@ const CalorieCalculator = (props) => {
                     //validationSchema={validateSchema}
                     onSubmit={(values, actions) => {
                       console.log(JSON.stringify(values, null, 2));
+                      dispatch(foodDiaryInputs(values, history));
                       actions.setSubmitting(false);
                       actions.resetForm();
                     }}
                     onReset={() => {
                       setFoodDetails([
                         {
-                          _id: "",
+                          FoodTableId: "",
                           Food: "",
                           Servings: "",
                           Unit: "",
