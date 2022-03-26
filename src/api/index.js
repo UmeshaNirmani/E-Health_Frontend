@@ -27,3 +27,5 @@ export const fetchAllFoods = () => API.post("/user/caloriecalculator");
 // for food Diary
 export const foodDiaryInputs = (formData) =>
   API.post("/fooddiary/create", formData);
+export const fetchFoodDiary = (searchData) =>
+  API.post("/fooddiary/fetch", searchData);

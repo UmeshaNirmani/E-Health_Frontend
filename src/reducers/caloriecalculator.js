@@ -6,17 +6,17 @@ const initState = {
   errors: null,
 };
 
-const calorieCalculatorReducer = (FoodName = initState, action) => {
+const calorieCalculatorReducer = (state = initState, action) => {
   switch (action.type) {
     case FETCH_FOODS:
       return {
-        ...FoodName,
+        ...state,
         allFoods: action.payload,
         loading: false,
         errors: null,
       };
     default:
-      return FoodName;
+      return state;
   }
 };
 

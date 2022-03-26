@@ -11,3 +11,4 @@ export const FOODTABLE_FETCH_ALL = "FOODTABLE_FETCH_ALL";
 export const FETCH_FOODS = "FETCH_FOODS";
 
 // for food diary
+export const FOODDIARY_FETCH_ALL = "FOODDIARY_FETCH_ALL";

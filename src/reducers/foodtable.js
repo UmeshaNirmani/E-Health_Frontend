@@ -11,32 +11,35 @@ const initState = {
   errors: null,
 };
 
-const foodTableReducer = (TableData = initState, action) => {
+const foodTableReducer = (state = initState, action) => {
+  console.log("redux action: ", action);
+
   switch (action.type) {
     case FOODTABLE_FETCH_ALL:
+      //console.log("Tabledat", state);
       return {
-        ...TableData,
+        ...state,
         foodTableRecordsAll: action.payload,
         loading: false,
         errors: null,
       };
     case FOODTABLE_UPDATE:
       return {
-        ...TableData,
+        ...state,
         updateFoodTable: action.payload,
         loading: false,
         errors: null,
       };
     case FOODTABLE_DELETE:
       return {
-        ...TableData,
+        ...state,
         deleteRecord: action.payload,
         loading: false,
         errors: null,
       };
 
     default:
-      return TableData;
+      return state;
   }
 };
 

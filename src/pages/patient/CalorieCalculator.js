@@ -46,9 +46,7 @@ const CalorieCalculator = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const allFoods = useSelector(
-    (FoodName) => FoodName.caloriecalculator.allFoods
-  );
+  const allFoods = useSelector((state) => state.caloriecalculator.allFoods);
 
   useEffect(() => {
     dispatch(fetchAllFoods());
@@ -296,12 +294,12 @@ const CalorieCalculator = (props) => {
                                         textAlign: "left",
                                       }}
                                     >
-                                      {allFoods.map((FoodName) => (
+                                      {allFoods.map((index) => (
                                         <MenuItem
-                                          key={FoodName._id}
-                                          value={FoodName.Food}
+                                          key={index._id}
+                                          value={index.Food}
                                         >
-                                          {FoodName.Food + " " + FoodName.Unit}
+                                          {index.Food + " " + index.Unit}
                                         </MenuItem>
                                       ))}
                                     </TextField>
@@ -346,7 +344,7 @@ const CalorieCalculator = (props) => {
                                             className="fas fa-minus-circle"
                                             style={{
                                               fontSize: 30,
-                                              color: "#fdba2b",
+                                              color: "#EBB105",
                                             }}
                                           />
                                         </div>
@@ -359,7 +357,9 @@ const CalorieCalculator = (props) => {
                                       <Tooltip title="Add more items" arrow>
                                         <div
                                           className="navbar-toggler"
-                                          style={{ cursor: "pointer" }}
+                                          style={{
+                                            cursor: "pointer",
+                                          }}
                                           onClick={(e) => {
                                             handleAddClick();
                                           }}
@@ -368,7 +368,7 @@ const CalorieCalculator = (props) => {
                                             className="fas fa-plus-circle"
                                             style={{
                                               fontSize: 30,
-                                              color: "#fdba2b",
+                                              color: "#EBB105",
                                             }}
                                           />
                                         </div>
@@ -386,8 +386,14 @@ const CalorieCalculator = (props) => {
                         </Col>
 
                         <Col sm={{ size: 8, offset: 3 }}>
-                          <Button color="info" type="submit">
-                            <div className="font-weight-bold">
+                          <Button
+                            type="submit"
+                            style={{
+                              backgroundColor: "#EBB105",
+                              border: "none",
+                            }}
+                          >
+                            <div className="font-weight-bold text-white">
                               Save to Food Diary
                             </div>
                           </Button>

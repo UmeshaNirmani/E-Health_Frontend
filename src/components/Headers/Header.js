@@ -1,7 +1,10 @@
 const Header = () => {
   return (
     <>
-      <div className="header bg-gradient-info pb-4 pt-5 pt-md-8"></div>
+      <div
+        className="header pb-4 pt-5 pt-md-8"
+        style={{ backgroundColor: "#EBB105" }}
+      ></div>
     </>
   );
 };

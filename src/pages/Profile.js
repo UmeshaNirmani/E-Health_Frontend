@@ -11,6 +11,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { Grid } from "@material-ui/core";
 // core components
 import ProfileHeader from "components/Headers/ProfileHeader";
 
@@ -22,7 +23,7 @@ const Profile = () => {
       <Container className="mt--7" fluid>
         <Row>
           <Col className="order-xl-1" xl="8">
-            <Card className="bg-secondary shadow">
+            <Card className="bg-secondary shadow mb-5">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
@@ -193,14 +194,21 @@ const Profile = () => {
                       </Col>
                     </Row>
                   </div>
+                  <Grid align="center">
+                    <Button
+                      className="mt-3 mb-3"
+                      style={{
+                        backgroundColor: "#EBB105",
+                        border: "none",
+                        width: "30%",
+                      }}
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <div className="text-white font-weight-bold">Save</div>
+                    </Button>
+                  </Grid>
                 </Form>
-                <Button
-                  color="info"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <div className="text-darker font-weight-bold">Save</div>
-                </Button>
               </CardBody>
             </Card>
           </Col>

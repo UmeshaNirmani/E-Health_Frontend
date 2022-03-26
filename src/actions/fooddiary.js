@@ -1,3 +1,4 @@
+import { FOODDIARY_FETCH_ALL } from "../constants/actionTypes";
 import * as api from "../api/index";
 import { confirmAlert } from "react-confirm-alert";
 import "../assets/css/confirm-alert-custom.css";
@@ -34,5 +35,24 @@ export const foodDiaryInputs = (formData) => async (dispatch) => {
       message: errorMessge,
       buttons: [{ label: "Ok", onClick: () => {} }],
     });
+  }
+};
+
+export const fetchFoodDiary = (searchData) => async (dispatch) => {
+  try {
+    console.log("searchData: ", searchData);
+    // const { data } = await api.fetchFoodDiary(searchData);
+    const response = await api.fetchFoodDiary(searchData);
+    console.log("api response: ", response);
+    const { data } = response;
+
+    if (data?.status === "success") {
+      dispatch({ type: FOODDIARY_FETCH_ALL, payload: data?.data });
+    } else if (data?.status === "error") {
+      console.log(data);
+      dispatch({ type: FOODDIARY_FETCH_ALL, payload: [] });
+    }
+  } catch (error) {
+    console.log(error);
   }
 };

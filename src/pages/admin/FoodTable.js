@@ -73,7 +73,7 @@ const FoodTable = (props) => {
   const history = useHistory();
 
   const foodTableRecordsAll = useSelector(
-    (TableData) => TableData.foodtable.foodTableRecordsAll
+    (state) => state.foodtable.foodTableRecordsAll
   );
 
   //console.log("foodTableRecordsAll", foodTableRecordsAll);
@@ -223,15 +223,19 @@ const FoodTable = (props) => {
 
                           <Row>
                             <Button
-                              color="info"
+                              className="mt-3 mb-3"
                               type="submit"
                               style={{
+                                backgroundColor: "#EBB105",
+                                border: "none",
                                 width: "30%",
                                 display: "block",
                                 margin: "auto",
                               }}
                             >
-                              <div className="font-weight-bold">Add</div>
+                              <div className="font-weight-bold text-white">
+                                Add
+                              </div>
                             </Button>
                           </Row>
                         </Form>
