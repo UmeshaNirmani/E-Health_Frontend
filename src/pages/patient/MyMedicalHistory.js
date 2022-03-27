@@ -40,18 +40,21 @@ const MyMedicalHistory = (props) => {
                   </div>
                 </CardHeader>
                 <Row>
-                  <div
-                    className="ml-5 mr-5 mb-3"
-                    style={{ textAlign: "justify" }}
-                  >
-                    {/* {medicalHistoryAllRecords} */}
-                    <Tooltip title="Edit" arrow>
-                      <i
-                        className="far fa-edit ml-3"
-                        style={{ cursor: "pointer" }}
-                      />
-                    </Tooltip>
-                  </div>
+                  {medicalHistoryAllRecords.map((records, i) => (
+                    <div
+                      className="ml-5 mr-5 mb-3"
+                      style={{ textAlign: "justify" }}
+                      key={i}
+                    >
+                      {records.Disease}
+                      <Tooltip title="Edit" arrow>
+                        <i
+                          className="far fa-edit ml-3"
+                          style={{ cursor: "pointer" }}
+                        />
+                      </Tooltip>
+                    </div>
+                  ))}
                 </Row>
 
                 <CardHeader className="border-0 ">
@@ -62,18 +65,21 @@ const MyMedicalHistory = (props) => {
                   </div>
                 </CardHeader>
                 <Row>
-                  <div
-                    className="ml-5 mr-5 mb-3"
-                    style={{ textAlign: "justify" }}
-                  >
-                    {/* {medicalHistoryAllRecords} */}
-                    <Tooltip title="Edit" arrow>
-                      <i
-                        className="far fa-edit ml-3"
-                        style={{ cursor: "pointer" }}
-                      />
-                    </Tooltip>
-                  </div>
+                  {medicalHistoryAllRecords.map((records, i) => (
+                    <div
+                      className="ml-5 mr-5 mb-3"
+                      style={{ textAlign: "justify" }}
+                      key={i}
+                    >
+                      {records.DrugHistory}
+                      <Tooltip title="Edit" arrow>
+                        <i
+                          className="far fa-edit ml-3"
+                          style={{ cursor: "pointer" }}
+                        />
+                      </Tooltip>
+                    </div>
+                  ))}
                 </Row>
 
                 <CardHeader className="border-0 ">
@@ -83,19 +89,23 @@ const MyMedicalHistory = (props) => {
                     </div>
                   </div>
                 </CardHeader>
+
                 <Row>
-                  {/* {medicalHistoryAllRecords.map()} */}
-                  <div
-                    className="ml-5 mr-5 mb-3"
-                    style={{ textAlign: "justify" }}
-                  >
-                    <Tooltip title="Edit" arrow>
-                      <i
-                        className="far fa-edit ml-3"
-                        style={{ cursor: "pointer" }}
-                      />
-                    </Tooltip>
-                  </div>
+                  {medicalHistoryAllRecords.map((records, i) => (
+                    <div
+                      className="ml-5 mr-5 mb-3"
+                      style={{ textAlign: "justify" }}
+                      key={i}
+                    >
+                      {records.Investigations}
+                      <Tooltip title="Edit" arrow>
+                        <i
+                          className="far fa-edit ml-3"
+                          style={{ cursor: "pointer" }}
+                        />
+                      </Tooltip>
+                    </div>
+                  ))}
                 </Row>
 
                 <Formik
@@ -117,78 +127,78 @@ const MyMedicalHistory = (props) => {
                       role="form"
                       onSubmit={props.handleSubmit}
                       onReset={props.handleReset}
-                      className="mb-3"
+                      className="mb-5"
                     >
-                      <Grid container spacing={2} justifyContent="center">
-                        <Grid item xs={3}>
-                          <TextField
-                            type="text"
-                            multiline
-                            id="Disease"
-                            name="Disease"
-                            label="Disease"
-                            variant="outlined"
-                            size="small"
-                            value={props.values.Disease}
-                            onChange={props.handleChange}
-                            error={
-                              props.touched.Disease &&
-                              Boolean(props.errors.Disease)
-                            }
-                            helperText={
-                              props.touched.Disease && props.errors.Disease
-                            }
-                          />
-                        </Grid>
+                      <Container className="mb-5">
+                        <Grid container spacing={2} justifyContent="center">
+                          <Grid item xs={3}>
+                            <TextField
+                              type="text"
+                              multiline
+                              id="Disease"
+                              name="Disease"
+                              label="Disease"
+                              variant="outlined"
+                              size="small"
+                              value={props.values.Disease}
+                              onChange={props.handleChange}
+                              error={
+                                props.touched.Disease &&
+                                Boolean(props.errors.Disease)
+                              }
+                              helperText={
+                                props.touched.Disease && props.errors.Disease
+                              }
+                            />
+                          </Grid>
 
-                        <Grid item xs={3}>
-                          <TextField
-                            type="text"
-                            multiline
-                            id="DrugHistory"
-                            name="DrugHistory"
-                            label="DrugHistory"
-                            variant="outlined"
-                            size="small"
-                            value={props.values.DrugHistory}
-                            onChange={props.handleChange}
-                            error={
-                              props.touched.DrugHistory &&
-                              Boolean(props.errors.DrugHistory)
-                            }
-                            helperText={
-                              props.touched.DrugHistory &&
-                              props.errors.DrugHistory
-                            }
-                          />
-                        </Grid>
+                          <Grid item xs={3}>
+                            <TextField
+                              type="text"
+                              multiline
+                              id="DrugHistory"
+                              name="DrugHistory"
+                              label="DrugHistory"
+                              variant="outlined"
+                              size="small"
+                              value={props.values.DrugHistory}
+                              onChange={props.handleChange}
+                              error={
+                                props.touched.DrugHistory &&
+                                Boolean(props.errors.DrugHistory)
+                              }
+                              helperText={
+                                props.touched.DrugHistory &&
+                                props.errors.DrugHistory
+                              }
+                            />
+                          </Grid>
 
-                        <Grid item xs={3}>
-                          <TextField
-                            type="text"
-                            multiline
-                            id="Investigations"
-                            name="Investigations"
-                            label="Investigations"
-                            variant="outlined"
-                            size="small"
-                            value={props.values.Investigations}
-                            onChange={props.handleChange}
-                            error={
-                              props.touched.Investigations &&
-                              Boolean(props.errors.Investigations)
-                            }
-                            helperText={
-                              props.touched.Investigations &&
-                              props.errors.Investigations
-                            }
-                          />
+                          <Grid item xs={3}>
+                            <TextField
+                              type="text"
+                              multiline
+                              id="Investigations"
+                              name="Investigations"
+                              label="Investigations"
+                              variant="outlined"
+                              size="small"
+                              value={props.values.Investigations}
+                              onChange={props.handleChange}
+                              error={
+                                props.touched.Investigations &&
+                                Boolean(props.errors.Investigations)
+                              }
+                              helperText={
+                                props.touched.Investigations &&
+                                props.errors.Investigations
+                              }
+                            />
+                          </Grid>
                         </Grid>
-                      </Grid>
-
+                      </Container>
                       <Grid align="center">
                         <Button
-                          className="mt-3 mb-3"
                           style={{
                             backgroundColor: "#EBB105",
                             border: "none",

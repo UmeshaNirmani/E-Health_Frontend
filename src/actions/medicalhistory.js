@@ -14,7 +14,7 @@ export const medicalHistoryCreate = (formData) => async (dispatch) => {
     if (data?.status === "success") {
       dispatch({ type: MEDICALHISTORY_CREATE, payload: data?.data });
       confirmAlert({
-        message: "Record is saved.",
+        message: "Record saved.",
         buttons: [
           {
             label: "Ok",
