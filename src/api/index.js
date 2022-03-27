@@ -29,3 +29,8 @@ export const foodDiaryInputs = (formData) =>
   API.post("/fooddiary/create", formData);
 export const fetchFoodDiary = (searchData) =>
   API.post("/fooddiary/fetch", searchData);
+
+// for medical history
+export const medicalHistoryCreate = (formData) =>
+  API.post("/medicalhistory/create", formData);
+export const medicalHistoryFetch = () => API.post("/medicalhistory/");

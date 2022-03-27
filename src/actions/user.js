@@ -1,4 +1,3 @@
-//import { AUTH } from "../constants/actionTypes";
 import * as api from "../api/index";
 import Lodash from "lodash";
 import { confirmAlert } from "react-confirm-alert";

@@ -7,11 +7,11 @@ const initState = {
 };
 
 const foodDiaryReducer = (state = initState, action) => {
-  console.log("redux action: ", action);
+  //console.log("redux action: ", action);
 
   switch (action.type) {
     case FOODDIARY_FETCH_ALL:
-      console.log("state", state);
+      //console.log("state", state);
       return {
         ...state,
         foodDiaryRecords: action.payload,

@@ -202,7 +202,6 @@ const Profile = () => {
                         border: "none",
                         width: "30%",
                       }}
-                      href="#pablo"
                       onClick={(e) => e.preventDefault()}
                     >
                       <div className="text-white font-weight-bold">Save</div>

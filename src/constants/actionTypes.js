@@ -12,3 +12,7 @@ export const FETCH_FOODS = "FETCH_FOODS";
 
 // for food diary
 export const FOODDIARY_FETCH_ALL = "FOODDIARY_FETCH_ALL";
+
+// for medical history
+export const MEDICALHISTORY_CREATE = "MEDICALHISTORY_CREATE";
+export const MEDICALHISTORY_FETCH_ALL = "MEDICALHISTORY_FETCH_ALL";

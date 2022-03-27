@@ -12,7 +12,7 @@ const initState = {
 };
 
 const foodTableReducer = (state = initState, action) => {
-  console.log("redux action: ", action);
+  //console.log("redux action: ", action);
 
   switch (action.type) {
     case FOODTABLE_FETCH_ALL:

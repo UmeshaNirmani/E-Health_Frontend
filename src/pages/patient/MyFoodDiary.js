@@ -1,41 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchFoodDiary } from "../../actions/fooddiary";
-import {
-  Form,
-  Button,
-  Card,
-  CardHeader,
-  Container,
-  Row,
-  Table,
-} from "reactstrap";
-import { TextField, Grid, Tooltip } from "@material-ui/core";
+import React from "react";
+import { useSelector } from "react-redux";
 
-// const FoodDiary = ({ Diary, editClick, deleteClick, createClick }) => (
+import { Card, CardHeader, Container, Row, Table } from "reactstrap";
+import { Tooltip } from "@material-ui/core";
+import SearchBar from "../../components/SearchBarFoodDiary/SearchBarFoodDiary";
+
+// const FoodDiary = ({ Record, deleteClick }) => (
 //   <tr>
-//     <td>{Diary.Food}</td>
-//     <td>{Diary.UnitCalorieAmount}</td>
-//     <td>{Diary.Unit}</td>
+//     <td>{Record.Food}</td>
+//     <td>{Record.UnitCalorieAmount}</td>
+//     <td>{Record.Servings}</td>
 //     <td className="text-right">
 //       <div className="row">
-//         <Tooltip title="Edit" arrow>
-//           <div
-//             className="navbar-toggler"
-//             style={{ cursor: "pointer" }}
-//             onClick={(e) => {
-//               editClick(e, Diary);
-//             }}
-//           >
-//             <i className="far fa-edit" />
-//           </div>
-//         </Tooltip>
 //         <Tooltip title="Delete record" arrow>
 //           <div
 //             className="navbar-toggler"
 //             style={{ cursor: "pointer" }}
 //             onClick={(e) => {
-//               deleteClick(e, Diary);
+//               deleteClick(e, Record);
 //             }}
 //           >
 //             <i className="far fa-times-circle" />
@@ -48,92 +30,112 @@ import { TextField, Grid, Tooltip } from "@material-ui/core";
 
 const MyFoodDiary = (props) => {
   const mainContent = React.useRef(null);
-  const dispatch = useDispatch();
 
   const foodDiaryRecords = useSelector(
     (state) => state.fooddiary.foodDiaryRecords
   );
-
   console.log("foodDiaryRecords: ", foodDiaryRecords);
 
-  const handleChange = (e) => {
-    setDateSelected(e.target.value);
+  const handleDeleteClick = (Record) => {
+    console.log("Record", Record);
+    let values = {
+      TableDataId: Record._id,
+    };
+    //dispatch(deleteRecords(values));
   };
 
-  const [dateSelected, setDateSelected] = useState("");
+  if (foodDiaryRecords.length > 0) {
+    for (let i = 0; i < foodDiaryRecords.length; i++) {
+      return (
+        <>
+          <div className="main-content m-4 p-3" ref={mainContent}>
+            <SearchBar />
+            <Container className="mb-6" fluid>
+              <Row className="mt-5">
+                <div className="col">
+                  <Card className="shadow">
+                    <CardHeader className="border-0 ">
+                      <div className="row">
+                        <div className="mb-xl-0 col-11 justify-content-center">
+                          <h2 className="mb-0">My Food Diary</h2>
+                        </div>
+                      </div>
+                    </CardHeader>
 
-  const handleSubmit = (value) => {
-    value = dateSelected;
-    dispatch(fetchFoodDiary({ Date: value }));
-  };
+                    {foodDiaryRecords.map((key, i) => {
+                      return (
+                        <Card
+                          style={{ borderRadius: "0" }}
+                          className="ml-3 mr-3 mb-6"
+                          key={i}
+                        >
+                          <CardHeader className="border-0 ">
+                            <div className="row">
+                              <div className="mb-xl-0 col-11 justify-content-center">
+                                <h4 className="mb-0">
+                                  {foodDiaryRecords[i].MealType}
+                                </h4>
+                                <h5>
+                                  Total Calorie Consumption:{" "}
+                                  {foodDiaryRecords[i].totalMealCalorie}
+                                </h5>
+                              </div>
+                            </div>
+                          </CardHeader>
 
+                          <Table
+                            className="align-items-center table-flush"
+                            responsive
+                          >
+                            <thead className="thead-light">
+                              <tr>
+                                <th scope="col">Food Name</th>
+                                <th scope="col">Unit (Serving Size)</th>
+                                <th scope="col">Servings</th>
+                                <th scope="col">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                {/* <td>{foodDiaryRecords[i][2].Food}</td>
+                                <td>
+                                  {foodDiaryRecords[i][2].UnitCalorieAmount}
+                                </td>
+                                <td>{foodDiaryRecords[i][2].Servings}</td>
+                                <td className="text-right">
+                                  <div className="row">
+                                    <Tooltip title="Delete record" arrow>
+                                      <div
+                                        className="navbar-toggler"
+                                        style={{ cursor: "pointer" }}
+                                        onClick={(e) => {
+                                          deleteClick(e, Record);
+                                        }}
+                                      >
+                                        <i className="far fa-times-circle" />
+                                      </div>
+                                    </Tooltip>
+                                  </div>
+                                </td> */}
+                              </tr>
+                            </tbody>
+                          </Table>
+                        </Card>
+                      );
+                    })}
+                  </Card>
+                </div>
+              </Row>
+            </Container>
+          </div>
+        </>
+      );
+    }
+  }
   return (
     <>
       <div className="main-content m-4 p-3" ref={mainContent}>
-        <Row>
-          <Grid item xs={5} align="center">
-            <TextField
-              type="date"
-              id="Date"
-              name="Date"
-              label="Date"
-              variant="outlined"
-              format={"yyyy-MM-dd"}
-              onChange={(e) => handleChange(e)}
-              size="small"
-              InputLabelProps={{ shrink: true }}
-              style={{ width: "50%" }}
-            />
-          </Grid>
-
-          <Button
-            color="info"
-            type="submit"
-            style={{ width: "20%", backgroundColor: "#EBB105" }}
-            onClick={() => handleSubmit()}
-          >
-            <div className="font-weight-bold">Search</div>
-          </Button>
-        </Row>
-
-        <Container className="mb-6" fluid>
-          <Row className="mt-5">
-            <div className="col">
-              <Card className="shadow">
-                <CardHeader className="border-0 ">
-                  <div className="row">
-                    <div className="mb-xl-0 col-11 justify-content-center">
-                      <h2 className="mb-0">My Food Diary</h2>
-                    </div>
-                  </div>
-                </CardHeader>
-
-                <Card style={{ borderRadius: "0" }} className="ml-3 mr-3 mb-6">
-                  <CardHeader className="border-0 ">
-                    <div className="row">
-                      <div className="mb-xl-0 col-11 justify-content-center">
-                        <h4 className="mb-0">{foodDiaryRecords[0].MealType}</h4>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <Table className="align-items-center table-flush" responsive>
-                    <thead className="thead-light">
-                      <tr>
-                        <th scope="col">Food Name</th>
-                        <th scope="col">Unit (Serving Size)</th>
-                        <th scope="col">Servings</th>
-                        <th scope="col">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr></tr>
-                    </tbody>
-                  </Table>
-                </Card>
-              </Card>
-            </div>
-          </Row>
-        </Container>
+        <SearchBar />
       </div>
     </>
   );
