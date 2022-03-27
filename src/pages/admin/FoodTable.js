@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Lodash from "lodash";
-import { Tooltip } from "@material-ui/core";
+import { TextField, Tooltip } from "@material-ui/core";
 import {
   Card,
   CardBody,
@@ -12,11 +12,7 @@ import {
   Table,
   Form,
   Button,
-  FormGroup,
-  Input,
-  InputGroup,
   Col,
-  FormFeedback,
 } from "reactstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -30,14 +26,15 @@ import {
 const validateSchema = Yup.object({
   Food: Yup.string().required("* Required"),
   UnitCalorieAmount: Yup.string().required("* Required"),
+  Unit: Yup.string().required("* Required"),
 });
 
 const FoodTableRow = ({ TableData, editClick, deleteClick, createClick }) => (
   <tr>
-    <td>{TableData.Food}</td>
-    <td>{TableData.UnitCalorieAmount}</td>
-    <td>{TableData.Unit}</td>
-    <td className="text-right">
+    <td className="text-darker">{TableData.Food}</td>
+    <td className="text-darker">{TableData.UnitCalorieAmount}</td>
+    <td className="text-darker">{TableData.Unit}</td>
+    <td>
       <div className="row">
         <Tooltip title="Edit" arrow>
           <div
@@ -47,7 +44,7 @@ const FoodTableRow = ({ TableData, editClick, deleteClick, createClick }) => (
               editClick(e, TableData);
             }}
           >
-            <i className="far fa-edit" />
+            <i className="far fa-edit text-darker" />
           </div>
         </Tooltip>
         <Tooltip title="Delete record" arrow>
@@ -58,7 +55,7 @@ const FoodTableRow = ({ TableData, editClick, deleteClick, createClick }) => (
               deleteClick(e, TableData);
             }}
           >
-            <i className="far fa-times-circle" />
+            <i className="far fa-times-circle text-darker" />
           </div>
         </Tooltip>
       </div>
@@ -119,10 +116,9 @@ const FoodTable = (props) => {
                   <CardHeader className="border-0 ">
                     <div className="row">
                       <div className="mb-xl-0 col-11">
-                        <h4 className="mb-0">Enter the Records</h4>
+                        <h4 className="mb-0 text-darker">Enter the Records</h4>
                       </div>
                     </div>
-                    {/* {foodTableRecordsAll[0].Food} */}
                   </CardHeader>
                   <CardBody>
                     <Formik
@@ -155,71 +151,61 @@ const FoodTable = (props) => {
                     >
                       {(props) => (
                         <Form role="form" onSubmit={props.handleSubmit}>
-                          <FormGroup className="mb-3 ">
-                            <InputGroup className="input-group-alternative ">
-                              <Input
-                                invalid
-                                placeholder="Food"
-                                type="text"
-                                id="Food"
-                                name="Food"
-                                onChange={props.handleChange("Food")}
-                                onBlur={props.handleBlur("Food")}
-                                value={props.values.Food}
-                                style={{ backgroundColor: "#f7fafc" }}
-                              />
-                            </InputGroup>
-                            {props.touched.Food && props.errors.Food ? (
-                              <FormFeedback style={{ display: "inline" }}>
-                                {props.errors.Food}
-                              </FormFeedback>
-                            ) : null}
-                          </FormGroup>
-
-                          <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                              <Input
-                                invalid
-                                placeholder="Calorie Amount"
-                                type="text"
-                                id="UnitCalorieAmount"
-                                name="UnitCalorieAmount"
-                                onChange={props.handleChange(
-                                  "UnitCalorieAmount"
-                                )}
-                                onBlur={props.handleBlur("UnitCalorieAmount")}
-                                value={props.values.UnitCalorieAmount}
-                                style={{ backgroundColor: "#f7fafc" }}
-                              />
-                            </InputGroup>
-                            {props.touched.UnitCalorieAmount &&
-                            props.errors.UnitCalorieAmount ? (
-                              <FormFeedback style={{ display: "inline" }}>
-                                {props.errors.UnitCalorieAmount}
-                              </FormFeedback>
-                            ) : null}
-                          </FormGroup>
-
-                          <FormGroup className="mb-3 ">
-                            <InputGroup className="input-group-alternative ">
-                              <Input
-                                invalid
-                                placeholder="Unit (Serving Size)"
-                                type="text"
-                                id="Unit"
-                                name="Unit"
-                                onChange={props.handleChange("Unit")}
-                                onBlur={props.handleBlur("Unit")}
-                                value={props.values.Unit}
-                                style={{ backgroundColor: "#f7fafc" }}
-                              />
-                            </InputGroup>
-                            {props.touched.Unit && props.errors.Unit ? (
-                              <FormFeedback style={{ display: "inline" }}>
-                                {props.errors.Unit}
-                              </FormFeedback>
-                            ) : null}
-                          </FormGroup>
+                          <TextField
+                            type="text"
+                            id="Food"
+                            fullWidth
+                            name="Food"
+                            label="Food"
+                            variant="outlined"
+                            size="small"
+                            value={props.values.Food}
+                            onChange={props.handleChange("Food")}
+                            onBlur={props.handleBlur("Food")}
+                            error={
+                              props.touched.Food && Boolean(props.errors.Food)
+                            }
+                            helperText={props.touched.Food && props.errors.Food}
+                            className="mb-4"
+                          />
+                          <TextField
+                            type="number"
+                            id="UnitCalorieAmount"
+                            fullWidth
+                            name="UnitCalorieAmount"
+                            label="Calorie Amount per Unit"
+                            variant="outlined"
+                            size="small"
+                            value={props.values.UnitCalorieAmount}
+                            onChange={props.handleChange("UnitCalorieAmount")}
+                            onBlur={props.handleBlur("UnitCalorieAmount")}
+                            error={
+                              props.touched.UnitCalorieAmount &&
+                              Boolean(props.errors.UnitCalorieAmount)
+                            }
+                            helperText={
+                              props.touched.UnitCalorieAmount &&
+                              props.errors.UnitCalorieAmount
+                            }
+                            className="mb-4"
+                          />
+                          <TextField
+                            type="text"
+                            id="Unit"
+                            fullWidth
+                            name="Unit"
+                            label="Unit  (Serving Size)"
+                            variant="outlined"
+                            size="small"
+                            value={props.values.Unit}
+                            onChange={props.handleChange("Unit")}
+                            onBlur={props.handleBlur("Unit")}
+                            error={
+                              props.touched.Unit && Boolean(props.errors.Unit)
+                            }
+                            helperText={props.touched.Unit && props.errors.Unit}
+                            className="mb-4"
+                          />
 
                           <Row>
                             <Button
@@ -255,17 +241,25 @@ const FoodTable = (props) => {
                 <CardHeader className="border-0 ">
                   <div className="row">
                     <div className="mb-xl-0 col-11 justify-content-center">
-                      <h2 className="mb-0">Food Table</h2>
+                      <h2 className="mb-0 text-darker">Food Table</h2>
                     </div>
                   </div>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">Food Name</th>
-                      <th scope="col">Calorie Amount</th>
-                      <th scope="col">Unit (Serving Size)</th>
-                      <th scope="col">Actions</th>
+                      <th scope="col" className="text-darker">
+                        Food Name
+                      </th>
+                      <th scope="col" className="text-darker">
+                        Calorie Amount
+                      </th>
+                      <th scope="col" className="text-darker">
+                        Unit (Serving Size)
+                      </th>
+                      <th scope="col" className="text-darker">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
                   <tbody>

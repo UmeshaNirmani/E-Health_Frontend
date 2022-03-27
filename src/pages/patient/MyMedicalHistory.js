@@ -24,32 +24,28 @@ const MyMedicalHistory = (props) => {
     <>
       {/* Page Content */}
       <div className="main-content" ref={mainContent}>
-        <Container
-          className="mt--7 mb-3 "
-          fluid
-          style={{ overflowX: "hidden" }}
-        >
+        <Container className="mt--7 mb-3" fluid style={{ overflowX: "hidden" }}>
           <Row className="mt-5">
             <div className="col">
               <Card className="shadow mb-7">
                 <CardHeader className="border-0 ">
                   <div className="row">
                     <div className="mb-xl-0 col-11">
-                      <h4 className="mb-0">Past Medical History</h4>
+                      <h4 className="mb-0 text-darker">Past Medical History</h4>
                     </div>
                   </div>
                 </CardHeader>
                 <Row>
                   {medicalHistoryAllRecords.map((records, i) => (
                     <div
-                      className="ml-5 mr-5 mb-3"
+                      className="ml-5 mr-5 mb-3 text-darker"
                       style={{ textAlign: "justify" }}
                       key={i}
                     >
                       {records.Disease}
                       <Tooltip title="Edit" arrow>
                         <i
-                          className="far fa-edit ml-3"
+                          className="far fa-edit ml-3 text-darker"
                           style={{ cursor: "pointer" }}
                         />
                       </Tooltip>
@@ -60,21 +56,21 @@ const MyMedicalHistory = (props) => {
                 <CardHeader className="border-0 ">
                   <div className="row">
                     <div className="mb-xl-0 col-11">
-                      <h4 className="mb-0">Drug History</h4>
+                      <h4 className="mb-0 text-darker">Drug History</h4>
                     </div>
                   </div>
                 </CardHeader>
                 <Row>
                   {medicalHistoryAllRecords.map((records, i) => (
                     <div
-                      className="ml-5 mr-5 mb-3"
+                      className="ml-5 mr-5 mb-3 text-darker"
                       style={{ textAlign: "justify" }}
                       key={i}
                     >
                       {records.DrugHistory}
                       <Tooltip title="Edit" arrow>
                         <i
-                          className="far fa-edit ml-3"
+                          className="far fa-edit ml-3 text-darker"
                           style={{ cursor: "pointer" }}
                         />
                       </Tooltip>
@@ -85,7 +81,7 @@ const MyMedicalHistory = (props) => {
                 <CardHeader className="border-0 ">
                   <div className="row">
                     <div className="mb-xl-0 col-11">
-                      <h4 className="mb-0">Investigations</h4>
+                      <h4 className="mb-0 text-darker">Investigations</h4>
                     </div>
                   </div>
                 </CardHeader>
@@ -93,14 +89,14 @@ const MyMedicalHistory = (props) => {
                 <Row>
                   {medicalHistoryAllRecords.map((records, i) => (
                     <div
-                      className="ml-5 mr-5 mb-3"
+                      className="ml-5 mr-5 mb-3 text-darker"
                       style={{ textAlign: "justify" }}
                       key={i}
                     >
                       {records.Investigations}
                       <Tooltip title="Edit" arrow>
                         <i
-                          className="far fa-edit ml-3"
+                          className="far fa-edit ml-3 text-darker"
                           style={{ cursor: "pointer" }}
                         />
                       </Tooltip>

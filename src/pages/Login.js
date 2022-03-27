@@ -10,20 +10,14 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
   Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Row,
   Col,
-  FormFeedback,
   Nav,
   NavItem,
   NavLink,
 } from "reactstrap";
-import { TextField, Grid } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Register from "../pages/Register";
 

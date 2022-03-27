@@ -163,7 +163,7 @@ const CalorieCalculator = (props) => {
                 <CardHeader className="border-0 ">
                   <div className="row">
                     <div className="mb-xl-0 col-11">
-                      <h4 className="mb-0">Enter the Records</h4>
+                      <h4 className="mb-0 text-darker">Enter the Records</h4>
                     </div>
                   </div>
                 </CardHeader>
@@ -380,7 +380,7 @@ const CalorieCalculator = (props) => {
                             })}
                         </Container>
                         <Col sm={{ offset: 1 }}>
-                          <Label for="TotalCalorie">
+                          <Label for="TotalCalorie" className="text-darker">
                             Total Calorie: {totalMealCalorie}
                           </Label>
                         </Col>

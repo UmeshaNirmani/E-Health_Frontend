@@ -7,10 +7,10 @@ import SearchBar from "../../components/SearchBarFoodDiary/SearchBarFoodDiary";
 
 const FoodDiary = ({ Record, deleteClick }) => (
   <tr>
-    <td>{Record.Food}</td>
-    <td>{Record.UnitCalorieAmount}</td>
-    <td>{Record.Unit}</td>
-    <td>{Record.Servings}</td>
+    <td className="text-darker">{Record.Food}</td>
+    <td className="text-darker">{Record.UnitCalorieAmount}</td>
+    <td className="text-darker">{Record.Unit}</td>
+    <td className="text-darker">{Record.Servings}</td>
     <td className="text-right">
       <div className="row">
         <Tooltip title="Delete record" arrow>
@@ -21,7 +21,7 @@ const FoodDiary = ({ Record, deleteClick }) => (
               deleteClick(e, Record);
             }}
           >
-            <i className="far fa-times-circle" />
+            <i className="far fa-times-circle text-darker" />
           </div>
         </Tooltip>
       </div>
@@ -58,7 +58,7 @@ const MyFoodDiary = (props) => {
                     <CardHeader className="border-0 ">
                       <div className="row">
                         <div className="mb-xl-0 col-11 justify-content-center">
-                          <h2 className="mb-0">My Food Diary</h2>
+                          <h2 className="mb-0 text-darker">My Food Diary</h2>
                         </div>
                       </div>
                     </CardHeader>
@@ -67,16 +67,16 @@ const MyFoodDiary = (props) => {
                       return (
                         <Card
                           style={{ borderRadius: "0" }}
-                          className="ml-3 mr-3 mb-6"
+                          className="ml-3 mr-3 mb-3"
                           key={i}
                         >
                           <CardHeader className="border-0 ">
                             <div className="row">
                               <div className="mb-xl-0 col-11 justify-content-center">
-                                <h4 className="mb-0">
+                                <h4 className="mb-0 text-darker">
                                   {foodDiaryRecords[i].MealType}
                                 </h4>
-                                <h5>
+                                <h5 className="text-darker">
                                   Total Calorie Consumption:{" "}
                                   {foodDiaryRecords[i].totalMealCalorie}
                                 </h5>
@@ -90,11 +90,21 @@ const MyFoodDiary = (props) => {
                           >
                             <thead className="thead-light">
                               <tr>
-                                <th scope="col">Food Name</th>
-                                <th scope="col">Unit Calorie Amount</th>
-                                <th scope="col">Unit (Serving Size)</th>
-                                <th scope="col">Servings</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col" className="text-darker">
+                                  Food Name
+                                </th>
+                                <th scope="col" className="text-darker">
+                                  Unit Calorie Amount
+                                </th>
+                                <th scope="col" className="text-darker">
+                                  Unit (Serving Size)
+                                </th>
+                                <th scope="col" className="text-darker">
+                                  Servings
+                                </th>
+                                <th scope="col" className="text-darker">
+                                  Actions
+                                </th>
                               </tr>
                             </thead>
                             <tbody>
