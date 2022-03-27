@@ -1,5 +1,6 @@
 // reactstrap components
 import {
+  Container,
   Button,
   Card,
   CardHeader,
@@ -14,6 +15,7 @@ import {
   Col,
   FormFeedback,
 } from "reactstrap";
+import { TextField, Grid } from "@material-ui/core";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
@@ -31,7 +33,6 @@ const Register = (props) => {
       LastName: "",
       Email: "",
       Password: "",
-      // ConfirmPassword: "",
     },
     validationSchema: Yup.object({
       Title: Yup.string().required("* Required"),
@@ -42,9 +43,6 @@ const Register = (props) => {
       Password: Yup.string()
         .min(4, "Password is too short. Must contain minimum 4 characters")
         .required("* Required"),
-      // ConfirmPassword: Yup.string()
-      //   .matches("Password should match")
-      //   .required("* Required"),
     }),
 
     onSubmit: (values, onSubmitProps) => {
@@ -57,241 +55,248 @@ const Register = (props) => {
 
   return (
     <>
-      <Row
-        className="justify-content-center bg-secondary"
-        style={{ padding: "3em 0 3em 0", maxWidth: "100%" }}
+      <div
+        className="main-content"
+        // ref={mainContent}
+        style={{ backgroundColor: "#EBB105" }}
       >
-        <Col lg="6" md="8">
-          <Card className="bg-white shadow border-0">
-            <Col className="pt-3">
-              <img
-                alt="E-Health"
-                src={require("assets/img/theme/profile-cover.png").default}
-                style={{
-                  display: "block",
-                  margin: "auto",
-                  height: "5em",
-                  width: "5em",
-                }}
+        <div className="header bg-white py-7 py-lg-8">
+          <div className="separator separator-bottom separator-skew zindex-100">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon
+                points="2560 0 2560 100 0 100"
+                style={{ fill: "#EBB105" }}
               />
-            </Col>
-            <CardHeader className="bg-transparent pb-0">
-              <div className="text-center"></div>
-            </CardHeader>
-            <CardBody className="px-lg-5 py-lg-3">
-              <div className="text-center text-muted mb-4">
-                <h1> Account Registration </h1>
-              </div>
+            </svg>
+          </div>
+        </div>
+        <Row
+          className="justify-content-center"
+          style={{
+            padding: "3em 0 3em 0",
+            maxWidth: "100%",
+            backgroundColor: "#EBB105",
+          }}
+        >
+          <Container className="mt--200">
+            <Row className="justify-content-center">
+              <Col lg="6" md="8">
+                <Card className="bg-white shadow border-0">
+                  <Col className="pt-3">
+                    <img
+                      alt="E-Health"
+                      src={
+                        require("assets/img/theme/profile-cover.png").default
+                      }
+                      style={{
+                        display: "block",
+                        margin: "auto",
+                        height: "5em",
+                        width: "5em",
+                      }}
+                    />
+                  </Col>
 
-              <Form role="form" onSubmit={formik.handleSubmit}>
-                <h6 className="heading-small text-muted mb-4">
-                  User information
-                </h6>
-                <Row>
-                  <Col lg="6">
-                    <FormGroup>
-                      <InputGroup className="input-group-alternative mb-3">
-                        <Input
-                          invalid
-                          placeholder="Title"
-                          type="select"
-                          id="Title"
-                          name="Title"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.Title}
+                  <CardBody className="px-lg-5 py-lg-3">
+                    <div className="text-center text-muted mb-4">
+                      <h1 className="text-darker"> Account Registration </h1>
+                    </div>
+
+                    <Form role="form" onSubmit={formik.handleSubmit}>
+                      <h6 className="heading-small text-darker mb-4 ">
+                        User information
+                      </h6>
+                      <Row>
+                        <Col lg="6">
+                          <TextField
+                            id="Title"
+                            fullWidth
+                            select
+                            name="Title"
+                            label="Title"
+                            variant="outlined"
+                            size="small"
+                            value={formik.values.Title}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                              formik.touched.Title &&
+                              Boolean(formik.errors.Title)
+                            }
+                            helperText={
+                              formik.touched.Title && formik.errors.Title
+                            }
+                          >
+                            <option value="Rev/Hon." className="ml-3">
+                              Rev/Hon.
+                            </option>
+                            <option value="Dr." className="ml-3">
+                              Dr.
+                            </option>
+                            <option value="Mr." className="ml-3">
+                              Mr.
+                            </option>
+                            <option value="Mrs." className="ml-3">
+                              Mrs.
+                            </option>
+                            <option value="Ms." className="ml-3">
+                              Ms.
+                            </option>
+                          </TextField>
+                        </Col>
+                        <Col lg="6">
+                          <TextField
+                            id="Role"
+                            fullWidth
+                            select
+                            name="Role"
+                            label="Role"
+                            variant="outlined"
+                            size="small"
+                            value={formik.values.Role}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                              formik.touched.Role && Boolean(formik.errors.Role)
+                            }
+                            helperText={
+                              formik.touched.Role && formik.errors.Role
+                            }
+                          >
+                            <option value="Doctor" className="ml-3">
+                              Doctor
+                            </option>
+                            <option value="Patient" className="ml-3">
+                              Patient
+                            </option>
+                            <option
+                              value="System Administrator"
+                              className="ml-3"
+                            >
+                              System Administrator
+                            </option>
+                          </TextField>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg="6">
+                          <TextField
+                            type="text"
+                            id="FirstName"
+                            fullWidth
+                            name="FirstName"
+                            label="First Name"
+                            variant="outlined"
+                            size="small"
+                            value={formik.values.FirstName}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                              formik.touched.FirstName &&
+                              Boolean(formik.errors.FirstName)
+                            }
+                            helperText={
+                              formik.touched.FirstName &&
+                              formik.errors.FirstName
+                            }
+                            className="mt-4"
+                          />
+                        </Col>
+
+                        <Col lg="6">
+                          <TextField
+                            type="text"
+                            id="LastName"
+                            fullWidth
+                            name="LastName"
+                            label="Last Name"
+                            variant="outlined"
+                            size="small"
+                            value={formik.values.LastName}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                              formik.touched.LastName &&
+                              Boolean(formik.errors.LastName)
+                            }
+                            helperText={
+                              formik.touched.LastName && formik.errors.LastName
+                            }
+                            className="mt-4"
+                          />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg="6">
+                          <TextField
+                            type="email"
+                            id="Email"
+                            fullWidth
+                            name="Email"
+                            label="Email"
+                            variant="outlined"
+                            size="small"
+                            value={formik.values.Email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                              formik.touched.Email &&
+                              Boolean(formik.errors.Email)
+                            }
+                            helperText={
+                              formik.touched.Email && formik.errors.Email
+                            }
+                            className="mt-4"
+                          />
+                        </Col>
+
+                        <Col lg="6">
+                          <TextField
+                            type="password"
+                            id="Password"
+                            fullWidth
+                            name="Password"
+                            label="Password"
+                            variant="outlined"
+                            size="small"
+                            value={formik.values.Password}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                              formik.touched.Password &&
+                              Boolean(formik.errors.Password)
+                            }
+                            helperText={
+                              formik.touched.Password && formik.errors.Password
+                            }
+                            className="mt-4"
+                          />
+                        </Col>
+                      </Row>
+                      <div className="text-center">
+                        <Button
+                          className="mt-4 my-5"
+                          color="primary"
+                          type="submit"
                         >
-                          <option value="Label">Select Title</option>
-                          <option value="Rev/Hon.">Rev/Hon.</option>
-                          <option value="Dr.">Dr.</option>
-                          <option value="Mr.">Mr.</option>
-                          <option value="Mrs.">Mrs.</option>
-                          <option value="Ms.">Ms.</option>
-                        </Input>
-                      </InputGroup>
-                      {formik.touched.Title && formik.errors.Title ? (
-                        <FormFeedback style={{ display: "inline" }}>
-                          {formik.errors.Title}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                  <Col lg="6">
-                    <FormGroup>
-                      <InputGroup className="input-group-alternative mb-3">
-                        <Input
-                          invalid
-                          placeholder="Role"
-                          type="select"
-                          id="Role"
-                          name="Role"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.Role}
-                        >
-                          <option value="Label">Select Role</option>
-                          <option value="Doctor">Doctor</option>
-                          <option value="Patient">Patient</option>
-                          <option value="System Administrator">
-                            System Administrator
-                          </option>
-                        </Input>
-                      </InputGroup>
-                      {formik.touched.Role && formik.errors.Role ? (
-                        <FormFeedback style={{ display: "inline" }}>
-                          {formik.errors.Role}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col lg="6">
-                    <FormGroup>
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-hat-3" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          invalid
-                          placeholder="First Name"
-                          type="text"
-                          id="FirstName"
-                          name="FirstName"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.FirstName}
-                        />
-                      </InputGroup>
-                      {formik.touched.FirstName && formik.errors.FirstName ? (
-                        <FormFeedback style={{ display: "inline" }}>
-                          {formik.errors.FirstName}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                  <Col lg="6">
-                    <FormGroup>
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-hat-3" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          invalid
-                          placeholder="Last Name"
-                          type="text"
-                          id="LastName"
-                          name="LastName"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.LastName}
-                        />
-                      </InputGroup>
-                      {formik.touched.LastName && formik.errors.LastName ? (
-                        <FormFeedback style={{ display: "inline" }}>
-                          {formik.errors.LastName}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col lg="6">
-                    <FormGroup>
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-email-83" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          invalid
-                          placeholder="Email"
-                          type="email"
-                          id="Email"
-                          name="Email"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.Email}
-                        />
-                      </InputGroup>
-                      {formik.touched.Email && formik.errors.Email ? (
-                        <FormFeedback style={{ display: "inline" }}>
-                          {formik.errors.Email}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                  {/* </Row>
-                <Row> */}
-                  <Col lg="6">
-                    <FormGroup>
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-lock-circle-open" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          invalid
-                          placeholder="Password"
-                          type="password"
-                          id="Password"
-                          name="Password"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.Password}
-                        />
-                      </InputGroup>
-                      {formik.touched.Password && formik.errors.Password ? (
-                        <FormFeedback style={{ display: "inline" }}>
-                          {formik.errors.Password}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                  {/* <Col lg="6"> */}
-                  {/* <FormGroup>
-                      <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="ni ni-lock-circle-open" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          invalid
-                          placeholder="Confirm Password"
-                          type="password"
-                          id="ConfirmPassword"
-                          name="ConfirmPassword"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.ConfirmPassword}
-                        />
-                      </InputGroup>
-                      {formik.touched.ConfirmPassword &&
-                      formik.errors.ConfirmPassword ? (
-                        <FormFeedback style={{ display: "inline" }}>
-                          {formik.errors.ConfirmPassword}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup> */}
-                  {/* </Col> */}
-                </Row>
-                <div className="text-center">
-                  <Button className="mt-4 my-5" color="primary" type="submit">
-                    Create account
-                  </Button>
-                </div>
-              </Form>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
+                          Create account
+                        </Button>
+                      </div>
+                    </Form>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </Row>
+      </div>
     </>
   );
 };

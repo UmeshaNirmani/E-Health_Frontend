@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 // reactstrap components
 import {
+  Container,
   Button,
   Card,
   CardHeader,
@@ -22,6 +23,7 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import { TextField, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Register from "../pages/Register";
 
@@ -62,95 +64,123 @@ const Login = (props) => {
 
   return (
     <>
-      <div className="main-content" ref={mainContent}>
+      <div
+        className="main-content"
+        ref={mainContent}
+        style={{ backgroundColor: "#EBB105" }}
+      >
+        <div className="header bg-white py-6 py-lg-7">
+          <div className="separator separator-bottom separator-skew zindex-100">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon
+                points="2560 0 2560 100 0 100"
+                style={{ fill: "#EBB105" }}
+              />
+            </svg>
+          </div>
+        </div>
         <Row
-          className="justify-content-center bg-secondary"
-          style={{ padding: "3em 0 3em 0", maxWidth: "100%" }}
+          className="justify-content-center"
+          style={{
+            padding: "3em 0 3em 0",
+            maxWidth: "100%",
+            backgroundColor: "#EBB105",
+          }}
         >
-          <Col lg="4" md="5">
-            <Card className="bg-white shadow border-0 card">
-              <CardHeader className="bg-transparent pb-3">
-                <div className="text-muted text-center mt-2 mb-2 ">
-                  <h1 className="text-info">User Login</h1>
-                </div>
-              </CardHeader>
-              <CardBody className="px-lg-5 py-lg-3">
-                <Form role="form" onSubmit={formik.handleSubmit}>
-                  <FormGroup className="mb-3">
-                    <InputGroup className="input-group-alternative">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText style={{ backgroundColor: "#f7fafc" }}>
-                          <i className="ni ni-email-83" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        invalid
-                        placeholder="Email"
-                        type="Email"
+          <Container className="mt--200">
+            <Row className="justify-content-center">
+              <Col lg="4" md="5">
+                <Card className="bg-white shadow border-0 card">
+                  <CardHeader className="bg-transparent pb-3">
+                    <div className="text-muted text-center mt-2 mb-2 ">
+                      <h1 className="text-darker">User Login</h1>
+                    </div>
+                  </CardHeader>
+                  <CardBody className="px-lg-5 py-lg-3">
+                    <Form role="form" onSubmit={formik.handleSubmit}>
+                      <TextField
+                        type="text"
+                        fullWidth
                         id="Email"
                         name="Email"
+                        label="Email"
+                        variant="outlined"
+                        size="small"
+                        value={formik.values.Email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.Email}
-                        style={{ backgroundColor: "#f7fafc" }}
+                        error={
+                          formik.touched.Email && Boolean(formik.errors.Email)
+                        }
+                        helperText={formik.touched.Email && formik.errors.Email}
+                        className="mt-4 mb-4"
                       />
-                    </InputGroup>
-                    {formik.touched.Email && formik.errors.Email ? (
-                      <FormFeedback style={{ display: "inline" }}>
-                        {formik.errors.Email}
-                      </FormFeedback>
-                    ) : null}
-                  </FormGroup>
-                  <FormGroup>
-                    <InputGroup className="input-group-alternative">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText style={{ backgroundColor: "#f7fafc" }}>
-                          <i className="ni ni-lock-circle-open" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        invalid
-                        placeholder="Password"
-                        type="Password"
+
+                      <TextField
+                        type="text"
+                        fullWidth
                         id="Password"
                         name="Password"
+                        label="Password"
+                        variant="outlined"
+                        size="small"
+                        value={formik.values.Password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.Password}
-                        style={{ backgroundColor: "#f7fafc" }}
+                        error={
+                          formik.touched.Password &&
+                          Boolean(formik.errors.Password)
+                        }
+                        helperText={
+                          formik.touched.Password && formik.errors.Password
+                        }
+                        className="mb-3"
                       />
-                    </InputGroup>
-                    {formik.touched.Password && formik.errors.Password ? (
-                      <FormFeedback style={{ display: "inline" }}>
-                        {formik.errors.Password}
-                      </FormFeedback>
-                    ) : null}
-                  </FormGroup>
-                  <div className="text-center">
-                    <Button color="primary" type="submit">
-                      Sign in
-                    </Button>
-                  </div>
-                </Form>
-                <Row className="mt-3">
-                  <Col xs="6">
-                    <Nav>
-                      <NavItem>
-                        <Route path="/public/register" component={Register} />
-                        <NavLink
-                          className="nav-link-icon"
-                          to="/public/register"
-                          tag={Link}
+
+                      <div className="text-center mt-3">
+                        <Button
+                          type="submit"
+                          style={{
+                            backgroundColor: "#EBB105",
+                            border: "none",
+                            color: "white",
+                          }}
                         >
-                          <h3 className="text-info">Register</h3>
-                        </NavLink>
-                      </NavItem>
-                    </Nav>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
-          </Col>
+                          Sign in
+                        </Button>
+                      </div>
+                    </Form>
+                    <Row className="mt-3">
+                      <Col xs="6">
+                        <Nav>
+                          <NavItem>
+                            <Route
+                              path="/public/register"
+                              component={Register}
+                            />
+                            <NavLink
+                              className="nav-link-icon"
+                              to="/public/register"
+                              tag={Link}
+                            >
+                              <h3 style={{ color: "#EBB105" }}>Register</h3>
+                            </NavLink>
+                          </NavItem>
+                        </Nav>
+                      </Col>
+                    </Row>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
         </Row>
       </div>
     </>

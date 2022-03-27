@@ -22,7 +22,6 @@ const LandingNavbar = () => {
             <div className="row">
               <NavItem style={{ marginRight: 10 }}>
                 <NavLink className="nav-link-icon" to="/" tag={Link} style={{}}>
-                  <i className="ni ni-book-bookmark" />
                   <span className="nav-link-inner--text">
                     <b>Home</b>
                   </span>
@@ -39,7 +38,6 @@ const LandingNavbar = () => {
                     localStorage.clear();
                   }}
                 >
-                  <i className="ni ni-circle-08" />
                   <span className="nav-link-inner--text">
                     <b>Login</b>
                   </span>

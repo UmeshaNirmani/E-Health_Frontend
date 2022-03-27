@@ -5,28 +5,29 @@ import { Card, CardHeader, Container, Row, Table } from "reactstrap";
 import { Tooltip } from "@material-ui/core";
 import SearchBar from "../../components/SearchBarFoodDiary/SearchBarFoodDiary";
 
-// const FoodDiary = ({ Record, deleteClick }) => (
-//   <tr>
-//     <td>{Record.Food}</td>
-//     <td>{Record.UnitCalorieAmount}</td>
-//     <td>{Record.Servings}</td>
-//     <td className="text-right">
-//       <div className="row">
-//         <Tooltip title="Delete record" arrow>
-//           <div
-//             className="navbar-toggler"
-//             style={{ cursor: "pointer" }}
-//             onClick={(e) => {
-//               deleteClick(e, Record);
-//             }}
-//           >
-//             <i className="far fa-times-circle" />
-//           </div>
-//         </Tooltip>
-//       </div>
-//     </td>
-//   </tr>
-// );
+const FoodDiary = ({ Record, deleteClick }) => (
+  <tr>
+    <td>{Record.Food}</td>
+    <td>{Record.UnitCalorieAmount}</td>
+    <td>{Record.Unit}</td>
+    <td>{Record.Servings}</td>
+    <td className="text-right">
+      <div className="row">
+        <Tooltip title="Delete record" arrow>
+          <div
+            className="navbar-toggler"
+            style={{ cursor: "pointer" }}
+            onClick={(e) => {
+              deleteClick(e, Record);
+            }}
+          >
+            <i className="far fa-times-circle" />
+          </div>
+        </Tooltip>
+      </div>
+    </td>
+  </tr>
+);
 
 const MyFoodDiary = (props) => {
   const mainContent = React.useRef(null);
@@ -90,34 +91,25 @@ const MyFoodDiary = (props) => {
                             <thead className="thead-light">
                               <tr>
                                 <th scope="col">Food Name</th>
+                                <th scope="col">Unit Calorie Amount</th>
                                 <th scope="col">Unit (Serving Size)</th>
                                 <th scope="col">Servings</th>
                                 <th scope="col">Actions</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                {/* <td>{foodDiaryRecords[i][2].Food}</td>
-                                <td>
-                                  {foodDiaryRecords[i][2].UnitCalorieAmount}
-                                </td>
-                                <td>{foodDiaryRecords[i][2].Servings}</td>
-                                <td className="text-right">
-                                  <div className="row">
-                                    <Tooltip title="Delete record" arrow>
-                                      <div
-                                        className="navbar-toggler"
-                                        style={{ cursor: "pointer" }}
-                                        onClick={(e) => {
-                                          deleteClick(e, Record);
-                                        }}
-                                      >
-                                        <i className="far fa-times-circle" />
-                                      </div>
-                                    </Tooltip>
-                                  </div>
-                                </td> */}
-                              </tr>
+                              <tr></tr>
+                              {foodDiaryRecords[i].FoodDetails.map(
+                                (record, j) => {
+                                  return (
+                                    <FoodDiary
+                                      key={j}
+                                      Record={record}
+                                      deleteClick={handleDeleteClick}
+                                    />
+                                  );
+                                }
+                              )}
                             </tbody>
                           </Table>
                         </Card>
