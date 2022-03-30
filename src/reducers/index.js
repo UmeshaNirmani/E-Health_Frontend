@@ -4,6 +4,7 @@ import foodtable from "./foodtable";
 import caloriecalculator from "./caloriecalculator";
 import fooddiary from "./fooddiary";
 import medicalhistory from "./medicalhistory";
+import graphs from "./graphs";
 
 export const reducers = combineReducers({
   auth,
@@ -11,4 +12,5 @@ export const reducers = combineReducers({
   caloriecalculator,
   fooddiary,
   medicalhistory,
+  graphs,
 });

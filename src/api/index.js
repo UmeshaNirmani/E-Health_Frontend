@@ -34,3 +34,7 @@ export const fetchFoodDiary = (searchData) =>
 export const medicalHistoryCreate = (formData) =>
   API.post("/medicalhistory/create", formData);
 export const medicalHistoryFetch = () => API.post("/medicalhistory/");
+
+// for graphs
+export const fetchGraphData = (formData) =>
+  API.post("/fooddiary/fetchByTimeRange", formData);

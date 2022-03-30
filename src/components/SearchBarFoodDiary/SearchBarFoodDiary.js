@@ -13,9 +13,8 @@ const SearchBar = (props) => {
 
   const [dateSelected, setDateSelected] = useState("");
 
-  const handleSubmit = (value) => {
-    value = dateSelected;
-    dispatch(fetchFoodDiary({ Date: value }));
+  const handleSubmit = () => {
+    dispatch(fetchFoodDiary({ Date: dateSelected }));
   };
 
   return (

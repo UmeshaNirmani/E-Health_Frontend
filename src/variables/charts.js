@@ -1,22 +1,30 @@
 const Chart = require("chart.js");
 // month
-const month = ["", "Cambodia", "Myanmar", "Nepal", "Pakistan", "Philippines", "Sri Lanka"];
+const month = [
+  "",
+  "Cambodia",
+  "Myanmar",
+  "Nepal",
+  "Pakistan",
+  "Philippines",
+  "Sri Lanka",
+];
 // get statsumcon
 let statsumconmon = [];
 let statsumconwek = [];
 // get statsumrep
 let statsumrep = [];
 
-const setInitData=(arr1,arr2,arr3)=>{
-  statsumconmon = arr1.slice()
-  statsumconwek = arr2.slice()
-  statsumrep = arr3.slice()
-}
+const setInitData = (arr1, arr2, arr3) => {
+  statsumconmon = arr1.slice();
+  statsumconwek = arr2.slice();
+  statsumrep = arr3.slice();
+};
 
-const funcSetdata = (arr,type,graph) =>{
-  console.log('arr', arr);      
-  console.log('type', type);      
-  console.log('graph', graph);      
+const funcSetdata = (arr, type, graph) => {
+  console.log("arr", arr);
+  console.log("type", type);
+  console.log("graph", graph);
   // let data = graph==='conmon' ? [null, 20, 6, 25, 13, 30, 25] : [null, 4, 0, 12, 3, 8, 5];
   // let label = graph==='conmon' ? month.filter(item => item) : [];
   let label = month;
@@ -30,19 +38,16 @@ const funcSetdata = (arr,type,graph) =>{
   // label = graph !=='conmon'  ? label.filter(item => item) : label;
 
   let data = [];
-  if(graph==='rep'){
+  if (graph === "rep") {
     data = [null, 1, 0, 0, 6, 0, 2];
-  }
-  else if (graph==='conweek'){
+  } else if (graph === "conweek") {
     data = [null, 4, 0, 12, 3, 8, 5]; // this year
-  }
-  else if (graph==='conmon'){
+  } else if (graph === "conmon") {
     data = [null, 20, 6, 25, 13, 30, 25]; // total
   }
 
-
-  return {'label':label, 'data':data};
-}
+  return { label: label, data: data };
+};
 //
 // Chart extension for making the bars rounded
 // Code from: https://codepen.io/jedtrow/full/ygRYgo
@@ -193,15 +198,15 @@ var colors = {
     900: "#212529",
   },
   theme: {
-    default: "#fed665",
-    primary: "#fed665",
+    default: "#000000",
+    primary: "#000000",
     secondary: "#f4f5f7",
     info: "#11cdef",
     success: "#2dce89",
     danger: "#f5365c",
     warning: "#fb6340",
   },
-  black: "#fed665",
+  black: "#000000",
   white: "#FFFFFF",
   transparent: "transparent",
 };
@@ -334,7 +339,7 @@ function parseOptions(parent, options) {
 }
 // Example 1 of Chart inside src/views/Index.js (Sales value - Card)
 
-const getChart1 =()=>{
+const getChart1 = () => {
   let chart1 = {
     options: {
       scales: {
@@ -360,11 +365,11 @@ const getChart1 =()=>{
             var label = data.datasets[item.datasetIndex].label || "";
             var yLabel = item.yLabel;
             var content = "";
-  
+
             if (data.datasets.length > 1) {
               content += label;
             }
-  
+
             content += yLabel;
             return content;
           },
@@ -374,11 +379,14 @@ const getChart1 =()=>{
     // month
     data1: (canvas) => {
       return {
-        labels: statsumconmon && funcSetdata(statsumconmon,'month','conmon').label,
+        labels:
+          statsumconmon && funcSetdata(statsumconmon, "month", "conmon").label,
         datasets: [
           {
             label: "Performance",
-            data: statsumconmon && funcSetdata(statsumconmon,'month','conmon').data,
+            data:
+              statsumconmon &&
+              funcSetdata(statsumconmon, "month", "conmon").data,
           },
         ],
       };
@@ -386,22 +394,24 @@ const getChart1 =()=>{
     // week
     data2: (canvas) => {
       return {
-        labels: statsumconwek && funcSetdata(statsumconwek,'week','conweek').label,
+        labels:
+          statsumconwek && funcSetdata(statsumconwek, "week", "conweek").label,
         datasets: [
           {
             label: "Performance",
-            data: statsumconwek && funcSetdata(statsumconwek,'week','conweek').data,
+            data:
+              statsumconwek &&
+              funcSetdata(statsumconwek, "week", "conweek").data,
           },
         ],
       };
     },
   };
   return chart1;
-}
-
+};
 
 // Example 2 of Chart inside src/views/Index.js (Total orders - Card)
-const getChart2 =()=>{
+const getChart2 = () => {
   let chart2 = {
     options: {
       scales: {
@@ -434,23 +444,23 @@ const getChart2 =()=>{
       },
     },
     data: {
-      labels: statsumrep && funcSetdata(statsumrep,'month','rep').label,
+      labels: statsumrep && funcSetdata(statsumrep, "month", "rep").label,
       datasets: [
         {
           label: "Sales",
-          data: statsumrep && funcSetdata(statsumrep,'month','rep').data,
+          data: statsumrep && funcSetdata(statsumrep, "month", "rep").data,
           maxBarThickness: 10,
         },
       ],
     },
   };
   return chart2;
-}
+};
 
 module.exports = {
   setInitData,
-  chartOptions, // used inside src/views/Index.js
-  parseOptions, // used inside src/views/Index.js
-  getChart1, // used inside src/views/Index.js
-  getChart2, // used inside src/views/Index.js
+  chartOptions,
+  parseOptions,
+  getChart1,
+  getChart2,
 };

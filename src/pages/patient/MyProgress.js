@@ -1,27 +1,17 @@
 import React, { useState } from "react";
-
 import Chart from "chart.js"; // javascipt plugin for creating charts ***
-import { Line, Bar } from "react-chartjs-2"; // react plugin used to create charts ***
+import { Line } from "react-chartjs-2"; // react plugin used to create charts
+import { useDispatch, useSelector } from "react-redux";
+import { Card, CardHeader, CardBody, Container, Row, Button } from "reactstrap"; // reactstrap components
+import { TextField, Grid } from "@material-ui/core";
+import { fetchGraphData } from "../../actions/graphs";
 import {
   setInitData,
   chartOptions,
   parseOptions,
   getChart1,
   getChart2,
-} from "variables/charts"; // core components ***
-
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Container,
-  FormGroup,
-  Form,
-  Button,
-  Row,
-  Col,
-} from "reactstrap"; // reactstrap components
+} from "variables/charts.js"; // core components ***
 
 const graphConfiguration = {
   scales: {
@@ -30,15 +20,15 @@ const graphConfiguration = {
         display: true,
         scaleLabel: {
           display: true,
-          labelString: "Dates",
+          labelString: "Date",
         },
       },
     ],
     yAxes: [
       {
         gridLines: {
-          color: "#142237",
-          zeroLineColor: "#142237",
+          color: "#ccc",
+          zeroLineColor: "#ccc",
         },
         ticks: {
           callback: function (value) {
@@ -53,7 +43,7 @@ const graphConfiguration = {
         },
         scaleLabel: {
           display: true,
-          labelString: "Case count",
+          labelString: "Total Calorie Consumption",
         },
       },
     ],
@@ -61,62 +51,122 @@ const graphConfiguration = {
 };
 
 const MyProgress = (props) => {
-  const [graphLabels, setGraphLabels] = useState([
-    "jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-  ]);
-  const [graphData, setGraphData] = useState([1, 2, 3, 8, 5, 6]);
-
   const mainContent = React.useRef(null);
+  const dispatch = useDispatch();
+
+  const allGraphData = useSelector((state) => state.graphs.allGraphData);
+  console.log("allGraphData", allGraphData[0]);
+  console.log("allGraphData", allGraphData[1]);
+
+  const [graphLabels, setGraphLabels] = useState(allGraphData[0]);
+  const [graphData, setGraphData] = useState(allGraphData[1]);
+
+  const [selectedDates, setSelectedDates] = useState({
+    StartDate: "",
+    EndDate: "",
+  });
+  const handleChangeStartDate = (e) => {
+    selectedDates.StartDate = e.target.value;
+  };
+  const handleChangeEndDate = (e) => {
+    selectedDates.EndDate = e.target.value;
+  };
+  const handleSubmit = () => {
+    setSelectedDates(selectedDates);
+    console.log("submit dates", selectedDates);
+    dispatch(fetchGraphData(selectedDates));
+  };
 
   return (
     <>
       <div className="main-content" ref={mainContent}>
-        <Card className="bg-gradient-default shadow">
-          <CardHeader className="bg-transparent">
-            <Row className="align-items-center">
-              <div className="col">
-                <h6 className="text-uppercase text-light ls-1 mb-1">
-                  Graph Details
-                </h6>
-                <h2 className="text-white mb-0">{"Case Distribution"}</h2>
-              </div>
-            </Row>
-          </CardHeader>
-          <CardBody>
-            {/* Chart */}
-
-            <div className="chart">
-              <Line
-                data={{
-                  labels: graphLabels,
-                  datasets: [
-                    {
-                      data: graphData,
-                      label: "Cases",
-                      fill: false,
-                      backgroundColor: "#142237",
-                      borderColor: "#142237",
-                      pointBorderWidth: 5,
-
-                      pointBorderColor: "white",
-                      pointStyle: "circle",
-                      pointRadius: 1,
-                      pointBackgroundColor: "rgb(255, 255, 255)",
-                      borderWidth: 0,
-                    },
-                  ],
-                }}
-                options={graphConfiguration}
-                getDatasetAtEvent={(e) => console.log(e)}
-              />
+        <Container
+          className="mt--7 mb-3 "
+          fluid
+          style={{ overflowX: "hidden" }}
+        >
+          <Row className="mt-5">
+            <div className="col">
+              <Card className="shadow mb-7" fluid>
+                <CardHeader className="border-0 ">
+                  <div className="row">
+                    <div className="mb-xl-0 col-11">
+                      <h4 className="mb-0 text-darker">
+                        Monthly Calorie Consumption
+                      </h4>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardBody>
+                  {/* search component */}
+                  <Container className="mb-5">
+                    <Grid container spacing={2} align="center">
+                      <Grid item xs={4}>
+                        <TextField
+                          type="date"
+                          id="StartDate"
+                          name="StartDate"
+                          label="Start Date"
+                          variant="outlined"
+                          format={"yyyy-MM-dd"}
+                          onChange={(e) => handleChangeStartDate(e)}
+                          size="small"
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <TextField
+                          type="date"
+                          id="EndDate"
+                          name="EndDate"
+                          label="End Date"
+                          variant="outlined"
+                          format={"yyyy-MM-dd"}
+                          onChange={(e) => handleChangeEndDate(e)}
+                          size="small"
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid item xs={3}>
+                        <Button
+                          color="info"
+                          type="submit"
+                          style={{ width: "70%", backgroundColor: "#EBB105" }}
+                          onClick={() => handleSubmit()}
+                        >
+                          <div className="font-weight-bold">Search</div>
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Container>
+                  {/* Chart */}
+                  <Line
+                    data={{
+                      labels: graphLabels,
+                      datasets: [
+                        {
+                          data: graphData,
+                          label: "Date",
+                          fill: false,
+                          backgroundColor: "#004d00",
+                          borderColor: "#004d00",
+                          pointBorderWidth: 5,
+                          pointBorderColor: "#EBB105",
+                          pointStyle: "circle",
+                          pointRadius: 1,
+                          pointBackgroundColor: "#EBB105",
+                          borderWidth: 0,
+                        },
+                      ],
+                    }}
+                    options={graphConfiguration}
+                    getDatasetAtEvent={(e) => console.log(e)}
+                  />
+                </CardBody>
+              </Card>
             </div>
-          </CardBody>
-        </Card>
+          </Row>
+        </Container>
       </div>
     </>
   );
