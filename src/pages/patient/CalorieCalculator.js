@@ -255,6 +255,9 @@ const CalorieCalculator = (props) => {
                                   width: "50%",
                                   textAlign: "left",
                                 }}
+                                InputProps={{
+                                  classes: { input: { height: 50 } },
+                                }}
                               >
                                 {meals.map((item) => (
                                   <MenuItem key={item.value} value={item.value}>
@@ -281,7 +284,7 @@ const CalorieCalculator = (props) => {
                                       onChange={(e) =>
                                         handleListChangeFoodName(e, i)
                                       }
-                                      // onBlur={(e) => handleListBlur(e, i)}
+                                      onBlur={(e) => handleListBlur(e, i)}
                                       error={
                                         props.touched.Food &&
                                         Boolean(props.errors.Food)

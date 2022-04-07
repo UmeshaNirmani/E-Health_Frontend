@@ -94,7 +94,7 @@ const Login = (props) => {
                 <Card className="bg-white shadow border-0 card">
                   <CardHeader className="bg-transparent pb-3">
                     <div className="text-muted text-center mt-2 mb-2 ">
-                      <h1 className="text-darker">User Login</h1>
+                      <h1 className="text-darker">USER LOGIN</h1>
                     </div>
                   </CardHeader>
                   <CardBody className="px-lg-5 py-lg-3">

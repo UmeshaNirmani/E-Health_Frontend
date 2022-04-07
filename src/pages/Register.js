@@ -91,7 +91,10 @@ const Register = (props) => {
 
                   <CardBody className="px-lg-5 py-lg-3">
                     <div className="text-center text-muted mb-4">
-                      <h1 className="text-darker"> Account Registration </h1>
+                      <h1 className="text-darker heading-title">
+                        {" "}
+                        Account Registration{" "}
+                      </h1>
                     </div>
 
                     <Form role="form" onSubmit={formik.handleSubmit}>

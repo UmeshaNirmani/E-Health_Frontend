@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import Chart from "chart.js"; // javascipt plugin for creating charts ***
+import React, { useState, useEffect } from "react";
+//import Chart from "chart.js"; // javascipt plugin for creating charts ***
 import { Line } from "react-chartjs-2"; // react plugin used to create charts
 import { useDispatch, useSelector } from "react-redux";
 import { Card, CardHeader, CardBody, Container, Row, Button } from "reactstrap"; // reactstrap components
 import { TextField, Grid } from "@material-ui/core";
 import { fetchGraphData } from "../../actions/graphs";
-import {
-  setInitData,
-  chartOptions,
-  parseOptions,
-  getChart1,
-  getChart2,
-} from "variables/charts.js"; // core components ***
+// import {
+//   setInitData,
+//   chartOptions,
+//   parseOptions,
+//   getChart1,
+//   getChart2,
+// } from "variables/charts.js"; // core components ***
 
 const graphConfiguration = {
   scales: {
@@ -58,8 +58,13 @@ const MyProgress = (props) => {
   console.log("allGraphData", allGraphData[0]);
   console.log("allGraphData", allGraphData[1]);
 
-  const [graphLabels, setGraphLabels] = useState(allGraphData[0]);
-  const [graphData, setGraphData] = useState(allGraphData[1]);
+  const [graphLabels, setGraphLabels] = useState([]);
+  const [graphData, setGraphData] = useState([]);
+
+  useEffect(() => {
+    setGraphLabels(allGraphData[0]);
+    setGraphData(allGraphData[1]);
+  }, [allGraphData]);
 
   const [selectedDates, setSelectedDates] = useState({
     StartDate: "",
@@ -140,28 +145,37 @@ const MyProgress = (props) => {
                     </Grid>
                   </Container>
                   {/* Chart */}
-                  <Line
-                    data={{
-                      labels: graphLabels,
-                      datasets: [
-                        {
-                          data: graphData,
-                          label: "Date",
-                          fill: false,
-                          backgroundColor: "#004d00",
-                          borderColor: "#004d00",
-                          pointBorderWidth: 5,
-                          pointBorderColor: "#EBB105",
-                          pointStyle: "circle",
-                          pointRadius: 1,
-                          pointBackgroundColor: "#EBB105",
-                          borderWidth: 0,
-                        },
-                      ],
-                    }}
-                    options={graphConfiguration}
-                    getDatasetAtEvent={(e) => console.log(e)}
-                  />
+
+                  {graphLabels &&
+                    graphData &&
+                    graphData.length > 0 &&
+                    graphLabels.length > 0 && (
+                      <>
+                        {console.log("graphData", graphData)}
+                        <Line
+                          data={{
+                            labels: graphLabels,
+                            datasets: [
+                              {
+                                data: graphData,
+                                label: "Date",
+                                fill: false,
+                                backgroundColor: "#004d00",
+                                borderColor: "#004d00",
+                                pointBorderWidth: 5,
+                                pointBorderColor: "#EBB105",
+                                pointStyle: "circle",
+                                pointRadius: 0,
+                                pointBackgroundColor: "#EBB105",
+                                borderWidth: 0,
+                              },
+                            ],
+                          }}
+                          options={graphConfiguration}
+                          getDatasetAtEvent={(e) => console.log(e)}
+                        />
+                      </>
+                    )}
                 </CardBody>
               </Card>
             </div>
