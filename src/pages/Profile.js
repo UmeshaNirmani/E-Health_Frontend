@@ -54,7 +54,7 @@ const Profile = () => {
                             // helperText={
                             //   formik.touched.Title && formik.errors.Title
                             // }
-                            style={{ width: "50%" }}
+                            style={{ width: "50%", textAlign: "left" }}
                           >
                             <option value="Rev/Hon." className="ml-3">
                               Rev/Hon.
@@ -90,7 +90,7 @@ const Profile = () => {
                             // helperText={
                             //   formik.touched.Role && formik.errors.Role
                             // }
-                            style={{ width: "50%" }}
+                            style={{ width: "50%", textAlign: "left" }}
                           >
                             <option value="Doctor" className="ml-3">
                               Doctor

@@ -15,7 +15,81 @@ import Users from "pages/admin/Users";
 import FoodTable from "pages/admin/FoodTable";
 //import FoodTableCreate from "pages/admin/FoodTable_Create";
 
-let routes = [
+let currentUser = localStorage.getItem("userProfile");
+console.log("#####userProfile: ", currentUser);
+let jUser = JSON.parse(currentUser);
+console.log("jUser: ", jUser);
+
+let uRole =
+  currentUser && currentUser !== null && jUser && jUser.Role
+    ? jUser.Role
+    : "NONE"; //none should redirect to login
+
+console.log("uRole: ", uRole);
+
+const adminRoutes = [
+  {
+    path: "/users",
+    name: "Users",
+    icon: "ni ni-single-02 text-green",
+    component: Users,
+    layout: "/user",
+  },
+  {
+    path: "/foodtable",
+    name: "Food Table",
+    icon: "ni ni-collection text-blue",
+    component: FoodTable,
+    layout: "/user",
+  },
+  {
+    path: "/profile",
+    name: "My Profile",
+    icon: "ni ni-single-copy-04 text-yellow",
+    component: Profile,
+    layout: "/user",
+  },
+  // {
+  //   path: "/login",
+  //   name: "Logout",
+  //   icon: "ni ni-button-power text-red",
+  //   component: Logout,
+  //   layout: "/public",
+  // },
+];
+
+const doctorRoutes = [
+  {
+    path: "/mypatients",
+    name: "My Patients",
+    icon: "ni ni-single-02 text-green",
+    component: MyPatients,
+    layout: "/user",
+  },
+  {
+    path: "/pgc",
+    name: "Peer Groups",
+    icon: "ni ni-world-2 text-blue",
+    component: PGC,
+    layout: "/user",
+  },
+  {
+    path: "/profile",
+    name: "My Profile",
+    icon: "ni ni-single-copy-04 text-yellow",
+    component: Profile,
+    layout: "/user",
+  },
+  // {
+  //   path: "/login",
+  //   name: "Logout",
+  //   icon: "ni ni-button-power text-red",
+  //   component: Logout,
+  //   layout: "/public",
+  // },
+];
+
+const patientRoutes = [
   {
     path: "/caloriecalculator",
     name: "Calorie Calculator",
@@ -38,27 +112,6 @@ let routes = [
     layout: "/user",
   },
   {
-    path: "/mydoctor",
-    name: "My Doctor",
-    icon: "ni ni-single-02 text-red",
-    component: MyDoctor,
-    layout: "/user",
-  },
-  {
-    path: "/mycommunity",
-    name: "My Community",
-    icon: "ni ni-chat-round text-green",
-    component: MyCommunity,
-    layout: "/user",
-  },
-  {
-    path: "/profile",
-    name: "My Profile",
-    icon: "ni ni-single-copy-04 text-blue",
-    component: Profile,
-    layout: "/user",
-  },
-  {
     path: "/mymedicalhistory",
     name: "My Medical History",
     icon: "ni ni-sound-wave text-red",
@@ -66,38 +119,24 @@ let routes = [
     layout: "/user",
   },
   {
-    path: "/login",
-    name: "Logout",
-    icon: "ni ni-button-power text-green",
-    component: Logout, // should be correct
-    layout: "/public",
-  },
-  // {
-  //   path: "/dashboard",
-  //   name: "Dashboard",
-  //   icon: "ni ni-bullet-list-67 text-blue",
-  //   component: Dashboard,
-  //   layout: "/user",
-  // },
-  {
-    path: "/mypatients",
-    name: "My Patients",
-    icon: "ni ni-single-02 text-yellow",
-    component: MyPatients,
+    path: "/profile",
+    name: "My Profile",
+    icon: "ni ni-single-copy-04 text-green",
+    component: Profile,
     layout: "/user",
   },
   {
-    path: "/pgc",
-    name: "Peer Groups",
-    icon: "ni ni-world-2 text-red",
-    component: PGC,
+    path: "/mydoctor",
+    name: "My Doctor",
+    icon: "ni ni-single-02 text-blue",
+    component: MyDoctor,
     layout: "/user",
   },
   {
-    path: "/users",
-    name: "Users",
-    icon: "ni ni-single-02 text-green",
-    component: Users,
+    path: "/mycommunity",
+    name: "My Community",
+    icon: "ni ni-chat-round text-yellow",
+    component: MyCommunity,
     layout: "/user",
   },
   {
@@ -108,12 +147,46 @@ let routes = [
     layout: "/user",
   },
   // {
-  //   path: "/foodtable_create",
-  //   name: "Food Table Create",
-  //   icon: "ni ni-collection text-blue",
-  //   component: FoodTableCreate,
-  //   layout: "/user",
+  //   path: "/login",
+  //   name: "Logout",
+  //   icon: "ni ni-button-power text-red",
+  //   component: Logout,
+  //   layout: "/public",
   // },
 ];
+
+//const userRole = "ADMIN"; // ["ADMIN", "DOCTOR", "PATIENT"]
+// let currentUser = localStorage.getItem("accessToken");
+// console.log("currentUser", currentUser);
+// let userRole;
+// if (currentUser.Role === "Patient") {
+//   userRole = patientRoutes;
+// }
+// if (currentUser.Role === "Doctor") {
+//   userRole = doctorRoutes;
+// }
+// if (currentUser.Role === "System Administrator") {
+//   userRole = adminRoutes;
+// }
+// let routes = userRole; // savedUserRole
+
+const noneRoutes = [
+  {
+    path: "/login",
+    name: "Logout",
+    icon: "ni ni-button-power text-red",
+    component: Logout,
+    layout: "/public",
+  },
+];
+
+export const routes =
+  uRole === "System Administrator"
+    ? adminRoutes
+    : uRole === "Doctor"
+    ? doctorRoutes
+    : uRole === "Patient"
+    ? patientRoutes
+    : noneRoutes;
 
 export default routes;

@@ -1,3 +1,4 @@
+import { AUTH } from "constants/actionTypes";
 import * as api from "../api/index";
 import Lodash from "lodash";
 import { confirmAlert } from "react-confirm-alert";
@@ -12,10 +13,21 @@ export const signIn = (formData, router) => async (dispatch) => {
 
     console.log("api response: ", JSON.stringify(response));
     console.log("api data: ", data);
-    console.log(data.data);
-    if (data?.status === "success") {
-      //dispatch({ type: AUTH, payload: data?.data });
-      router.push("/user/caloriecalculator");
+    console.log("data.data", data.data);
+    if (data?.status === "success" && data?.data) {
+      dispatch({ type: AUTH, payload: data?.data });
+      // save user profile
+      localStorage.setItem("userProfile", JSON.stringify({ ...data?.data }));
+      // save access token
+      localStorage.setItem(
+        "accessToken",
+        JSON.stringify(data?.data?.accessToken)
+      );
+      console.log("payload: ", data?.data);
+
+      setTimeout(() => {
+        router.push("/user/profile");
+      }, 500);
     } else if (data?.status === "error") {
       confirmAlert({
         title: data?.message,

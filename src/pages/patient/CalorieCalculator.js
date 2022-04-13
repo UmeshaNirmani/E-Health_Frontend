@@ -255,9 +255,6 @@ const CalorieCalculator = (props) => {
                                   width: "50%",
                                   textAlign: "left",
                                 }}
-                                InputProps={{
-                                  classes: { input: { height: 50 } },
-                                }}
                               >
                                 {meals.map((item) => (
                                   <MenuItem key={item.value} value={item.value}>

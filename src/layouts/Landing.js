@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 // core components
@@ -10,6 +10,13 @@ import UserLogin from "pages/Login";
 import Register from "pages/Register";
 
 const Landing = (props) => {
+  useEffect(() => {
+    // remove user profile
+    localStorage.setItem("userProfile", JSON.stringify({}));
+    // remove access token
+    localStorage.setItem("accessToken", "");
+  }, []);
+
   return (
     <>
       <LandingNavbar />

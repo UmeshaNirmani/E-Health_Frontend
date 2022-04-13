@@ -1,8 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Lodash from "lodash";
 import { TextField, Tooltip } from "@material-ui/core";
+import Pagination from "react-responsive-pagination";
 import {
   Card,
   CardBody,
@@ -13,6 +14,12 @@ import {
   Form,
   Button,
   Col,
+  CardFooter,
+  FormGroup,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input,
 } from "reactstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -73,10 +80,19 @@ const FoodTable = (props) => {
     (state) => state.foodtable.foodTableRecordsAll
   );
 
-  //console.log("foodTableRecordsAll", foodTableRecordsAll);
+  // pagination
+  const pageSize = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  //const [recordsPerPage, setRecordsPerPage] = useState(10);
+  const [recordsPageCount, setrecordsPageCount] = useState();
 
   useEffect(() => {
     dispatch(fetchRecordsAll());
+  });
+
+  useEffect(() => {
+    let currentPageCount = Math.ceil(foodTableRecordsAll.length / pageSize);
+    setrecordsPageCount(currentPageCount);
   });
 
   const handleEditClick = (e, TableData) => {
@@ -239,11 +255,31 @@ const FoodTable = (props) => {
             <div className="col">
               <Card className="shadow">
                 <CardHeader className="border-0 ">
-                  <div className="row">
-                    <div className="mb-xl-0 col-11 justify-content-center">
-                      <h2 className="mb-0 text-darker">Food Table</h2>
-                    </div>
-                  </div>
+                  <Row>
+                    <Col md="5">
+                      <h3 className="mb-0">Pre-Registered Users</h3>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup style={{ marginBottom: 0 }}>
+                        <InputGroup className="input-group-alternative">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="ni ni-zoom-split-in" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input
+                            className="form-control-alternative"
+                            placeholder="By Food Name"
+                            type="text"
+                            // onChange={(e) => {
+                            //   console.log(e.target.value);
+                            //   setTxtFilter(e.target.value);
+                            // }}
+                          />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                  </Row>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
@@ -276,6 +312,18 @@ const FoodTable = (props) => {
                     })}
                   </tbody>
                 </Table>
+                {/* pagination */}
+                <CardFooter>
+                  <Row>
+                    <Col lg="12">
+                      <Pagination
+                        current={currentPage}
+                        total={recordsPageCount}
+                        onPageChange={setCurrentPage}
+                      />
+                    </Col>
+                  </Row>
+                </CardFooter>
               </Card>
             </div>
           </Row>

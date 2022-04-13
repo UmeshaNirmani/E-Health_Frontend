@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { signIn } from "actions/user";
 import { useDispatch } from "react-redux";
 
@@ -14,12 +14,8 @@ import {
   Row,
   Col,
   Nav,
-  NavItem,
-  NavLink,
 } from "reactstrap";
 import { TextField } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import Register from "../pages/Register";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -38,10 +34,10 @@ const Login = (props) => {
     },
 
     validationSchema: Yup.object({
-      Email: Yup.string().email("Invalid Email address").required("Required"),
+      Email: Yup.string().email("Invalid Email address").required("* Required"),
       Password: Yup.string()
         .min(4, "Password is too short. Must contain minimum 4 characters")
-        .required("Required"),
+        .required("* Required"),
     }),
 
     onSubmit: (values, onSubmitProps) => {
@@ -49,7 +45,7 @@ const Login = (props) => {
       // let params = {
       //   EmailOfUser_abc: values.Email,
       // };
-      values.Password = CryptoPassword(values.Password);
+      //values.Password = CryptoPassword(values.Password);
       dispatch(signIn(values, history));
       onSubmitProps.setSubmitting(false);
       onSubmitProps.resetForm();
@@ -118,7 +114,7 @@ const Login = (props) => {
                       />
 
                       <TextField
-                        type="text"
+                        type="password"
                         fullWidth
                         id="Password"
                         name="Password"
@@ -141,6 +137,7 @@ const Login = (props) => {
                       <div className="text-center mt-3">
                         <Button
                           type="submit"
+                          // disabled={true}
                           style={{
                             backgroundColor: "#EBB105",
                             border: "none",
@@ -154,7 +151,7 @@ const Login = (props) => {
                     <Row className="mt-3">
                       <Col xs="6">
                         <Nav>
-                          <NavItem>
+                          {/* <NavItem>
                             <Route
                               path="/public/register"
                               component={Register}
@@ -166,7 +163,7 @@ const Login = (props) => {
                             >
                               <h3 style={{ color: "#EBB105" }}>Register</h3>
                             </NavLink>
-                          </NavItem>
+                          </NavItem> */}
                         </Nav>
                       </Col>
                     </Row>

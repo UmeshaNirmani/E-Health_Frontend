@@ -4,6 +4,11 @@ const API = axios.create({ baseURL: "http://localhost:4000" });
 
 API.interceptors.request.use((req) => {
   req.headers["Access-Control-Allow-Origin"] = "*";
+  if (localStorage.getItem("accessToken")) {
+    req.headers["x-access-token"] = `${
+      JSON.parse(localStorage.getItem("accessToken")).token
+    }`;
+  }
 
   return req;
 });

@@ -24,6 +24,17 @@ const FoodDiary = ({ Record, deleteClick }) => (
             <i className="far fa-times-circle text-darker" />
           </div>
         </Tooltip>
+        <Tooltip title="Edit record" arrow>
+          <div
+            className="navbar-toggler"
+            style={{ cursor: "pointer" }}
+            // onClick={(e) => {
+            //   deleteClick(e, Record);
+            // }}
+          >
+            <i className="far fa-edit text-darker" />
+          </div>
+        </Tooltip>
       </div>
     </td>
   </tr>
