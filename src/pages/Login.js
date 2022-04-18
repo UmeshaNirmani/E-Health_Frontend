@@ -59,7 +59,7 @@ const Login = (props) => {
         ref={mainContent}
         style={{ backgroundColor: "#EBB105" }}
       >
-        <div className="header bg-white py-6 py-lg-7">
+        <div className="header bg-white py-6 py-lg-8">
           <div className="separator separator-bottom separator-skew zindex-100">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +79,7 @@ const Login = (props) => {
         <Row
           className="justify-content-center"
           style={{
-            padding: "3em 0 3em 0",
+            padding: "1em 0 3em 0",
             maxWidth: "100%",
             backgroundColor: "#EBB105",
           }}
@@ -93,7 +93,7 @@ const Login = (props) => {
                       <h1 className="text-darker">USER LOGIN</h1>
                     </div>
                   </CardHeader>
-                  <CardBody className="px-lg-5 py-lg-3">
+                  <CardBody className="px-lg-5">
                     <Form role="form" onSubmit={formik.handleSubmit}>
                       <TextField
                         type="text"

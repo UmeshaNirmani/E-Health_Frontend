@@ -13,12 +13,9 @@ export const signIn = (formData, router) => async (dispatch) => {
 
     console.log("api response: ", JSON.stringify(response));
     console.log("api data: ", data);
-    console.log("data.data", data.data);
     if (data?.status === "success" && data?.data) {
       dispatch({ type: AUTH, payload: data?.data });
-      // save user profile
-      localStorage.setItem("userProfile", JSON.stringify({ ...data?.data }));
-      // save access token
+      //localStorage.setItem("userProfile", JSON.stringify({ ...data?.data }));
       localStorage.setItem(
         "accessToken",
         JSON.stringify(data?.data?.accessToken)
@@ -26,7 +23,15 @@ export const signIn = (formData, router) => async (dispatch) => {
       console.log("payload: ", data?.data);
 
       setTimeout(() => {
-        router.push("/user/profile");
+        if (data?.data.Role === "Patient") {
+          router.push("/user/caloriecalculator");
+        } else if (data?.data.Role === "Doctor") {
+          router.push("/user/mypatients");
+        } else if (data?.data.Role === "System Administrator") {
+          router.push("/user/users");
+        } else {
+          router.push("/public/login");
+        }
       }, 500);
     } else if (data?.status === "error") {
       confirmAlert({

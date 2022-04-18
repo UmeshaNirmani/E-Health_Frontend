@@ -1,4 +1,11 @@
-// this page gives sidebar navlinks
+// export const routes =
+//   uRole === "System Administrator"
+//     ? adminRoutes
+//     : uRole === "Doctor"
+//     ? doctorRoutes
+//     : uRole === "Patient"
+//     ? patientRoutes
+//     : noneRoutes;
 
 import CalorieCalculator from "pages/patient/CalorieCalculator";
 import MyFoodDiary from "pages/patient/MyFoodDiary";
@@ -8,24 +15,22 @@ import MyCommunity from "pages/patient/MyCommunity";
 import Profile from "pages/Profile.js";
 import MyMedicalHistory from "pages/patient/MyMedicalHistory";
 import Logout from "pages/Login";
-//import Dashboard from "pages/Dashboard";
 import MyPatients from "pages/doctor/MyPatients";
 import PGC from "pages/doctor/PGC";
 import Users from "pages/admin/Users";
 import FoodTable from "pages/admin/FoodTable";
-//import FoodTableCreate from "pages/admin/FoodTable_Create";
 
-let currentUser = localStorage.getItem("userProfile");
-console.log("#####userProfile: ", currentUser);
-let jUser = JSON.parse(currentUser);
-console.log("jUser: ", jUser);
+import uRole from "role.js";
+// let currentUser = localStorage.getItem("userProfile");
+// console.log("#####userProfile: ", currentUser);
+// let jUser = JSON.parse(currentUser);
+// console.log("jUser: ", jUser);
 
-let uRole =
-  currentUser && currentUser !== null && jUser && jUser.Role
-    ? jUser.Role
-    : "NONE"; //none should redirect to login
-
-console.log("uRole: ", uRole);
+// let uRole =
+//   currentUser && currentUser !== null && jUser && jUser.Role
+//     ? jUser.Role
+//     : "NONE"; //none should redirect to login
+// console.log("uRole: ", uRole);
 
 const adminRoutes = [
   {
@@ -49,13 +54,13 @@ const adminRoutes = [
     component: Profile,
     layout: "/user",
   },
-  // {
-  //   path: "/login",
-  //   name: "Logout",
-  //   icon: "ni ni-button-power text-red",
-  //   component: Logout,
-  //   layout: "/public",
-  // },
+  {
+    path: "/login",
+    name: "Logout",
+    icon: "ni ni-button-power text-red",
+    component: Logout,
+    layout: "/public",
+  },
 ];
 
 const doctorRoutes = [
@@ -80,13 +85,13 @@ const doctorRoutes = [
     component: Profile,
     layout: "/user",
   },
-  // {
-  //   path: "/login",
-  //   name: "Logout",
-  //   icon: "ni ni-button-power text-red",
-  //   component: Logout,
-  //   layout: "/public",
-  // },
+  {
+    path: "/login",
+    name: "Logout",
+    icon: "ni ni-button-power text-red",
+    component: Logout,
+    layout: "/public",
+  },
 ];
 
 const patientRoutes = [
@@ -146,31 +151,6 @@ const patientRoutes = [
     component: FoodTable,
     layout: "/user",
   },
-  // {
-  //   path: "/login",
-  //   name: "Logout",
-  //   icon: "ni ni-button-power text-red",
-  //   component: Logout,
-  //   layout: "/public",
-  // },
-];
-
-//const userRole = "ADMIN"; // ["ADMIN", "DOCTOR", "PATIENT"]
-// let currentUser = localStorage.getItem("accessToken");
-// console.log("currentUser", currentUser);
-// let userRole;
-// if (currentUser.Role === "Patient") {
-//   userRole = patientRoutes;
-// }
-// if (currentUser.Role === "Doctor") {
-//   userRole = doctorRoutes;
-// }
-// if (currentUser.Role === "System Administrator") {
-//   userRole = adminRoutes;
-// }
-// let routes = userRole; // savedUserRole
-
-const noneRoutes = [
   {
     path: "/login",
     name: "Logout",
@@ -185,8 +165,6 @@ export const routes =
     ? adminRoutes
     : uRole === "Doctor"
     ? doctorRoutes
-    : uRole === "Patient"
-    ? patientRoutes
-    : noneRoutes;
+    : patientRoutes;
 
 export default routes;
