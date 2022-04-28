@@ -32,7 +32,11 @@ export const TextInput = () => {
           className={classes.wrapText}
           //margin="normal"
         />
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button
+          variant="contained"
+          className={classes.button}
+          style={{ backgroundColor: "#EBB105", color: "#FFFF" }}
+        >
           <SendIcon />
         </Button>
       </form>

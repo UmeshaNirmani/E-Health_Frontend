@@ -13,26 +13,41 @@ export const signIn = (formData, router) => async (dispatch) => {
 
     console.log("api response: ", JSON.stringify(response));
     console.log("api data: ", data);
-    if (data?.status === "success" && data?.data) {
-      dispatch({ type: AUTH, payload: data?.data });
-      //localStorage.setItem("userProfile", JSON.stringify({ ...data?.data }));
-      localStorage.setItem(
-        "accessToken",
-        JSON.stringify(data?.data?.accessToken)
-      );
-      console.log("payload: ", data?.data);
+    console.log("payload: ", data?.data.Role);
 
-      setTimeout(() => {
-        if (data?.data.Role === "Patient") {
-          router.push("/user/caloriecalculator");
-        } else if (data?.data.Role === "Doctor") {
-          router.push("/user/mypatients");
-        } else if (data?.data.Role === "System Administrator") {
-          router.push("/user/users");
-        } else {
-          router.push("/public/login");
-        }
-      }, 500);
+    if (data?.status === "success" && data?.data) {
+      //window.location.reload(true);
+      if (data?.data.Role === "Patient") {
+        dispatch({ type: AUTH, payload: data?.data });
+        localStorage.setItem("userProfile", JSON.stringify({ ...data?.data }));
+        localStorage.setItem(
+          "accessToken",
+          JSON.stringify(data?.data?.accessToken)
+        );
+        router.push("/user/caloriecalculator");
+      } else if (data?.data.Role === "Doctor") {
+        dispatch({ type: AUTH, payload: data?.data });
+        localStorage.setItem("userProfile", JSON.stringify({ ...data?.data }));
+        localStorage.setItem(
+          "accessToken",
+          JSON.stringify(data?.data?.accessToken)
+        );
+        router.push("/user/mypatients");
+        //window.location.reload(true);
+      } else if (data?.data.Role === "System Administrator") {
+        dispatch({ type: AUTH, payload: data?.data });
+        localStorage.setItem("userProfile", JSON.stringify({ ...data?.data }));
+        localStorage.setItem(
+          "accessToken",
+          JSON.stringify(data?.data?.accessToken)
+        );
+        router.push("/user/users");
+        //window.location.reload(true);
+      } else {
+        router.push("/public/login");
+      }
+
+      //setTimeout(() => {}, 500);
     } else if (data?.status === "error") {
       confirmAlert({
         title: data?.message,

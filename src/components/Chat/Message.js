@@ -12,24 +12,24 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "flex-end",
     },
-    messageBlue: {
+    messageLeft: {
       position: "relative",
       marginLeft: "20px",
       marginBottom: "10px",
       padding: "10px",
-      backgroundColor: "#A8DDFD",
-      width: "60%",
+      backgroundColor: "#fff",
+      width: "150%",
       //height: "50px",
       textAlign: "left",
       font: "400 .9em 'Open Sans', sans-serif",
-      border: "1px solid #97C6E3",
+      border: "1px solid #fff",
       borderRadius: "10px",
       "&:after": {
         content: "''",
         position: "absolute",
         width: "0",
         height: "0",
-        borderTop: "15px solid #A8DDFD",
+        borderTop: "15px solid #fff",
         borderLeft: "15px solid transparent",
         borderRight: "15px solid transparent",
         top: "0",
@@ -40,31 +40,31 @@ const useStyles = makeStyles((theme: Theme) =>
         position: "absolute",
         width: "0",
         height: "0",
-        borderTop: "17px solid #97C6E3",
+        borderTop: "17px solid #fff",
         borderLeft: "16px solid transparent",
         borderRight: "16px solid transparent",
         top: "-1px",
         left: "-17px",
       },
     },
-    messageOrange: {
+    messageRight: {
       position: "relative",
       marginRight: "20px",
       marginBottom: "10px",
       padding: "10px",
-      backgroundColor: "#f8e896",
-      width: "60%",
+      backgroundColor: "#EBB105",
+      width: "30%",
       //height: "50px",
       textAlign: "left",
       font: "400 .9em 'Open Sans', sans-serif",
-      border: "1px solid #dfd087",
+      border: "1px solid #EBB105",
       borderRadius: "10px",
       "&:after": {
         content: "''",
         position: "absolute",
         width: "0",
         height: "0",
-        borderTop: "15px solid #f8e896",
+        borderTop: "15px solid #EBB105",
         borderLeft: "15px solid transparent",
         borderRight: "15px solid transparent",
         top: "0",
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
         position: "absolute",
         width: "0",
         height: "0",
-        borderTop: "17px solid #dfd087",
+        borderTop: "17px solid #EBB105",
         borderLeft: "16px solid transparent",
         borderRight: "16px solid transparent",
         top: "-1px",
@@ -124,14 +124,14 @@ export const MessageLeft = (props) => {
   return (
     <>
       <div className={classes.messageRow}>
-        <Avatar
+        {/* <Avatar
           alt={displayName}
           className={classes.orange}
           src={photoURL}
-        ></Avatar>
+        ></Avatar> */}
         <div>
           <div className={classes.displayName}>{displayName}</div>
-          <div className={classes.messageBlue}>
+          <div className={classes.messageLeft}>
             <div>
               <p className={classes.messageContent}>{message}</p>
             </div>
@@ -149,7 +149,7 @@ export const MessageRight = (props) => {
   const timestamp = props.timestamp ? props.timestamp : "";
   return (
     <div className={classes.messageRowRight}>
-      <div className={classes.messageOrange}>
+      <div className={classes.messageRight}>
         <p className={classes.messageContent}>{message}</p>
         <div className={classes.messageTimeStampRight}>{timestamp}</div>
       </div>

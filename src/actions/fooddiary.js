@@ -45,9 +45,16 @@ export const fetchFoodDiary = (searchData) => async (dispatch) => {
     const response = await api.fetchFoodDiary(searchData);
     console.log("api response: ", response);
     const { data } = response;
-
+    console.log("data?.data: ", data?.data);
     if (data?.status === "success") {
       dispatch({ type: FOODDIARY_FETCH_ALL, payload: data?.data });
+      if (data?.data.length === 0) {
+        confirmAlert({
+          title: "No Records Found!",
+          buttons: [{ label: "Ok", onClick: () => {} }],
+        });
+        console.log("data?.data === null");
+      }
     } else if (data?.status === "error") {
       console.log(data);
       dispatch({ type: FOODDIARY_FETCH_ALL, payload: [] });

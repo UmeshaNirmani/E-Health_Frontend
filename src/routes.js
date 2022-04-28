@@ -1,12 +1,3 @@
-// export const routes =
-//   uRole === "System Administrator"
-//     ? adminRoutes
-//     : uRole === "Doctor"
-//     ? doctorRoutes
-//     : uRole === "Patient"
-//     ? patientRoutes
-//     : noneRoutes;
-
 import CalorieCalculator from "pages/patient/CalorieCalculator";
 import MyFoodDiary from "pages/patient/MyFoodDiary";
 import MyProgress from "pages/patient/MyProgress";
@@ -19,18 +10,18 @@ import MyPatients from "pages/doctor/MyPatients";
 import PGC from "pages/doctor/PGC";
 import Users from "pages/admin/Users";
 import FoodTable from "pages/admin/FoodTable";
+import UserLogin from "pages/Login";
 
-import uRole from "role.js";
-// let currentUser = localStorage.getItem("userProfile");
-// console.log("#####userProfile: ", currentUser);
-// let jUser = JSON.parse(currentUser);
-// console.log("jUser: ", jUser);
+let currentUser = localStorage.getItem("userProfile");
+console.log("userProfile in route: ", currentUser);
+let jUser = JSON.parse(currentUser);
+console.log("jUser: ", jUser);
 
-// let uRole =
-//   currentUser && currentUser !== null && jUser && jUser.Role
-//     ? jUser.Role
-//     : "NONE"; //none should redirect to login
-// console.log("uRole: ", uRole);
+let uRole =
+  currentUser && currentUser !== null && jUser && jUser.Role
+    ? jUser.Role
+    : "NONE"; //none should redirect to login
+console.log("uRole: ", uRole);
 
 const adminRoutes = [
   {
@@ -160,11 +151,22 @@ const patientRoutes = [
   },
 ];
 
+const noneRoutes = [];
+
 export const routes =
   uRole === "System Administrator"
     ? adminRoutes
     : uRole === "Doctor"
     ? doctorRoutes
-    : patientRoutes;
+    : uRole === "Patient"
+    ? patientRoutes
+    : noneRoutes;
+
+// export const routes =
+//   uRole === "System Administrator"
+//     ? adminRoutes
+//     : uRole === "Doctor"
+//     ? doctorRoutes
+//     : patientRoutes;
 
 export default routes;
