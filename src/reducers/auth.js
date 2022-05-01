@@ -1,7 +1,8 @@
-import { AUTH } from "constants/actionTypes";
+import { AUTH, FETCH_USERS } from "constants/actionTypes";
 
 const initState = {
   authData: [],
+  fetchUsers: [],
   loading: true,
   errors: null,
 };
@@ -12,6 +13,14 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         authData: action.payload,
+        loading: false,
+        errors: null,
+      };
+    case FETCH_USERS:
+      // console.log("fetchUsers state", state);
+      return {
+        ...state,
+        fetchUsers: action.payload,
         loading: false,
         errors: null,
       };

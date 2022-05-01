@@ -17,12 +17,7 @@ import {
 } from "reactstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import {
-  fetchRecordsAll,
-  deleteRecords,
-  createRecords,
-  updateRecords,
-} from "actions/foodtable";
+import { signUp, fetchAllUsers, profileUpdate } from "actions/user";
 
 const validateSchema = Yup.object({
   Title: Yup.string().required("* Required"),
@@ -33,12 +28,14 @@ const validateSchema = Yup.object({
     .required("* Required"),
 });
 
-const FoodTableRow = ({ TableData, editClick, deleteClick, createClick }) => (
+// let status = "";
+const FoodTableRow = ({ TableData, editClick, blockClick }) => (
   <tr>
-    <td className="text-darker">{TableData.Food}</td>
-    <td className="text-darker">{TableData.UnitCalorieAmount}</td>
-    <td className="text-darker">{TableData.Unit}</td>
-    <td className="text-darker">{TableData.Unit}</td>
+    <td className="text-darker">{TableData.Title}</td>
+    <td className="text-darker">{TableData.Role}</td>
+    <td className="text-darker">{TableData.Email}</td>
+    {/* {TableData.FirstName ? status === "Active" : status === "Open"} */}
+    {/* <td className="text-darker">{TableData.status}</td> */}
     <td>
       <div className="row">
         <Tooltip title="Block User" arrow>
@@ -52,6 +49,17 @@ const FoodTableRow = ({ TableData, editClick, deleteClick, createClick }) => (
             <i className="fas fa-ban text-darker" />
           </div>
         </Tooltip>
+        <Tooltip title="Edit" arrow>
+          <div
+            className="navbar-toggler"
+            style={{ cursor: "pointer" }}
+            onClick={(e) => {
+              editClick(e, TableData);
+            }}
+          >
+            <i className="far fa-edit text-darker" />
+          </div>
+        </Tooltip>
       </div>
     </td>
   </tr>
@@ -61,17 +69,13 @@ const Users = (props) => {
   const mainContent = React.useRef(null);
   const formRef = useRef();
   const dispatch = useDispatch();
-  const history = useHistory();
 
-  const foodTableRecordsAll = useSelector(
-    (state) => state.foodtable.foodTableRecordsAll
-  );
-
-  //console.log("foodTableRecordsAll", foodTableRecordsAll);
+  const fetchUsers = useSelector((state) => state.auth.fetchUsers);
+  // console.log("fetchUsers", fetchUsers);
 
   useEffect(() => {
-    dispatch(fetchRecordsAll());
-  });
+    dispatch(fetchAllUsers());
+  }, []);
 
   const handleEditClick = (e, TableData) => {
     console.log("TableData", TableData);
@@ -79,20 +83,11 @@ const Users = (props) => {
 
     if (formRef.current && TableData && !Lodash.isEmpty(TableData)) {
       formRef.current?.resetForm();
-      formRef.current.setFieldValue("recordId", TableData._id, false);
-      formRef.current.setFieldValue("Email", TableData.Food, false);
-      formRef.current.setFieldValue("", TableData.UnitCalorieAmount, false);
-      formRef.current.setFieldValue("Password", TableData.Unit, false);
+      formRef.current.setFieldValue("userId", TableData._id, false);
+      formRef.current.setFieldValue("Title", TableData.Title, false);
+      formRef.current.setFieldValue("Email", TableData.Email, false);
+      formRef.current.setFieldValue("Role", TableData.Role, false);
     }
-  };
-
-  const handleDeleteClick = (e, TableData) => {
-    console.log("TableData", TableData);
-    e.preventDefault();
-    let values = {
-      TableDataId: TableData._id,
-    };
-    dispatch(deleteRecords(values));
   };
 
   return (
@@ -118,7 +113,7 @@ const Users = (props) => {
                 <CardBody>
                   <Formik
                     initialValues={{
-                      recordId: null,
+                      userId: null,
                       Title: "",
                       Role: "",
                       Email: "",
@@ -129,18 +124,19 @@ const Users = (props) => {
                       console.log(JSON.stringify(values, null, 2));
 
                       let params = {
+                        Title: values.Title,
+                        Role: values.Role,
                         Email: values.Email,
-                        UnitCalorieAmount: values.UnitCalorieAmount,
                         Password: values.Password,
                       };
 
-                      if (values.recordId && values.recordId.length > 10) {
-                        params["recordId"] = values.recordId;
-                        console.log("updated record: ", params);
-                        dispatch(updateRecords(params, history));
+                      if (values.userId && values.userId.length > 10) {
+                        params["userId"] = values.userId;
+                        console.log("updated user: ", params);
+                        dispatch(profileUpdate(params));
                       } else {
-                        console.log("created record: ", params);
-                        dispatch(createRecords(params, history));
+                        console.log("created user: ", params);
+                        dispatch(signUp(params));
                       }
                     }}
                     innerRef={formRef}
@@ -298,13 +294,13 @@ const Users = (props) => {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col" className="text-darker">
-                        USER (EMAIL↓)
+                        title
                       </th>
                       <th scope="col" className="text-darker">
                         ROLE
                       </th>
                       <th scope="col" className="text-darker">
-                        DESIGNATION
+                        email
                       </th>
                       <th scope="col" className="text-darker">
                         STATUS
@@ -316,13 +312,12 @@ const Users = (props) => {
                   </thead>
                   <tbody>
                     <tr></tr>
-                    {foodTableRecordsAll.map((TableData, i) => {
+                    {fetchUsers.map((TableData, i) => {
                       return (
                         <FoodTableRow
                           key={i}
                           TableData={TableData}
                           editClick={handleEditClick}
-                          deleteClick={handleDeleteClick}
                         />
                       );
                     })}

@@ -1,4 +1,4 @@
-import { AUTH } from "constants/actionTypes";
+import { AUTH, FETCH_USERS } from "constants/actionTypes";
 import * as api from "../api/index";
 import Lodash from "lodash";
 import { confirmAlert } from "react-confirm-alert";
@@ -18,7 +18,10 @@ export const signIn = (formData, router) => async (dispatch) => {
     if (data?.status === "success" && data?.data) {
       //window.location.reload(true);
       if (data?.data.Role === "Patient") {
-        if (data?.data.FirstName === undefined) {
+        if (
+          data?.data.Role === "Patient" &&
+          data?.data.FirstName === undefined
+        ) {
           dispatch({ type: AUTH, payload: data?.data });
           localStorage.setItem(
             "userProfile",
@@ -91,6 +94,20 @@ export const signIn = (formData, router) => async (dispatch) => {
   }
 };
 
+export const fetchAllUsers = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchAllUsers();
+    if (data?.status === "success") {
+      dispatch({ type: FETCH_USERS, payload: data?.data });
+      // console.log("users fetch all payload", data?.data);
+    } else if (data?.status === "error") {
+      console.log(data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const signUp = (formData, router) => async (dispatch) => {
   try {
     console.log("formData: ", formData);
@@ -100,6 +117,17 @@ export const signUp = (formData, router) => async (dispatch) => {
     console.log(data.data);
     if (data?.status === "success") {
       dispatch({ type: AUTH, payload: data?.data });
+      confirmAlert({
+        message: "User Registered!",
+        buttons: [
+          {
+            label: "Ok",
+            onClick: () => {
+              window.location.reload(true);
+            },
+          },
+        ],
+      });
     }
     if (data?.status === "error") {
       console.log(data);
@@ -114,16 +142,22 @@ export const profileUpdate = (formData, router) => async (dispatch) => {
     console.log("formData: ", formData);
     const response = await api.profileUpdate(formData);
     const { data } = response;
-    console.log("api data: ", data);
+    console.log("api data####: ", data);
 
     if (data?.status === "success") {
-      dispatch({ type: AUTH, payload: data?.data });
       console.log("payload", data?.data);
       confirmAlert({
-        title: "User Registered!",
-        buttons: [{ label: "Ok", onClick: () => {} }],
+        message: "User updated.",
+        buttons: [
+          {
+            label: "Ok",
+            onClick: () => {
+              window.location.reload(true);
+            },
+          },
+        ],
       });
-      router.push("/public/login");
+      // router.push("/public/login");
     }
     if (data?.status === "error") {
       console.log(data);

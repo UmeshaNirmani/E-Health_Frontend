@@ -36,7 +36,7 @@ const validateSchema = Yup.object({
   Unit: Yup.string().required("* Required"),
 });
 
-const FoodTableRow = ({ TableData, editClick, deleteClick, createClick }) => (
+const FoodTableRow = ({ TableData, editClick, deleteClick }) => (
   <tr>
     <td className="text-darker">{TableData.Food}</td>
     <td className="text-darker">{TableData.UnitCalorieAmount}</td>
@@ -88,7 +88,7 @@ const FoodTable = (props) => {
 
   useEffect(() => {
     dispatch(fetchRecordsAll());
-  });
+  }, []);
 
   // useEffect(() => {
   //   let currentPageCount = Math.ceil(foodTableRecordsAll.length / pageSize);
@@ -157,10 +157,10 @@ const FoodTable = (props) => {
                         if (values.recordId && values.recordId.length > 10) {
                           params["recordId"] = values.recordId;
                           console.log("updated record: ", params);
-                          dispatch(updateRecords(params, history));
+                          dispatch(updateRecords(params));
                         } else {
                           console.log("created record: ", params);
-                          dispatch(createRecords(params, history));
+                          dispatch(createRecords(params));
                         }
                       }}
                       innerRef={formRef}
