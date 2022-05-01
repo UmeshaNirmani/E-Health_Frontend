@@ -81,19 +81,19 @@ const FoodTable = (props) => {
   );
 
   // pagination
-  const pageSize = 10;
-  const [currentPage, setCurrentPage] = useState(1);
-  //const [recordsPerPage, setRecordsPerPage] = useState(10);
-  const [recordsPageCount, setrecordsPageCount] = useState();
+  // const pageSize = 10;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // //const [recordsPerPage, setRecordsPerPage] = useState(10);
+  // const [recordsPageCount, setrecordsPageCount] = useState();
 
   useEffect(() => {
     dispatch(fetchRecordsAll());
   });
 
-  useEffect(() => {
-    let currentPageCount = Math.ceil(foodTableRecordsAll.length / pageSize);
-    setrecordsPageCount(currentPageCount);
-  });
+  // useEffect(() => {
+  //   let currentPageCount = Math.ceil(foodTableRecordsAll.length / pageSize);
+  //   setrecordsPageCount(currentPageCount);
+  // });
 
   const handleEditClick = (e, TableData) => {
     console.log("TableData", TableData);
@@ -210,7 +210,7 @@ const FoodTable = (props) => {
                             id="Unit"
                             fullWidth
                             name="Unit"
-                            label="Unit  (Serving Size)"
+                            label="Unit (Serving Size)"
                             variant="outlined"
                             size="small"
                             value={props.values.Unit}
@@ -313,7 +313,7 @@ const FoodTable = (props) => {
                   </tbody>
                 </Table>
                 {/* pagination */}
-                <CardFooter>
+                {/* <CardFooter>
                   <Row>
                     <Col lg="12">
                       <Pagination
@@ -323,7 +323,7 @@ const FoodTable = (props) => {
                       />
                     </Col>
                   </Row>
-                </CardFooter>
+                </CardFooter> */}
               </Card>
             </div>
           </Row>

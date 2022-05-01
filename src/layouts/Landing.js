@@ -7,7 +7,6 @@ import Footer from "components/Footers/Footer";
 
 import Welcome from "pages/Landing";
 import UserLogin from "pages/Login";
-import Register from "pages/Register";
 
 const Landing = (props) => {
   useEffect(() => {
@@ -21,9 +20,8 @@ const Landing = (props) => {
     <>
       <LandingNavbar />
       <Switch>
-        <Route path="/public/login" component={UserLogin} />
         <Route path="/public/landing" component={Welcome} />
-        <Route path="/public/register" component={Register} />
+        <Route path="/public/login" component={UserLogin} />
         <Redirect from="*" to="/public/landing" />
       </Switch>
       <Footer />

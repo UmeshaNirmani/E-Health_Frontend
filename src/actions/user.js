@@ -13,18 +13,34 @@ export const signIn = (formData, router) => async (dispatch) => {
 
     console.log("api response: ", JSON.stringify(response));
     console.log("api data: ", data);
-    console.log("payload: ", data?.data.Role);
+    console.log("data?.data.FirstName: ", data?.data.FirstName);
 
     if (data?.status === "success" && data?.data) {
       //window.location.reload(true);
       if (data?.data.Role === "Patient") {
-        dispatch({ type: AUTH, payload: data?.data });
-        localStorage.setItem("userProfile", JSON.stringify({ ...data?.data }));
-        localStorage.setItem(
-          "accessToken",
-          JSON.stringify(data?.data?.accessToken)
-        );
-        router.push("/user/caloriecalculator");
+        if (data?.data.FirstName === undefined) {
+          dispatch({ type: AUTH, payload: data?.data });
+          localStorage.setItem(
+            "userProfile",
+            JSON.stringify({ ...data?.data })
+          );
+          localStorage.setItem(
+            "accessToken",
+            JSON.stringify(data?.data?.accessToken)
+          );
+          router.push("/auth/register");
+        } else {
+          dispatch({ type: AUTH, payload: data?.data });
+          localStorage.setItem(
+            "userProfile",
+            JSON.stringify({ ...data?.data })
+          );
+          localStorage.setItem(
+            "accessToken",
+            JSON.stringify(data?.data?.accessToken)
+          );
+          router.push("/user/caloriecalculator");
+        }
       } else if (data?.data.Role === "Doctor") {
         dispatch({ type: AUTH, payload: data?.data });
         localStorage.setItem("userProfile", JSON.stringify({ ...data?.data }));
@@ -33,6 +49,7 @@ export const signIn = (formData, router) => async (dispatch) => {
           JSON.stringify(data?.data?.accessToken)
         );
         router.push("/user/mypatients");
+
         //window.location.reload(true);
       } else if (data?.data.Role === "System Administrator") {
         dispatch({ type: AUTH, payload: data?.data });
@@ -82,6 +99,30 @@ export const signUp = (formData, router) => async (dispatch) => {
     console.log("api data: ", data);
     console.log(data.data);
     if (data?.status === "success") {
+      dispatch({ type: AUTH, payload: data?.data });
+    }
+    if (data?.status === "error") {
+      console.log(data);
+    }
+  } catch (error) {
+    console.log("catch error: ", error);
+  }
+};
+
+export const profileUpdate = (formData, router) => async (dispatch) => {
+  try {
+    console.log("formData: ", formData);
+    const response = await api.profileUpdate(formData);
+    const { data } = response;
+    console.log("api data: ", data);
+
+    if (data?.status === "success") {
+      dispatch({ type: AUTH, payload: data?.data });
+      console.log("payload", data?.data);
+      confirmAlert({
+        title: "User Registered!",
+        buttons: [{ label: "Ok", onClick: () => {} }],
+      });
       router.push("/public/login");
     }
     if (data?.status === "error") {

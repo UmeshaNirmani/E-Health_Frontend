@@ -8,6 +8,7 @@ import "assets/scss/argon-dashboard-react.scss";
 
 import RegUserLayout from "layouts/RegUser.js";
 import LandingLayout from "layouts/Landing.js";
+import UserRegisterLayout from "layouts/Registration";
 
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -32,6 +33,10 @@ ReactDOM.render(
           render={(props) => <LandingLayout {...props} />}
         />
         <Route path="/user" render={(props) => <RegUserLayout {...props} />} />
+        <Route
+          path="/auth"
+          render={(props) => <UserRegisterLayout {...props} />}
+        />
         <Redirect from="/" to="/public" />
       </Switch>
     </BrowserRouter>

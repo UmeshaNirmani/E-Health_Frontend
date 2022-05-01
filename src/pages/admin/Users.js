@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Lodash from "lodash";
 import { TextField, Tooltip, Grid } from "@material-ui/core";
+import MenuItem from "@material-ui/core/MenuItem";
 import {
   Card,
   CardBody,
@@ -167,23 +168,16 @@ const Users = (props) => {
                                 props.touched.Title && props.errors.Title
                               }
                               className="mb-3"
-                              style={{ width: "70%", textAlign: "left" }}
+                              style={{
+                                width: "70%",
+                                textAlign: "left",
+                              }}
                             >
-                              <option value="Rev/Hon." className="ml-3">
-                                Rev/Hon.
-                              </option>
-                              <option value="Dr." className="ml-3">
-                                Dr.
-                              </option>
-                              <option value="Mr." className="ml-3">
-                                Mr.
-                              </option>
-                              <option value="Mrs." className="ml-3">
-                                Mrs.
-                              </option>
-                              <option value="Ms." className="ml-3">
-                                Ms.
-                              </option>
+                              <MenuItem value="Rev/Hon.">Rev/Hon.</MenuItem>
+                              <MenuItem value="Dr.">Dr.</MenuItem>
+                              <MenuItem value="Mr.">Mr.</MenuItem>
+                              <MenuItem value="Mrs.">Mrs.</MenuItem>
+                              <MenuItem value="Ms.">Ms.</MenuItem>
                             </TextField>
                           </Grid>
                           <Grid item xs={12} sm={6} align="center">
@@ -207,18 +201,11 @@ const Users = (props) => {
                               className="mb-3"
                               style={{ width: "70%", textAlign: "left" }}
                             >
-                              <option value="Doctor" className="ml-3">
-                                Doctor
-                              </option>
-                              <option value="Patient" className="ml-3">
-                                Patient
-                              </option>
-                              <option
-                                value="System Administrator"
-                                className="ml-3"
-                              >
+                              <MenuItem value="Doctor">Doctor</MenuItem>
+                              <MenuItem value="Patient">Patient</MenuItem>
+                              <MenuItem value="System Administrator">
                                 System Administrator
-                              </option>
+                              </MenuItem>
                             </TextField>
                           </Grid>
                         </Grid>

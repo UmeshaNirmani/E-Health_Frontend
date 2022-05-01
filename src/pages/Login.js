@@ -25,7 +25,6 @@ const Login = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const mainContent = React.useRef(null);
-  // const returnMessage = useSelector((state) => state.auth.authData);
 
   const formik = useFormik({
     initialValues: {

@@ -16,6 +16,7 @@ API.interceptors.request.use((req) => {
 // user
 export const signIn = (formData) => API.post("/user/signin", formData);
 export const signUp = (formData) => API.post("/user/signup", formData);
+export const profileUpdate = (formData) => API.post("/user/update", formData);
 
 // food table
 export const fetchRecordsAll = () => API.post("/foodtable/fetch");
@@ -43,3 +44,6 @@ export const medicalHistoryFetch = () => API.post("/medicalhistory/");
 // for graphs
 export const fetchGraphData = (formData) =>
   API.post("/fooddiary/fetchByTimeRange", formData);
+
+// for profile
+// export const fetchProfile = () => API.post("/profile/");

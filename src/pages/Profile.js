@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { signUp } from "actions/user";
 // reactstrap components
 import {
   Button,
@@ -11,6 +13,7 @@ import {
   Col,
 } from "reactstrap";
 import { TextField, Grid } from "@material-ui/core";
+import Lodash from "lodash";
 import { Formik } from "formik";
 
 let currentUser = localStorage.getItem("userProfile");
@@ -22,6 +25,40 @@ let userRole =
 
 const Profile = (props) => {
   const mainContent = React.useRef(null);
+  const formRef = useRef();
+  const dispatch = useDispatch();
+  const authData = useSelector((state) => state.auth.authData);
+
+  // useEffect(() => {
+  //   dispatch(());
+  //   if (formRef.current && user && !Lodash.isEmpty(user)) {
+  //     formRef.current?.resetForm();
+  //     formRef.current.setFieldValue("userId", user.userId, false);
+  //     formRef.current.setFieldValue("Title", user.Title, false);
+  //     formRef.current.setFieldValue("Role", user.Role, false);
+  //     formRef.current.setFieldValue("FirstName", user.FirstName, false);
+  //     formRef.current.setFieldValue("LastName", user.LastName, false);
+  //     formRef.current.setFieldValue("Email", user.Email, false);
+  //     formRef.current.setFieldValue("Gender", user.Gender, false);
+  //     formRef.current.setFieldValue("Phone", user.Phone, false);
+  //     formRef.current.setFieldValue("DOB", user.DOB, false);
+  //     formRef.current.setFieldValue("CurrentLiving", user.CurrentLiving, false);
+  //     formRef.current.setFieldValue("NIC", user.NIC, false);
+  //     formRef.current.setFieldValue("Address", user.Address, false);
+  //     formRef.current.setFieldValue("Job", user.Job, false);
+  //     formRef.current.setFieldValue("Education", user.Education, false);
+  //     formRef.current.setFieldValue(
+  //       "FoodPreference",
+  //       user.FoodPreference,
+  //       false
+  //     );
+  //     formRef.current.setFieldValue("District", user.District, false);
+  //     formRef.current.setFieldValue("Height", user.Height, false);
+  //     formRef.current.setFieldValue("Weight", user.Weight, false);
+  //     formRef.current.setFieldValue("SLMC", user.SLMC, false);
+  //     formRef.current.setFieldValue("Hospital", user.Hospital, false);
+  //   }
+  // });
 
   return (
     <>
@@ -64,10 +101,17 @@ const Profile = (props) => {
                     //validationSchema={validateSchema}
                     onSubmit={(values, actions) => {
                       console.log(JSON.stringify(values, null, 2));
-                      //dispatch(medicalHistoryCreate(values));
+                      let params = {
+                        userId: values.userId,
+                        Title: values.Title,
+                        Role: values.Role,
+                        Email: values.Email,
+                      };
+                      dispatch(signUp(params));
                       actions.setSubmitting(false);
                       actions.resetForm();
                     }}
+                    innerRef={formRef}
                   >
                     {(props) => (
                       <Form
