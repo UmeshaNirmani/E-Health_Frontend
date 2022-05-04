@@ -22,7 +22,7 @@ export const fetchRecordsAll = () => async (dispatch) => {
   }
 };
 
-export const createRecords = (formData, history) => async (dispatch) => {
+export const createRecords = (formData) => async (dispatch) => {
   try {
     const { data } = await api.createRecords(formData);
     console.log("record data", data);

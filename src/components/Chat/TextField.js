@@ -15,9 +15,6 @@ const useStyles = makeStyles((theme: Theme) =>
     wrapText: {
       width: "100%",
     },
-    button: {
-      //margin: theme.spacing(1),
-    },
   })
 );
 

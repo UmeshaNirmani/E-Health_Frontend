@@ -1,6 +1,5 @@
 import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -102,19 +101,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: theme.spacing(4),
       height: theme.spacing(4),
     },
-    avatarNothing: {
-      color: "transparent",
-      backgroundColor: "transparent",
-      width: theme.spacing(4),
-      height: theme.spacing(4),
-    },
     displayName: {
       marginLeft: "20px",
     },
   })
 );
 
-//avatar
 export const MessageLeft = (props) => {
   const message = props.message ? props.message : "no message";
   const timestamp = props.timestamp ? props.timestamp : "";
@@ -142,7 +134,7 @@ export const MessageLeft = (props) => {
     </>
   );
 };
-//avatar
+
 export const MessageRight = (props) => {
   const classes = useStyles();
   const message = props.message ? props.message : "no message";

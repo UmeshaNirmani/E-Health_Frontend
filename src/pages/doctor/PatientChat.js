@@ -1,19 +1,5 @@
-// import React from "react";
-
-// const MyPatients = (props) => {
-//   const mainContent = React.useRef(null);
-//   return (
-//     <>
-//       <div className="main-content" ref={mainContent}></div>
-//     </>
-//   );
-// };
-
-// export default MyPatients;
-
 import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { Container } from "@material-ui/core";
 import { TextInput } from "../../components/Chat/TextField";
 import { MessageLeft, MessageRight } from "../../components/Chat/Message";
 
@@ -37,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const MyPatients = (props) => {
+const PatientChat = (props) => {
   const mainContent = React.useRef(null);
   const classes = useStyles();
   return (
@@ -78,4 +64,4 @@ const MyPatients = (props) => {
   );
 };
 
-export default MyPatients;
+export default PatientChat;

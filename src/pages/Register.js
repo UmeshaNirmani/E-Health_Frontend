@@ -1,10 +1,10 @@
 // reactstrap components
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { Container, Button, Card, CardBody, Form, Row, Col } from "reactstrap";
 import { TextField, Grid } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Formik } from "formik";
 import { profileUpdate } from "actions/user";
 

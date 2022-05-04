@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+
 import Lodash from "lodash";
 import { TextField, Tooltip } from "@material-ui/core";
 import Pagination from "react-responsive-pagination";
@@ -74,7 +74,6 @@ const FoodTable = (props) => {
   const mainContent = React.useRef(null);
   const formRef = useRef();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const foodTableRecordsAll = useSelector(
     (state) => state.foodtable.foodTableRecordsAll

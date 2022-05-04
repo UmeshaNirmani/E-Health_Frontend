@@ -1,7 +1,7 @@
 import { Tooltip } from "@material-ui/core";
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+
 import { fetchAllFoods } from "../../actions/caloriecalculator";
 import { foodDiaryInputs } from "../../actions/fooddiary";
 import {
@@ -44,7 +44,6 @@ const CalorieCalculator = (props) => {
   const mainContent = React.useRef(null);
   const formRef = useRef();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const allFoods = useSelector((state) => state.caloriecalculator.allFoods);
 
@@ -178,7 +177,7 @@ const CalorieCalculator = (props) => {
                     //validationSchema={validateSchema}
                     onSubmit={(values, actions) => {
                       console.log(JSON.stringify(values, null, 2));
-                      dispatch(foodDiaryInputs(values, history));
+                      dispatch(foodDiaryInputs(values));
                       actions.setSubmitting(false);
                       actions.resetForm();
                     }}

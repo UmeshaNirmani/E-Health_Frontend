@@ -10,7 +10,6 @@ import MyPatients from "pages/doctor/MyPatients";
 import PGC from "pages/doctor/PGC";
 import Users from "pages/admin/Users";
 import FoodTable from "pages/admin/FoodTable";
-import UserLogin from "pages/Login";
 
 let currentUser = localStorage.getItem("userProfile");
 console.log("userProfile in route: ", currentUser);

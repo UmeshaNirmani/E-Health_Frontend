@@ -5,7 +5,6 @@ const PGC = (props) => {
 
   return (
     <>
-      {/* Page Content */}
       <div className="main-content" ref={mainContent}></div>
     </>
   );

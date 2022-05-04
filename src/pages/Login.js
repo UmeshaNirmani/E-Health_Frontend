@@ -19,7 +19,6 @@ import { TextField } from "@material-ui/core";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { CryptoPassword } from "helper.js";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -41,10 +40,6 @@ const Login = (props) => {
 
     onSubmit: (values, onSubmitProps) => {
       console.log(JSON.stringify(values, null, 2));
-      // let params = {
-      //   EmailOfUser_abc: values.Email,
-      // };
-      //values.Password = CryptoPassword(values.Password);
       dispatch(signIn(values, history));
       onSubmitProps.setSubmitting(false);
       onSubmitProps.resetForm();

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+
 import Lodash from "lodash";
 import { TextField, Tooltip, Grid } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -28,13 +28,13 @@ const validateSchema = Yup.object({
     .required("* Required"),
 });
 
-// let status = "";
+let status = "";
 const FoodTableRow = ({ TableData, editClick, blockClick }) => (
   <tr>
     <td className="text-darker">{TableData.Title}</td>
     <td className="text-darker">{TableData.Role}</td>
     <td className="text-darker">{TableData.Email}</td>
-    {/* {TableData.FirstName ? status === "Active" : status === "Open"} */}
+    {TableData.FirstName ? status === "Active" : status === "Open"}
     {/* <td className="text-darker">{TableData.status}</td> */}
     <td>
       <div className="row">
