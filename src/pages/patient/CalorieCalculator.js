@@ -1,7 +1,6 @@
 import { Tooltip } from "@material-ui/core";
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { fetchAllFoods } from "../../actions/caloriecalculator";
 import { foodDiaryInputs } from "../../actions/fooddiary";
 import {

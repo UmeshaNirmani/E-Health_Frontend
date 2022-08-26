@@ -48,3 +48,7 @@ export const fetchGraphData = (formData) =>
 
 // for profile
 // export const fetchProfile = () => API.post("/profile/");
+
+// for patient-doctor chat
+export const fetchChat = () => API.post("/chat/");
+export const chatCreate = (formData) => API.post("/chat/create", formData);

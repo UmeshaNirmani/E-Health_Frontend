@@ -8,12 +8,11 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrapForm: {
       display: "flex",
-      justifyContent: "center",
-      width: "95%",
+      width: "90%",
       margin: `${theme.spacing(0)} auto`,
     },
     wrapText: {
-      width: "100%",
+      width: "90%",
     },
   })
 );

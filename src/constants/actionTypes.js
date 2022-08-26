@@ -20,3 +20,6 @@ export const MEDICALHISTORY_FETCH_ALL = "MEDICALHISTORY_FETCH_ALL";
 
 // for graphs
 export const FETCH_GRAPH_DATA = "FETCH_GRAPH_DATA";
+
+//chat
+export const CHAT_FETCH = "CHAT_FETCH";

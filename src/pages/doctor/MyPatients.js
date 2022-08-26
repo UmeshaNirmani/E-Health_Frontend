@@ -23,14 +23,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "80vw",
       height: "100vh",
       display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
+      flexDirection: "column",
     },
     messagesBody: {
-      width: "100%",
+      width: "95%",
       margin: 10,
       padding: 30,
-      //overflowY: "scroll",
       height: "calc( 100% - 80px )",
       backgroundColor: "#F8F9FE",
     },
@@ -49,27 +47,32 @@ const MyPatients = (props) => {
               message="messageR lorem ipsum"
               timestamp="MM/DD 00:00"
               displayName="piyal"
-              avatarDisp={true}
-            />
-            <MessageLeft
-              message="messageR lorem ipsum"
-              timestamp="MM/DD 00:00"
-              photoURL=""
-              displayName="piyal"
-              avatarDisp={false}
-            />
-            <MessageRight
-              message="messageR lorem ipsum"
-              timestamp="MM/DD 00:00"
-              displayName="sunil"
-              avatarDisp={true}
             />
             <MessageRight
               message="messageR hello"
               timestamp="MM/DD 00:00"
               displayName="sunil"
-              avatarDisp={false}
             />
+            {/* <MessageLeft
+              message="messageR lorem ipsum"
+              timestamp="MM/DD 00:00"
+              displayName="piyal"
+            />
+            <MessageLeft
+              message="messageR lorem ipsum"
+              timestamp="MM/DD 00:00"
+              displayName="piyal"
+            />
+            <MessageRight
+              message="messageR lorem ipsum"
+              timestamp="MM/DD 00:00"
+              displayName="sunil"
+            />
+            <MessageRight
+              message="messageR hello"
+              timestamp="MM/DD 00:00"
+              displayName="sunil"
+            /> */}
           </Container>
           <TextInput />
         </div>
