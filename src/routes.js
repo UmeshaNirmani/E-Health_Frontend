@@ -61,13 +61,13 @@ const doctorRoutes = [
     component: MyPatients,
     layout: "/user",
   },
-  {
-    path: "/pgc",
-    name: "Peer Groups",
-    icon: "ni ni-world-2 text-blue",
-    component: PGC,
-    layout: "/user",
-  },
+  // {
+  //   path: "/pgc",
+  //   name: "Peer Groups",
+  //   icon: "ni ni-world-2 text-blue",
+  //   component: PGC,
+  //   layout: "/user",
+  // },
   {
     path: "/profile",
     name: "My Profile",
@@ -135,13 +135,6 @@ const patientRoutes = [
     layout: "/user",
   },
   {
-    path: "/foodtable",
-    name: "Food Table",
-    icon: "ni ni-collection text-blue",
-    component: FoodTable,
-    layout: "/user",
-  },
-  {
     path: "/login",
     name: "Logout",
     icon: "ni ni-button-power text-red",
@@ -153,7 +146,7 @@ const patientRoutes = [
 const noneRoutes = [];
 
 export const routes =
-  uRole === "System Administrator"
+  uRole === "SystemAdministrator"
     ? adminRoutes
     : uRole === "Doctor"
     ? doctorRoutes

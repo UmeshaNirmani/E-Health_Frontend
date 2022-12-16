@@ -1,13 +1,15 @@
-import { AUTH, FETCH_USERS } from "constants/actionTypes";
+import { AUTH, FETCH_USERS, USER_PROFILE } from "constants/actionTypes";
 
 const initState = {
   authData: [],
   fetchUsers: [],
+  userProfile: [],
   loading: true,
   errors: null,
 };
 
 const authReducer = (state = initState, action) => {
+  //console.log("test", state);
   switch (action.type) {
     case AUTH:
       return {
@@ -17,14 +19,20 @@ const authReducer = (state = initState, action) => {
         errors: null,
       };
     case FETCH_USERS:
-      // console.log("fetchUsers state", state);
       return {
         ...state,
         fetchUsers: action.payload,
         loading: false,
         errors: null,
       };
-    default:
+    case USER_PROFILE:
+      return {
+        ...state,
+        userProfile: action.payload,
+        loading: false,
+        errors: null,
+      };
+      default:
       return state;
   }
 };

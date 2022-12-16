@@ -18,6 +18,7 @@ export const signIn = (formData) => API.post("/user/signin", formData);
 export const signUp = (formData) => API.post("/user/signup", formData);
 export const profileUpdate = (formData) => API.post("/user/update", formData);
 export const fetchAllUsers = () => API.post("/user/fetch");
+export const fetchUserProfile = () => API.post("/user/profile");
 
 // food table
 export const fetchRecordsAll = () => API.post("/foodtable/fetch");

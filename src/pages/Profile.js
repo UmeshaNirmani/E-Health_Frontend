@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signUp } from "actions/user";
+import { signUp, fetchUserProfile } from "../actions/user";
 // reactstrap components
 import {
   Button,
@@ -27,38 +27,19 @@ const Profile = (props) => {
   const mainContent = React.useRef(null);
   const formRef = useRef();
   const dispatch = useDispatch();
-  const authData = useSelector((state) => state.auth.authData);
+  const profileData = useSelector((state) => state.auth.userProfile);
+  console.log("profile", profileData);
 
-  // useEffect(() => {
-  //   dispatch(());
-  //   if (formRef.current && user && !Lodash.isEmpty(user)) {
-  //     formRef.current?.resetForm();
-  //     formRef.current.setFieldValue("userId", user.userId, false);
-  //     formRef.current.setFieldValue("Title", user.Title, false);
-  //     formRef.current.setFieldValue("Role", user.Role, false);
-  //     formRef.current.setFieldValue("FirstName", user.FirstName, false);
-  //     formRef.current.setFieldValue("LastName", user.LastName, false);
-  //     formRef.current.setFieldValue("Email", user.Email, false);
-  //     formRef.current.setFieldValue("Gender", user.Gender, false);
-  //     formRef.current.setFieldValue("Phone", user.Phone, false);
-  //     formRef.current.setFieldValue("DOB", user.DOB, false);
-  //     formRef.current.setFieldValue("CurrentLiving", user.CurrentLiving, false);
-  //     formRef.current.setFieldValue("NIC", user.NIC, false);
-  //     formRef.current.setFieldValue("Address", user.Address, false);
-  //     formRef.current.setFieldValue("Job", user.Job, false);
-  //     formRef.current.setFieldValue("Education", user.Education, false);
-  //     formRef.current.setFieldValue(
-  //       "FoodPreference",
-  //       user.FoodPreference,
-  //       false
-  //     );
-  //     formRef.current.setFieldValue("District", user.District, false);
-  //     formRef.current.setFieldValue("Height", user.Height, false);
-  //     formRef.current.setFieldValue("Weight", user.Weight, false);
-  //     formRef.current.setFieldValue("SLMC", user.SLMC, false);
-  //     formRef.current.setFieldValue("Hospital", user.Hospital, false);
-  //   }
-  // });
+  useEffect(() => {
+    dispatch(fetchUserProfile());
+    if (formRef.current && jUser && !Lodash.isEmpty(jUser)) {
+      formRef.current?.resetForm();
+      formRef.current.setFieldValue("userId", jUser.userId, false);
+      formRef.current.setFieldValue("Title", jUser.Title, false);
+      formRef.current.setFieldValue("Role", jUser.Role, false);
+      formRef.current.setFieldValue("Email", jUser.Email, false);
+    }
+  }, []);
 
   return (
     <>
@@ -70,6 +51,7 @@ const Profile = (props) => {
                 <CardHeader className="border-0 ">
                   <Row className="align-items-center">
                     <Col xs="8">
+                    {/* <h2 className="mb-0 text-darker">{profileData.FirstName}</h2> */}
                       <h2 className="mb-0 text-darker">My account</h2>
                     </Col>
                   </Row>

@@ -18,7 +18,7 @@ const MyMedicalHistory = (props) => {
   //console.log(medicalHistoryAllRecords);
   useEffect(() => {
     dispatch(medicalHistoryFetch());
-  });
+  },[]);
 
   return (
     <>
